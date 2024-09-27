@@ -5,16 +5,7 @@
             try {
                 const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-                const response = await fetch('/set-timezone', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({ timezone: userTimezone })
-                })
-
-                const time = Number((await response.json()).current_time);
+                const time = (new Date()).getHours();
                 let phrase;
 
                 if(time >= 21) {
