@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'posts.index')->name('home');
+Route::redirect('/', 'posts', 301);
+
+Route::resource('posts', PostController::class);
 
 Route::middleware(['guest'])->group(function () {
     Route::view('/register', 'auth.register')->name('register');
