@@ -27,12 +27,12 @@ class AuthController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'password' => ['required']
         ]);
-
+        
         if(Auth::attempt($fields, $request->remember)) {
             return redirect()->intended('dashboard');
         } else {
             return back()->withErrors([
-                'login_failed' => 'Either the email or the password was inputted incorrectly'
+                'login_failed' => 'Either the email or the password was incorrect.'
             ]);
         }
     }
