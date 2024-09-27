@@ -10,7 +10,7 @@
 </head>
 <body class="bg-gray">
     <header class="mb-5">
-        <nav class="navbar navbar-expand-lg navbar-light bg-dracula px-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dracula px-5 fixed-top">
             <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
@@ -26,7 +26,7 @@
                     <img src="https://picsum.photos/40" class="rounded-circle">
                 </a>
                 
-                <div class="dropdown-menu dropdown-menu-end sharp-corners bg-gray" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu dropdown-menu-end sharp-corners" aria-labelledby="navbarDropdown">
                      <p class="dropdown-header">{{ auth()->user()->username }}</p> 
                      <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                      <form action="{{ route('logout') }}" method="POST">

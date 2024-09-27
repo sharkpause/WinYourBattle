@@ -45,3 +45,7 @@ select.form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+.mt-7 {
+    margin-top: 7rem;
+}

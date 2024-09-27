@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container">
+    <div class="container mt-7">
     
         <h1 class="mb-5">Latest Posts</h1>
 
