@@ -12,9 +12,9 @@
     background-color: #2d3436;
 }
 
-.min-vh-60 {
+.min-vh-80 {
     min-width: 100vh;
-    min-height: 60vh;
+    min-height: 80vh;
 }
 
 .width-100 {
