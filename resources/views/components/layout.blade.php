@@ -19,30 +19,27 @@
                 </ul>
             </div>
 
-            <ul style="list-style-type: none">
-              <li class="nav-item dropdown pt-3">
+            <ul style="list-style-type: none" class="navbar-nav py-2">
+                @auth
+                <li class="nav-item dropdown">
                 <a href="#" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://picsum.photos/30" class="rounded-circle">
+                    <img src="https://picsum.photos/40" class="rounded-circle">
                 </a>
+                
                 <div class="dropdown-menu dropdown-menu-end sharp-corners bg-gray" aria-labelledby="navbarDropdown">
-                    @auth
-                        <p class="dropdown-header">{{ auth()->user()->username }}</p> 
-
-                        <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-
-                            <button class="dropdown-item">Log out</button>
-                        </form>
-                    @endauth
-                    @guest
-                        <p class="dropdown-header">Guest</p> 
-
-                        <a class="dropdown-item" href="{{ route('login') }}">Log in</a>
-                        <a class="dropdown-item" href="{{ route('register') }}">Register</a>
-                    @endguest
-                </div>
-              </li>
+                     <p class="dropdown-header">{{ auth()->user()->username }}</p> 
+                     <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
+                     <form action="{{ route('logout') }}" method="POST">
+                         @csrf
+                         <button class="dropdown-item">Log out</button>
+                     </form>
+                    </div>
+                </li>
+                @endauth
+                @guest
+                    <a class="nav-link text-white" href="{{ route('login') }}">Log in</a>
+                    <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
+                @endguest
             </ul>
         </nav>
     </header>
