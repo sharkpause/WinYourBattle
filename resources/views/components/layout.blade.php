@@ -8,9 +8,9 @@
     <title>{{ env('APP_NAME') }} </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="bg-gray">
     <header class="mb-5">
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark px-5">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dracula px-5">
             <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
@@ -24,7 +24,7 @@
                 <a href="#" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://picsum.photos/30" class="rounded-circle">
                 </a>
-                <div class="dropdown-menu dropdown-menu-end sharp-corners" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu dropdown-menu-end sharp-corners bg-gray" aria-labelledby="navbarDropdown">
                     @auth
                         <p class="dropdown-header">{{ auth()->user()->username }}</p> 
 

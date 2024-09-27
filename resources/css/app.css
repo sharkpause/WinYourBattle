@@ -3,3 +3,11 @@
 .sharp-corners {
     border-radius: 0px;
 }
+
+.bg-gray {
+    background-color: #dfe6e9;
+}
+
+.bg-dracula {
+    background-color: #2d3436;
+}
