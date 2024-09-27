@@ -1,5 +1,6 @@
 <x-layout>
 
+    <div class="mt-7"></div>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
             try {
