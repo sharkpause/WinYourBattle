@@ -47,7 +47,7 @@
             <div class="input-group">
                 <input name="relapseDate" type="date" class="form-control">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Set relapse date</button>
+                    <button class="btn btn-primary relapse-button" type="submit">Set relapse date</button>
                 </div>
             </div>
             </div>
