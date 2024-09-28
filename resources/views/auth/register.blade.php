@@ -25,11 +25,13 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
               </div>
-      
-              <div class="form-group mb-4">
+
+              <div class="form-group mb-5">
                 <input type="password" name="password_confirmation" class="form-control ps-0 @error('password') error-underline @enderror" placeholder="Confirm Password">
                 @error('password') @enderror
               </div>
+
+              <a href="{{ route('login') }}" class="text-end text-muted fs-6 text-sm-end">Already have an account? Log in</a>
       
               <button type="submit" class="btn btn-primary width-100 mt-3">Register</button>
       
