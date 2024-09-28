@@ -20,4 +20,6 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
+
+    Route::post('set-relapse-date', [DashboardController::class, 'setRelapseDate'])->name('set-relapse-date');
 });

@@ -1,5 +1,6 @@
 <x-layout>
 
+    <div class="container">
     <div class="mt-7"></div>
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
@@ -14,7 +15,7 @@
                     emoji = '🌙'; 
                 } else if(time >= 17) {
                     phrase = 'Good Evening, ';
-                    emoji = '🕯️';
+                    emoji = '🍵';
                 } else if(time >= 12) {
                     phrase = 'Good Afternoon, ';
                     emoji = '☀️';
@@ -33,11 +34,25 @@
 
     <span id="current-time" class="h1"></span>
     <span class="h1">{{ auth()->user()->username }}</span>
-    <span class="h1 ms-3" id="current-emoji"></span>
+    <span class="h1 ms-2" id="current-emoji"></span>
     <div class="mb-5 mt-5"></div>
     
     @if(auth()->user()->date_of_relapse === null)
         <p>You haven't set a relapse date yet</p>
+    
+        <form method="POST" action="{{ route('set-relapse-date') }}" class="form-inline">
+            @csrf
+
+            <div class="form-group col-4">
+            <div class="input-group">
+                <input name="relapseDate" type="date" class="form-control">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Set relapse date</button>
+                </div>
+            </div>
+            </div>
+        </form>
     @endif
+    </div>
 
 </x-layout>
