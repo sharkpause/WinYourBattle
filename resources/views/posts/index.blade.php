@@ -2,7 +2,7 @@
     <div class="container mt-7">
     
         @auth
-        <input type="text" class="form-control border-radius-2-rem mb-5" placeholder="What are you thinking right now?">
+        <input type="text" class="form-control border-radius-2-rem mb-5" id="user-post-input" placeholder="What are you thinking right now?">
         @endauth
 
         @foreach ($posts as $post)
@@ -25,4 +25,6 @@
     <div class="container justify-content-end d-flex">
         {{ $posts->links() }}
     </div>
+
+    @vite('resources/js/index.js')
 </x-layout>
