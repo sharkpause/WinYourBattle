@@ -2,7 +2,7 @@
     <div class="container mt-7">
     
         @auth
-        <input type="text" class="form-control border-radius-2-rem mb-5" id="user-post-input" placeholder="What are you thinking right now?">
+        <input type="text" class="form-control border-radius-2-rem mb-5" id="user-post-input" placeholder="What are you thinking right now?" data-url="{{ route('posts.create') }}">
         @endauth
 
         @foreach ($posts as $post)

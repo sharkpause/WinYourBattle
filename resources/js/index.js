@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
-$(document).ready(() => {
-    $('#user-post-input').on('click', () => {
-        console.log('a'); // redirect to posts.create
+$(function() {
+    $('#user-post-input').on('click', function() {
+        window.location.href = this.getAttribute('data-url');
     });
 });
