@@ -6,14 +6,14 @@
         @csrf
 
         <div class="form-group mb-4">
-          <input type="text" name="email" class="form-control ps-0 @error('email') error-underline @enderror" placeholder="Email">
+          <input type="text" name="email" class="form-control ps-0 underline-form @error('email') error-underline @enderror" placeholder="Email">
           @error('email')
             <p class="text-danger">{{ $message }}</p>
           @enderror
         </div>
 
         <div class="form-group mb-4">
-          <input type="password" name="password" class="form-control ps-0 @error('password') error-underline @enderror" placeholder="Password">
+          <input type="password" name="password" class="form-control ps-0 underline-form @error('password') error-underline @enderror" placeholder="Password">
           @error('password')
             <p class="text-danger">{{ $message }}</p>
           @enderror

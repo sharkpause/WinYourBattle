@@ -30,8 +30,7 @@
     border-bottom: 1px solid #DC3545 !important;
 }
 
-input[type="text"], input[type="password"],
-select.form-control {
+.underline-form {
   background: transparent;
   border: none;
   border-bottom: 1px solid #000000;
@@ -40,7 +39,7 @@ select.form-control {
   border-radius: 0;
 }
 
-input[type="text"]:focus, input[type="password"]:focus,
+.underline-form:focus,
 select.form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -57,6 +56,17 @@ select.form-control:focus {
     border-bottom-left-radius: 0px;
 }
 
+.post-button {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
 .border-radius-2-rem {
     border-radius: 2rem;
+}
+
+.border-radius-1-rem {
+    border-radius: 1rem;
 }

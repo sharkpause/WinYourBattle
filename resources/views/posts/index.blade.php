@@ -1,10 +1,12 @@
 <x-layout>
     <div class="container mt-7">
     
-        <h1 class="mb-5">Latest Posts</h1>
+        @auth
+        <input type="text" class="form-control border-radius-2-rem mb-5" placeholder="What are you thinking right now?">
+        @endauth
 
         @foreach ($posts as $post)
-            <div class="d-flex mb-3 bg-light p-3">
+            <div class="d-flex mb-3 bg-light p-3 border-radius-1-rem">
                 <div class="flex-shrink-0">
                     <img src="https://picsum.photos/30" class="rounded-circle">
                 </div>
