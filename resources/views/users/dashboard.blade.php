@@ -26,6 +26,6 @@
     @endif
     </div>
 
-    @vite('resources/js/timeOfTheDay.js')
+    @vite('resources/js/dashboard.js')
 
 </x-layout>
