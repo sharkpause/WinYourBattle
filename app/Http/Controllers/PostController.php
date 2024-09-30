@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 
 class PostController extends Controller
@@ -30,7 +31,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $fields = $request->validate([
+            'title' => ['required', 'max:255'],
+            'body' => ['required']
+        ]);
+
+        Auth::user()->posts()->create($fields);
+
+        return redirect()->route('posts.index')->with(['success' => 'Your post was posted!']);
     }
 
     /**

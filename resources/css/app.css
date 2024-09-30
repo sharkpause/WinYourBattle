@@ -25,9 +25,13 @@
     font-size: 16px;
 }
 
-.error-underline{
+.error-underline {
     border: none;
     border-bottom: 1px solid #DC3545 !important;
+}
+
+.error-border {
+    border: 1px solid #DC3545;
 }
 
 .underline-form {
@@ -73,4 +77,10 @@ select.form-control:focus {
 
 #user-post-input {
     cursor: pointer;
+}
+
+.post-success-alert {
+    border: none;
+    background-color: #2ecc71;
+    width: 25%;
 }
