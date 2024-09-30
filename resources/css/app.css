@@ -70,3 +70,7 @@ select.form-control:focus {
 .border-radius-1-rem {
     border-radius: 1rem;
 }
+
+#user-post-input {
+    cursor: pointer;
+}
