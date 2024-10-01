@@ -4,17 +4,25 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Post;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
     public function index(Request $request) {
-        return view('users.dashboard');
+        $posts = Auth::user()->posts()->latest()->paginate(6);
+        
+        return view('users.dashboard', ['posts' => $posts]);
     }
 
     public function setRelapseDate(Request $request) {
         $fields = $request->validate([
             'relapseDate' => ['required', 'date']
         ]);
+        
+        // Modify row to include relapse date
 
         return redirect('dashboard');
     }

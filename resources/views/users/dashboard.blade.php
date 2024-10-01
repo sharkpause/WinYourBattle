@@ -26,6 +26,23 @@
     @endif
     </div>
 
+    <div class="container mt-7">
+        <h1 class="mb-4">Your latest posts</h1>
+
+        @foreach ($posts as $post)
+            <x-postCard profilePic='https://picsum.photos/30'
+                title='{{ $post->title }}'
+                username='USERNAME'
+                created_at='{{ $post->created_at->diffForHumans() }}'
+                wordLimit='{{ Str::words($post->body, 30) }}'>
+            </x-postCard>
+        @endforeach
+    </div>
+
+    <div class="container justify-content-end d-flex">
+        {{ $posts->links() }}
+    </div>
+
     @vite('resources/js/dashboard.js')
 
 </x-layout>

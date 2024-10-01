@@ -10,19 +10,12 @@
         @endauth
 
         @foreach ($posts as $post)
-            <div class="d-flex mb-3 bg-light p-3 border-radius-1-rem">
-                <div class="flex-shrink-0">
-                    <img src="https://picsum.photos/30" class="rounded-circle">
-                </div>
-                <div class="flex-grow-1 ms-3">
-                    <span class="h5">{{ $post->title }} </span>
-                    <div class="mb-3">
-                        <span class="text-muted me-3">USERNAME</span>
-                        <span class="text-muted">{{ $post->created_at->diffForHumans() }}</span>
-                    </div>
-                    <p>{{ Str::words($post->body, 30) }}</p>
-                </div>
-              </div>
+            <x-postCard profilePic='https://picsum.photos/30'
+                        title='{{ $post->title }}'
+                        username='USERNAME'
+                        created_at='{{ $post->created_at->diffForHumans() }}'
+                        wordLimit='{{ Str::words($post->body, 30) }}'>
+            </x-postCard>
         @endforeach
     </div>
 
