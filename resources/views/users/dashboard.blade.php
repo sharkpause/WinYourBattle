@@ -30,12 +30,7 @@
         <h1 class="mb-4">Your latest posts</h1>
 
         @foreach ($posts as $post)
-            <x-postCard profilePic='https://picsum.photos/30'
-                title='{{ $post->title }}'
-                username='USERNAME'
-                created_at='{{ $post->created_at->diffForHumans() }}'
-                wordLimit='{{ Str::words($post->body, 30) }}'>
-            </x-postCard>
+            <x-postCard :post="$post"></x-postCard>
         @endforeach
     </div>
 
