@@ -84,3 +84,7 @@ select.form-control:focus {
     background-color: #2ecc71;
     width: 25%;
 }
+
+.no-underline {
+    text-decoration: none;
+}
