@@ -14,8 +14,9 @@
                  <form action="{{ route('posts.destroy', $post) }}" method="POST">
                      @csrf
                      @method('DELETE')
-                     <button class="dropdown-item" type="submit">Delete post</button>
+                     <button class="dropdown-item" type="submit">Delete Post</button>
                  </form>
+                 <a href="{{ route('posts.edit', $post) }}" class="dropdown-item no-underline">Edit Post</a>
                 </div>
             </li>
         </div>
