@@ -14,9 +14,7 @@
         @endforeach
     </div>
 
-    <div class="container justify-content-end d-flex">
-        {{ $posts->links() }}
-    </div>
+    <x-paginator></x-paginator>
 
     @vite('resources/js/index.js')
 </x-layout>

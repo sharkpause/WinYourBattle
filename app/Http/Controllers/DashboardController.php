@@ -26,4 +26,10 @@ class DashboardController extends Controller
 
         return redirect('dashboard');
     }
+
+    public function userPosts(User $user) {
+        $userPosts = $user->posts()->latest()->paginate(6);
+
+        return view('users.posts', ['posts' => $userPosts, 'username' => $user->username]);
+    }
 }
