@@ -1,4 +1,4 @@
-@props(['post'])
+@props(['post', 'full' => false])
 
 <div class="d-flex mb-3 bg-light p-3 border-radius-1-rem">
   <div class="flex-shrink-0">
@@ -8,8 +8,14 @@
       <span class="h5">{{ $post->title }} </span>
       <div class="mb-3">
           <a class="no-underline me-3" href="{{ route('posts.user', $post->user) }}">{{ $post->user->username }}</a>
-          <span class="text-muted">{{ $post->created_at }}</span>
+          <span class="text-muted">{{ $post->created_at->diffForHumans() }}</span>
       </div>
-      <p>{{ Str::words($post->body, 30) }}</p>
-  </div>
+
+      @if ($full)
+        <span>{{ $post->body }}</span>  
+      @else
+        <span>{{ Str::words($post->body, 30) }}</span>
+        <a href="{{ route('posts.show', $post) }}" class="no-underline">Read more</a>
+      @endif
+    </div>
 </div>
