@@ -2,7 +2,7 @@
 
     <x-navbarSpace></x-navbarSpace>
 
-    <div class="container"><div class="card border-radius-2-rem"><div class="card-body m-3">
+    <div class="container"><div class="card border-radius-2-rem shadow"><div class="card-body m-3">
         <h1 class="mb-5">Got a Change of Mind?</h1>
 
         <form method="POST" action="{{ route('posts.update', $post) }}">

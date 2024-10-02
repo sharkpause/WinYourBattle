@@ -1,5 +1,5 @@
 <x-layout>
-      <div class="container"><div class="d-flex flex-column min-vh-80 justify-content-center align-items-center"><div class="card col-4 border-radius-2-rem">
+      <div class="container"><div class="d-flex flex-column min-vh-80 justify-content-center align-items-center"><div class="card col-4 border-radius-2-rem shadow">
         <div class="card-body m-3">
           <h3 class="mb-5">Register</h3>
           <form method="POST" action="{{ route('register') }}">

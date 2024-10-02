@@ -62,7 +62,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        dd($request, $post);
     }
 
     /**
