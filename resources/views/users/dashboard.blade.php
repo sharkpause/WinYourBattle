@@ -1,7 +1,8 @@
 <x-layout>
 
+    <x-navbarSpace></x-navbarSpace>
+
     <div class="container">
-    <div class="mt-7"></div>
 
     <span id="current-time" class="h1"></span>
     <span class="h1">{{ auth()->user()->username }}</span>
@@ -34,7 +35,7 @@
         @endforeach
     </div>
 
-    <x-paginator></x-paginator>
+    <x-paginator :posts="$posts"></x-paginator>
 
     @vite('resources/js/dashboard.js')
 

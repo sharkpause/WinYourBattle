@@ -1,6 +1,6 @@
 <x-layout>
 
-    <div class="mt-7"></div>
+    <x-navbarSpace></x-navbarSpace>
 
     <div class="container">
         <h1 class="mb-5">Create a post</h1>

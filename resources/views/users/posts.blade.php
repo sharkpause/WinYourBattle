@@ -1,6 +1,6 @@
 <x-layout>
 
-    <div class="mt-7"></div>
+    <x-navbarSpace></x-navbarSpace>
 
     <div class="container mt-3">
         <h1>{{ $username }}'s Latest Posts</h1>
@@ -11,6 +11,6 @@
         @endforeach
     </div>
 
-    <x-paginator></x-paginator>
+    <x-paginator :posts="$posts"></x-paginator>
 
 </x-layout>

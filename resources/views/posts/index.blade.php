@@ -1,5 +1,8 @@
 <x-layout>
-    <div class="container mt-7">
+
+    <x-navbarSpace></x-navbarSpace>
+
+    <div class="container">
 
         @if(session('success'))
             <x-alert msg="{{ session('success') }}" classes="text-white post-success-alert"></x-alert>
@@ -14,7 +17,7 @@
         @endforeach
     </div>
 
-    <x-paginator></x-paginator>
+    <x-paginator :posts="$posts"></x-paginator>
 
     @vite('resources/js/index.js')
 </x-layout>
