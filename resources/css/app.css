@@ -1,4 +1,8 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@import '@fortawesome/fontawesome-free/css/fontawesome.css';
+@import '@fortawesome/fontawesome-free/css/regular.css';
+@import '@fortawesome/fontawesome-free/css/solid.css';
+@import '@fortawesome/fontawesome-free/css/brands.css';
 
 .sharp-corners {
     border-radius: 0px !important;
@@ -87,4 +91,14 @@ select.form-control:focus {
 
 .no-underline {
     text-decoration: none;
+}
+
+.expand-clickable-area-1-rem {
+    padding: 1rem;
+    margin: -1rem;
+}
+
+.post-menu-dropdown-margin {
+    margin-top: -0.7rem !important;
+    margin-right: 0.8rem !important;
 }
