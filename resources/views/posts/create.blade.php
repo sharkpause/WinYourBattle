@@ -2,8 +2,8 @@
 
     <x-navbarSpace></x-navbarSpace>
 
-    <div class="container">
-        <h1 class="mb-5">Create a post</h1>
+    <div class="container"><div class="card border-radius-2-rem"><div class="card-body m-3
+        <h1 class="mb-5">Share Your Thoughts!</h1>
 
         <form method="POST" action="{{ route('posts.store') }}">
             @csrf
@@ -20,6 +20,6 @@
 
             <button class="btn btn-primary float-end">Create post</button>
         </form>
-    </div>
+    </div></div></div>
 
 </x-layout>
