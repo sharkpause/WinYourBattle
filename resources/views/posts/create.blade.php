@@ -22,4 +22,5 @@
         </form>
     </div></div></div>
 
+    @vite('resources/js/autoResizeTextarea.js')
 </x-layout>

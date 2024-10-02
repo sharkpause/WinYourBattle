@@ -19,10 +19,17 @@ class DashboardController extends Controller
 
     public function setRelapseDate(Request $request) {
         $fields = $request->validate([
-            'relapseDate' => ['required', 'date']
+            'date_of_relapse' => ['required', 'date'],
+            'time_of_relapse' => ['required', 'date_format:H:i']
         ]);
-        
-        // Modify row to include relapse date
+
+        $dateString = $request->date_of_relapse . ' ' . $request->time_of_relapse . ':00';
+        $date = new \Carbon\Carbon($dateString);
+
+        $user = User::find(Auth::id());
+
+        $user->date_of_relapse = $date;
+        $user->save();
 
         return redirect('dashboard');
     }

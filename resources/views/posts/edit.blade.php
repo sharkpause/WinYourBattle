@@ -9,12 +9,12 @@
             @csrf
             @method('PATCH')
             
-            <input type="text" class="form-control mb-1 @error('title') error-border @enderror" name="title" placeholder="New title goes here...">
+            <input type="text" class="form-control mb-1 @error('title') error-border @enderror" name="title" placeholder="New title goes here..." value="{{ $post->title }}">
             @error('title')
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
 
-            <textarea class="form-control mb-1 @error('body') error-border @enderror" name="body" placeholder="And whatever you meant to say goes here!"></textarea>
+            <textarea class="form-control mb-1 @error('body') error-border @enderror" name="body" placeholder="And whatever you meant to say goes here!">{{ $post->body }}</textarea>
             @error('body')
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
@@ -23,4 +23,5 @@
         </form>
     </div></div></div>
 
+    @vite('resources/js/autoResizeTextarea.js')
 </x-layout>

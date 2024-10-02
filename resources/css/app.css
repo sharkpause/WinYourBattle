@@ -57,7 +57,7 @@ select.form-control:focus {
     margin-top: 7rem;
 }
 
-.relapse-button {
+.set-relapse-button {
     border-top-right-radius: 0.375rem;
     border-bottom-right-radius: 0.375rem;
     border-top-left-radius: 0px;
@@ -101,4 +101,8 @@ select.form-control:focus {
 .post-menu-dropdown-margin {
     margin-top: -0.7rem !important;
     margin-right: 0.8rem !important;
+}
+
+textarea {
+    white-space: pre-wrap;
 }
