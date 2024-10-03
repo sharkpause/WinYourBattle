@@ -53,10 +53,7 @@ class DashboardController extends Controller
     public function newRelapse(Request $request) {
         $date = now()->format('Y-m-d H:i:s');
     
-        $user = User::find(Auth::id());
-
-        $user->date_of_relapse = $date;
-        $user->save();
+        Auth::user()->statistics()->update(['date_of_relapse' => $date]);
 
         return redirect('dashboard');
     }
