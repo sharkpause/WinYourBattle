@@ -19,7 +19,7 @@ class DashboardController extends Controller
         return view('users.dashboard', ['posts' => $posts, 'statistics' => $statistics]);
     }
 
-    public function setRelapseDate(Request $request) {
+    public function setInitialRelapseDate(Request $request) {
         $fields = $request->validate([
             'date_of_relapse' => ['required', 'date'],
             'time_of_relapse' => ['required', 'date_format:H:i:s'],
@@ -50,7 +50,7 @@ class DashboardController extends Controller
         return redirect('dashboard');
     }
 
-    public function newRelapse(Request $request) {
+    public function setNewRelapse(Request $request) {
         $date = now()->format('Y-m-d H:i:s');
     
         Auth::user()->statistics()->update(['date_of_relapse' => $date]);

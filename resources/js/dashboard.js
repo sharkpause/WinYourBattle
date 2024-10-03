@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import flatpickr from "flatpickr";
 
 $(document).ready(() => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -9,7 +10,7 @@ $(document).ready(() => {
     if(time >= 21) {
         phrase = 'Good Night, ';
         emoji = '🌙'; 
-    } else if(time >= 17) {
+    } else if(time >= 15) {
         phrase = 'Good Evening, ';
         emoji = '🍵';
     } else if(time >= 10) {

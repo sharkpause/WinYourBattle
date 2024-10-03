@@ -10,12 +10,16 @@
     <span id="current-time" class="h1"></span>
     <span class="h1">{{ auth()->user()->username }}</span>
     <span class="h1 ms-2" id="current-emoji"></span>
-    <div class="mb-5 mt-5"></div>
+    
+    <div class="float-end col-6">
+        <p class="font-weight-light font-italic">“Getting sober was the single bravest thing I’ve ever done, and will ever do, in my life. Being courageous enough to acknowledge it privately with my family and friends. Working really hard at solidifying it, getting support around it, and being healthy. And then talking about it publicly. That is the single greatest accomplishment of my life.”</p>
+        <span class="text-muted">Jamie Lee Curtis</span>
+    </div>
 
     @if($statistics === null || $statistics->date_of_relapse === null)
-        <p>You haven't set a relapse date yet</p>
+        <p class="mt-3">You haven't set a relapse date yet</p>
     
-        <form method="POST" action="{{ route('set-relapse-date') }}" class="form-inline">
+        <form method="POST" action="{{ route('set-initial-relapse-date') }}" class="form-inline">
             @csrf
             @method('PUT')
 
@@ -41,21 +45,18 @@
             <span class="ms-1 text-danger">{{ $message }}</span>
         @enderror
     @else
-        <p>It has been
+        <p class="mt-4">It has been
             <span class="text-green">
-                {{
-                    
-                    \Carbon\Carbon::parse($statistics->date_of_relapse)->diffForHumans()
-
-                }}
-            </span> since you relapsed, keep it up!
+                {{ \Carbon\Carbon::parse($statistics->date_of_relapse)->diffForHumans() }}
+            </span>
+            since you relapsed, keep it up!
         </p>
 
-        <form method="POST" action="{{ route('new-relapse') }}" class="form-inline">
+        <form method="POST" action="{{ route('set-new-relapse') }}" class="form-inline">
             @csrf
             @method('PUT')
 
-            <button class="btn btn-warning text-white" type="submit">I relapsed</button>
+            <button class="btn bg-muted-blue text-white" type="submit">I relapsed</button>
         </form>
     @endif
     

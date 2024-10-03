@@ -110,3 +110,15 @@ textarea, .post-body {
 .text-green {
     color: green;
 }
+
+.bg-muted-blue {
+    background-color: #83A1CD;
+}
+
+.font-weight-light {
+    font-weight: 300;
+}
+
+.font-italic {
+    font-style: italic;
+}

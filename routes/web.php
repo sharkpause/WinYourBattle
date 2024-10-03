@@ -23,6 +23,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
 
-    Route::put('set-relapse-date', [DashboardController::class, 'setRelapseDate'])->name('set-relapse-date');
-    Route::put('new-relapse', [DashboardController::class, 'newRelapse'])->name('new-relapse');
+    Route::put('set-initial-relapse-date', [DashboardController::class, 'setInitialRelapseDate'])->name('set-initial-relapse-date');
+    Route::put('set-new-relapse', [DashboardController::class, 'setNewRelapse'])->name('set-new-relapse');
 });
