@@ -38,6 +38,13 @@ class DashboardController extends Controller
                 Carbon::parse($request->time_of_relapse),
                 $request->timezone)->setTimezone('UTC');
 
+        /*  The code above basically takes the time of relapse from the request,
+            then creates a date object from it in the format of Y-m-d H:i:s in the user's time zone.
+            Then it converts it from the original timezone to UTC timezone to be saced in the database.
+            This is needed because when the user submits a time from the front end, the backend thinks
+            the timezone is already UTC when it is not.
+        */
+
         Auth::user()->statistics()->create(['date_of_relapse' => $date, 'timezone' => $request->timezone]);
         
         return redirect('dashboard');
