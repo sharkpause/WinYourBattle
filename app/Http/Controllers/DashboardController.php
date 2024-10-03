@@ -33,8 +33,7 @@ class DashboardController extends Controller
             ]);
         }
 
-        $dateString = Carbon::parse($request->time_of_relapse)->setTimezone($request->timezone);
-        $date = (new Carbon($dateString))->setTimezone($request->timezone);
+        $date = Carbon::parse($request->time_of_relapse)->setTimezone('UTC');
 
         Auth::user()->statistics()->create(['date_of_relapse' => $date, 'timezone' => $request->timezone]);
         

@@ -45,7 +45,7 @@
             <span class="text-green">
                 {{
                     
-                    $statistics->date_of_relapse
+                    \Carbon\Carbon::parse($statistics->date_of_relapse)->diffForHumans('Asia/Jakarta')
 
                 }}
             </span> since you relapsed, keep it up!
