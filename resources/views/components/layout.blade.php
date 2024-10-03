@@ -33,7 +33,7 @@
                          @csrf
                          <button class="dropdown-item">Log out</button>
                      </form>
-                    </div>
+                </div>
                 </li>
                 @endauth
                 @guest

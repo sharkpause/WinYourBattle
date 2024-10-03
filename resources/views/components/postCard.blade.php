@@ -1,6 +1,6 @@
 @props(['post', 'full' => false])
 
-<div class="d-flex mb-3 bg-light p-3 border-radius-1-rem shadow">
+<div class="d-flex mb-4 bg-light p-3 border-radius-1-rem shadow">
   <div class="flex-shrink-0">
       <img src="https://picsum.photos/30" class="rounded-circle">
   </div>
