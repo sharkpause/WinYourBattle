@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import flatpickr from "flatpickr";
 
 $(document).ready(() => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
