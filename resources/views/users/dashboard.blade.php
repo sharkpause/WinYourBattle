@@ -39,7 +39,7 @@
     @else
         <p>It has been {{ \Carbon\Carbon::parse(auth()->user()->date_of_relapse)->diffForHumans() }} since you relapsed, keep it up!</p>
 
-        <form method="POST" action="{{ route('set-relapse-date') }}" class="form-inline">
+        <form method="POST" action="{{ route('new-relapse') }}" class="form-inline">
             @csrf
             @method('PUT')
 

@@ -24,4 +24,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); 
 
     Route::put('set-relapse-date', [DashboardController::class, 'setRelapseDate'])->name('set-relapse-date');
+    Route::put('new-relapse', [DashboardController::class, 'newRelapse'])->name('new-relapse');
 });

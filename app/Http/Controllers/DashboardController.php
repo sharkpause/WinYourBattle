@@ -34,6 +34,17 @@ class DashboardController extends Controller
         return redirect('dashboard');
     }
 
+    public function newRelapse(Request $request) {
+        $date = now()->format('Y-m-d H:i');
+    
+        $user = User::find(Auth::id());
+
+        $user->date_of_relapse = $date;
+        $user->save();
+
+        return redirect('dashboard');
+    }
+
     public function userPosts(User $user) {
         $userPosts = $user->posts()->latest()->paginate(6);
 
