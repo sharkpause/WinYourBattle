@@ -12,7 +12,7 @@ $(document).ready(() => {
     } else if(time >= 17) {
         phrase = 'Good Evening, ';
         emoji = '🍵';
-    } else if(time >= 12) {
+    } else if(time >= 10) {
         phrase = 'Good Afternoon, ';
         emoji = '☀️';
     } else if(time >= 4) {
@@ -22,4 +22,6 @@ $(document).ready(() => {
 
     $('#current-time').text(phrase);
     $('#current-emoji').text(emoji);
+
+    $('#timezoneInput').val(userTimezone);
 });

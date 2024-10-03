@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Statistic;
 
 class DashboardController extends Controller
 {
@@ -20,22 +21,20 @@ class DashboardController extends Controller
     public function setRelapseDate(Request $request) {
         $fields = $request->validate([
             'date_of_relapse' => ['required', 'date'],
-            'time_of_relapse' => ['required', 'date_format:H:i']
+            'time_of_relapse' => ['required', 'date_format:H:i:s'],
+            'timezone' => ['required']
         ]);
 
-        $dateString = $request->date_of_relapse . ' ' . $request->time_of_relapse . ':00';
+        $dateString = $request->date_of_relapse . ' ' . $request->time_of_relapse;
         $date = new \Carbon\Carbon($dateString);
 
-        $user = User::find(Auth::id());
-
-        $user->date_of_relapse = $date;
-        $user->save();
-
+        Auth::user()->statistics()->create($fields);
+        
         return redirect('dashboard');
     }
 
     public function newRelapse(Request $request) {
-        $date = now()->format('Y-m-d H:i');
+        $date = now()->format('Y-m-d H:i:s');
     
         $user = User::find(Auth::id());
 

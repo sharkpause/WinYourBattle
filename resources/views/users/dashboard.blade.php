@@ -21,8 +21,9 @@
 
             <div class="form-group col-5">
             <div class="input-group">
+                <input type="hidden" id="timezoneInput" name="timezone">
                 <input name="date_of_relapse" type="date" class="form-control">
-                <input name="time_of_relapse" type="time" class="form-control">
+                <input name="time_of_relapse" type="time" class="form-control" step="1">
                 <div class="input-group-append">
                     <button class="btn btn-primary set-relapse-button" type="submit">Set relapse date</button>
                 </div>
@@ -37,13 +38,13 @@
             <span class="ms-1 text-danger">{{ $message }}</span>
         @enderror
     @else
-        <p>It has been {{ \Carbon\Carbon::parse(auth()->user()->date_of_relapse)->diffForHumans() }} since you relapsed, keep it up!</p>
+        <p>It has been <span class="text-green">{{ \Carbon\Carbon::parse(auth()->user()->date_of_relapse)->diffForHumans() }}</span> since you relapsed, keep it up!</p>
 
         <form method="POST" action="{{ route('new-relapse') }}" class="form-inline">
             @csrf
             @method('PUT')
 
-            <button class="btn btn-primary" type="submit">I relapsed</button>
+            <button class="btn btn-warning text-white" type="submit">I relapsed</button>
         </form>
     @endif
     

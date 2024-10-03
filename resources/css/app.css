@@ -103,6 +103,10 @@ select.form-control:focus {
     margin-right: 0.8rem !important;
 }
 
-textarea {
+textarea, .post-body {
     white-space: pre-wrap;
+}
+
+.text-green {
+    color: green;
 }

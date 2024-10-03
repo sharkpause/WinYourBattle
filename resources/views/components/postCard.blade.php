@@ -2,7 +2,7 @@
 
 <div class="d-flex mb-3 bg-light p-3 border-radius-1-rem shadow">
   <div class="flex-shrink-0">
-      <img src="https://picsum.photos/30" class="rounded-circle" alt="Profile Picture">
+      <img src="https://picsum.photos/30" class="rounded-circle">
   </div>
   <div class="flex-grow-1 ms-3">
       <span class="h5">{{ $post->title }} </span>
@@ -29,9 +29,9 @@
       </div>
 
       @if ($full)
-        <span>{{ $post->body }}</span>  
+        <span class="post-body">{{ $post->body }}</span>  
       @else
-        <span>{{ Str::words($post->body, 30) }}</span>
+        <span class="post-body">{{ Str::words($post->body, 30) }}</span>
         <a href="{{ route('posts.show', $post) }}" class="no-underline">Read more</a>
       @endif
     </div>
