@@ -1,5 +1,3 @@
-
-
 <x-layout>
 
     <x-navbarSpace></x-navbarSpace>
@@ -7,13 +5,17 @@
     <div class="card container border-radius-2-rem shadow">
     <div class="card-body m-3">
 
-    <span id="current-time" class="h1"></span>
-    <span class="h1">{{ auth()->user()->username }}</span>
-    <span class="h1 ms-2" id="current-emoji"></span>
-    
-    <div class="float-end col-6">
-        <p class="font-weight-light font-italic">“Getting sober was the single bravest thing I’ve ever done, and will ever do, in my life. Being courageous enough to acknowledge it privately with my family and friends. Working really hard at solidifying it, getting support around it, and being healthy. And then talking about it publicly. That is the single greatest accomplishment of my life.”</p>
-        <span class="text-muted">Jamie Lee Curtis</span>
+    <div class="row">
+        <span class="col-6">
+            <span id="current-time" class="h1"></span>
+            <span class="h1">{{ auth()->user()->username }}</span>
+            <span class="h1 ms-2" id="current-emoji"></span>
+        </span>
+
+        <span class="col">
+            <p class="font-weight-light font-italic">{{ $quote->body }}</p>
+            <span class="text-muted">- {{ $quote->person }}</span>
+        </span>
     </div>
 
     @if($statistics === null || $statistics->date_of_relapse === null)
