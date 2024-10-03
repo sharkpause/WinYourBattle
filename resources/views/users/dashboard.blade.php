@@ -11,8 +11,8 @@
     <span class="h1">{{ auth()->user()->username }}</span>
     <span class="h1 ms-2" id="current-emoji"></span>
     <div class="mb-5 mt-5"></div>
-    
-    @if(auth()->user()->date_of_relapse === null)
+
+    @if($statistics === null || $statistics->date_of_relapse === null)
         <p>You haven't set a relapse date yet</p>
     
         <form method="POST" action="{{ route('set-relapse-date') }}" class="form-inline">
@@ -27,6 +27,9 @@
                 <div class="input-group-append">
                     <button class="btn btn-primary set-relapse-button" type="submit">Set relapse date</button>
                 </div>
+                @error('statistic_failed')
+                    <p class="ms-1 text-danger">{{ $message }}</p>
+                @enderror
             </div>
             </div>
         </form>
@@ -38,7 +41,15 @@
             <span class="ms-1 text-danger">{{ $message }}</span>
         @enderror
     @else
-        <p>It has been <span class="text-green">{{ \Carbon\Carbon::parse(auth()->user()->date_of_relapse)->diffForHumans() }}</span> since you relapsed, keep it up!</p>
+        <p>It has been
+            <span class="text-green">
+                {{
+                    
+                    $statistics->date_of_relapse
+
+                }}
+            </span> since you relapsed, keep it up!
+        </p>
 
         <form method="POST" action="{{ route('new-relapse') }}" class="form-inline">
             @csrf

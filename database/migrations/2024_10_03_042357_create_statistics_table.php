@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
-            $table->foreignID('user_id')->constrained()->unique();
+            $table->foreignID('user_id')->constrained();
             $table->dateTime('date_of_relapse')->nullable();
             $table->string('timezone')->nullable();
             $table->timestamps();
+
+            $table->unique('user_id');
         });
     }
 

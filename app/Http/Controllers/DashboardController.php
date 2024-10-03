@@ -14,8 +14,9 @@ class DashboardController extends Controller
 {
     public function index(Request $request) {
         $posts = Auth::user()->posts()->latest()->paginate(6);
+        $statistics = Auth::user()->statistics;
         
-        return view('users.dashboard', ['posts' => $posts]);
+        return view('users.dashboard', ['posts' => $posts, 'statistics' => $statistics]);
     }
 
     public function setRelapseDate(Request $request) {
@@ -25,10 +26,17 @@ class DashboardController extends Controller
             'timezone' => ['required']
         ]);
 
-        $dateString = $request->date_of_relapse . ' ' . $request->time_of_relapse;
-        $date = new \Carbon\Carbon($dateString);
+        $exists = Statistic::where('user_id', Auth::user()->id)->exists();
+        if($exists) {
+            return back()->withErrors([
+                'statistic_failed' => "Can't set a new relapse date, use new-relapse API instead."
+            ]);
+        }
 
-        Auth::user()->statistics()->create($fields);
+        $dateString = Carbon::parse($request->time_of_relapse)->setTimezone($request->timezone);
+        $date = (new Carbon($dateString))->setTimezone($request->timezone);
+
+        Auth::user()->statistics()->create(['date_of_relapse' => $date, 'timezone' => $request->timezone]);
         
         return redirect('dashboard');
     }
