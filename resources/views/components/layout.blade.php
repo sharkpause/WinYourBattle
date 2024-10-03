@@ -26,7 +26,7 @@
                     <img src="https://picsum.photos/40" class="rounded-circle">
                 </a>
                 
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
                      <p class="dropdown-header">{{ auth()->user()->username }}</p> 
                      <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                      <form action="{{ route('logout') }}" method="POST">

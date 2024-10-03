@@ -11,7 +11,7 @@
         <div class="float-end">
             <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
             
-            <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
                  <form action="{{ route('posts.destroy', $post) }}" method="POST">
                      @csrf
                      @method('DELETE')
