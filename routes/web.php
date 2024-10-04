@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', 'posts', 301);
 
-Route::resource('posts', PostController::class);
-
 Route::middleware(['guest'])->group(function () {
     Route::view('/register', 'auth.register')->name('register');
     Route::view('/login', 'auth.login')->name('login');
@@ -16,6 +14,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
 });
+
+Route::resource('posts', PostController::class)->only(['index', 'show']);
 
 Route::get('/{user}/posts', [DashboardController::class, 'userPosts'])->name('posts.user');
 
@@ -25,4 +25,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('set-initial-relapse-date', [DashboardController::class, 'setInitialRelapseDate'])->name('set-initial-relapse-date');
     Route::put('set-new-relapse', [DashboardController::class, 'setNewRelapse'])->name('set-new-relapse');
+
+    Route::resource('posts', PostController::class)->only('create', 'edit', 'store', 'update', 'destroy');
 });
