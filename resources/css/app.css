@@ -111,8 +111,9 @@ textarea, .post-body {
     color: green;
 }
 
-.bg-muted-blue {
+.btn-muted-blue {
     background-color: #83A1CD;
+    border: none !important;
 }
 
 .font-weight-light {

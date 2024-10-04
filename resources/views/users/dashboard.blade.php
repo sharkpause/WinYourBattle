@@ -47,7 +47,7 @@
             <span class="ms-1 text-danger">{{ $message }}</span>
         @enderror
     @else
-        <p class="mt-4">It has been
+        <p class="mt-1">It has been
             <span class="text-green">
                 {{ \Carbon\Carbon::parse($statistics->date_of_relapse)->diffForHumans() }}
             </span>
@@ -58,7 +58,7 @@
             @csrf
             @method('PUT')
 
-            <button class="btn bg-muted-blue text-white" type="submit">I relapsed</button>
+            <button class="btn btn-primary btn-muted-blue text-white" type="submit">I relapsed</button>
         </form>
     @endif
     
