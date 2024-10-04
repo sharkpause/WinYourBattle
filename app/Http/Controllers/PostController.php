@@ -62,6 +62,8 @@ class PostController extends Controller implements HasMiddleware
      */
     public function edit(Post $post)
     {
+        Gate::authorize('modify', $post);
+
         return view('posts.edit', ['post' => $post]);
     }
 
@@ -70,6 +72,8 @@ class PostController extends Controller implements HasMiddleware
      */
     public function update(Request $request, Post $post)
     {
+        Gate::authorize('modify', $post);
+
         $fields = $request->validate([
             'title' => ['required', 'max:255'],
             'body' => ['required']
@@ -85,6 +89,8 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
+        Gate::authorize('modify', $post);
+
         $post->delete();
 
         return back()->with('success', 'Your post was deleted!');
