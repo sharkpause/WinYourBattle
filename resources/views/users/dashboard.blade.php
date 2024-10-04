@@ -62,7 +62,11 @@
     
     </div></div>
 
-    <div class="container mt-7">
+    <div class="container card border-radius-2-rem shadow mt-5"><div class="card-body">
+        <canvas id="myChart" width="400" height="200"></canvas>
+    </div></div>
+
+    <div class="container mt-5">
         <h1 class="mb-4">Your latest posts</h1>
 
         @foreach ($posts as $post)
