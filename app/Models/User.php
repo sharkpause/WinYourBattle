@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function relapseTracks(): HasMany
+    {
+        return $this->hasMany(RelapseTrack::class);
+    }
+
     public function statistics(): HasOne
     {
         return $this->hasOne(Statistic::class);

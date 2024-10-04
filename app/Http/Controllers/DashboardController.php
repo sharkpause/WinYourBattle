@@ -10,6 +10,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Statistic;
 use App\Models\Quote;
+use App\Models\RelapseTrack;
 
 class DashboardController extends Controller
 {
@@ -48,7 +49,8 @@ class DashboardController extends Controller
         */
 
         Auth::user()->statistics()->create(['date_of_relapse' => $date, 'timezone' => $request->timezone]);
-        
+        Auth::user()->relapseTracks()->create(['relapse_date' => $date]);
+
         return redirect('dashboard');
     }
 
