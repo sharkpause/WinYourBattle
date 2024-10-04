@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->dateTime('relapse_date')->nullable();
-            $table->integer('streak_time')->nullable();
+            $table->bigInteger('streak_time')->nullable();
             $table->timestamps();
         });
     }

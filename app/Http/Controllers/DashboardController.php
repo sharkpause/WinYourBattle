@@ -55,8 +55,15 @@ class DashboardController extends Controller
     }
 
     public function setNewRelapse(Request $request) {
+        $user = Auth::user();
+        $lastRelapse = $user->relapseTracks()->latest('relapse_date')->first();
+        $streakTime = abs(Carbon::now()->diffInSeconds($lastRelapse->relapse_date));
+        
+        $lastRelapse->update(['streak_time' => $streakTime]);
+
         $date = now()->format('Y-m-d H:i:s');
     
+        $user->relapseTracks()->create(['relapse_date' => $date]);
         Auth::user()->statistics()->update(['date_of_relapse' => $date]);
 
         return redirect('dashboard');
