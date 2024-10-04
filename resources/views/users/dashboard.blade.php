@@ -11,7 +11,7 @@
         <span class="h1 ms-2" id="current-emoji"></span>
     </span>
 
-    <span class="float-end">
+    <span class="float-end col-6">
         <p class="font-weight-light font-italic">{{ $quote->body }}</p>
         <span class="text-muted">- {{ $quote->person }}</span>
     </span>
@@ -62,9 +62,12 @@
     
     </div></div>
 
-    <div class="container card border-radius-2-rem shadow mt-5"><div class="card-body">
-        <canvas id="myChart" width="400" height="200"></canvas>
-    </div></div>
+    <div class="container card border-radius-2-rem shadow mt-5 chartWrapper">
+        <div class="card-body chartAreaWrapper" id="chartContainer">
+            <canvas id="relapseChart" height="400"></canvas>
+        </div>
+        <canvas id="relapseChartAxis" height="300" width="0"></canvas>
+    </div>
 
     <div class="container mt-5">
         <h1 class="mb-4">Your latest posts</h1>

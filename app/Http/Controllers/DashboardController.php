@@ -74,4 +74,9 @@ class DashboardController extends Controller
 
         return view('users.posts', ['posts' => $userPosts, 'username' => $user->username]);
     }
+
+    public function getStatistics() {
+        $data = Auth::user()->relapseTracks()->get();
+        return response()->json($data);
+    }
 }

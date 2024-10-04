@@ -2,7 +2,7 @@ import $ from 'jquery';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
-$(document).ready(() => {
+$(document).ready(async () => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const time = (new Date()).getHours();
@@ -27,28 +27,53 @@ $(document).ready(() => {
 
     $('#timezoneInput').val(userTimezone);
 
-    var ctx = $('#myChart')[0].getContext('2d');
+    const response = await axios.get('/get-statistics');
+    
+    let labels = [];
+    let dataset = [];
+    for(let i = 0; i < response.data.length; ++i) {
+        labels.push(response.data[i].relapse_date);
+        dataset.push(response.data[i].streak_time);
+    }
 
-    var data = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'], // X-axis labels
+    const relapseChartElement = $('#relapseChart')[0];
+    relapseChartElement.width = dataset.length * 150;
+    let ctx = relapseChartElement.getContext('2d');
+
+    let data = {
+        labels: labels, 
         datasets: [{
-            label: 'Sales', // Name of the dataset
-            data: [65, 59, 80, 81, 56, 55, 40], // Y-axis values
-            borderColor: 'rgba(75, 192, 192, 1)', // Line color
-            fill: false // Disable fill under the line
+            label: 'Relapses', 
+            data: dataset,
+            borderColor: 'rgba(75, 192, 192, 1)', 
+            fill: false,
+            spanGaps: true
         }]
     };
     
-    var myChart = new Chart(ctx, {
-        type: 'line', // Chart type
+    let relapseChart = new Chart(ctx, {
+        type: 'line', 
         data: data,
         options: {
-            responsive: true,
+            responsive: false,
             scales: {
                 y: {
                     beginAtZero: true
                 }
+            },
+            onAnimationComplete: function () {
+                var sourceCanvas = this.chart.ctx.canvas;
+                // The -5 is so that we don't copy the edges of the line
+                var copyWidth = this.scale.xScalePaddingLeft - 5;
+                // The +5 is so that the bottommost y axis label is not clipped off
+                // We could factor this in using measureText if we wanted to be generic
+                var copyHeight = this.scale.endPoint + 5;
+                var targetCtx = $("#relapseChartAxis").getContext("2d");
+                targetCtx.canvas.width = copyWidth;
+                targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth, copyHeight, 0, 0, copyWidth, copyHeight);
             }
         }
     });
+
+    $('#chartContainer').scrollLeft($('#chartContainer')[0].scrollWidth);
 });

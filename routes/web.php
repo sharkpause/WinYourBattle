@@ -25,4 +25,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('set-initial-relapse-date', [DashboardController::class, 'setInitialRelapseDate'])->name('set-initial-relapse-date');
     Route::put('set-new-relapse', [DashboardController::class, 'setNewRelapse'])->name('set-new-relapse');
+    
+    Route::get('get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
 });
