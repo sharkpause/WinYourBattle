@@ -5,18 +5,16 @@
     <div class="card container border-radius-2-rem shadow">
     <div class="card-body m-3">
 
-    <div class="row">
-        <span class="col-6">
-            <span id="current-time" class="h1"></span>
-            <span class="h1">{{ auth()->user()->username }}</span>
-            <span class="h1 ms-2" id="current-emoji"></span>
-        </span>
+    <span class="col-6">
+        <span id="current-time" class="h1"></span>
+        <span class="h1">{{ auth()->user()->username }}</span>
+        <span class="h1 ms-2" id="current-emoji"></span>
+    </span>
 
-        <span class="col">
-            <p class="font-weight-light font-italic">{{ $quote->body }}</p>
-            <span class="text-muted">- {{ $quote->person }}</span>
-        </span>
-    </div>
+    <span class="float-end">
+        <p class="font-weight-light font-italic">{{ $quote->body }}</p>
+        <span class="text-muted">- {{ $quote->person }}</span>
+    </span>
 
     @if($statistics === null || $statistics->date_of_relapse === null)
         <p class="mt-3">You haven't set a relapse date yet</p>
@@ -47,7 +45,7 @@
             <span class="ms-1 text-danger">{{ $message }}</span>
         @enderror
     @else
-        <p class="mt-1">It has been
+        <p class="mt-4">It has been
             <span class="text-green">
                 {{ \Carbon\Carbon::parse($statistics->date_of_relapse)->diffForHumans() }}
             </span>
