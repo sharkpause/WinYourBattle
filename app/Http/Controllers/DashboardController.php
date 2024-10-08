@@ -76,7 +76,7 @@ class DashboardController extends Controller
     }
 
     public function getStatistics() {
-        $data = Auth::user()->relapseTracks()->get();
+        $data = Auth::user()->relapseTracks()->latest()->take(8)->get()->reverse();
         return response()->json($data);
     }
 }

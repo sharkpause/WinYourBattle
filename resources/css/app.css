@@ -123,19 +123,3 @@ textarea, .post-body {
 .font-italic {
     font-style: italic;
 }
-
-.chartWrapper {
-    position: relative;
-}
-
-.chartWrapper > canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-    pointer-events:none;
-}
-
-.chartAreaWrapper {
-    width: auto;
-    overflow-x: scroll;
-}

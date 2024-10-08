@@ -27,53 +27,46 @@ $(document).ready(async () => {
 
     $('#timezoneInput').val(userTimezone);
 
-    const response = await axios.get('/get-statistics');
-    
-    let labels = [];
-    let dataset = [];
-    for(let i = 0; i < response.data.length; ++i) {
-        labels.push(response.data[i].relapse_date);
-        dataset.push(response.data[i].streak_time);
-    }
+    try {
+        const response = await axios.get('/get-statistics');
 
-    const relapseChartElement = $('#relapseChart')[0];
-    relapseChartElement.width = dataset.length * 150;
-    let ctx = relapseChartElement.getContext('2d');
-
-    let data = {
-        labels: labels, 
-        datasets: [{
-            label: 'Relapses', 
-            data: dataset,
-            borderColor: 'rgba(75, 192, 192, 1)', 
-            fill: false,
-            spanGaps: true
-        }]
-    };
-    
-    let relapseChart = new Chart(ctx, {
-        type: 'line', 
-        data: data,
-        options: {
-            responsive: false,
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            },
-            onAnimationComplete: function () {
-                var sourceCanvas = this.chart.ctx.canvas;
-                // The -5 is so that we don't copy the edges of the line
-                var copyWidth = this.scale.xScalePaddingLeft - 5;
-                // The +5 is so that the bottommost y axis label is not clipped off
-                // We could factor this in using measureText if we wanted to be generic
-                var copyHeight = this.scale.endPoint + 5;
-                var targetCtx = $("#relapseChartAxis").getContext("2d");
-                targetCtx.canvas.width = copyWidth;
-                targetCtx.drawImage(sourceCanvas, 0, 0, copyWidth, copyHeight, 0, 0, copyWidth, copyHeight);
-            }
+        let labels = [];
+        let dataset = [];
+        for(let i = Object.keys(response.data).length - 1; i >= 0; --i) {
+            labels.push(response.data[i].relapse_date);
+            dataset.push(response.data[i].streak_time);
         }
-    });
 
-    $('#chartContainer').scrollLeft($('#chartContainer')[0].scrollWidth);
+        const ctx = $('#relapseChart')[0].getContext('2d');
+
+        const data = {
+            labels: labels, 
+            datasets: [{
+                label: 'Relapses', 
+                data: dataset,
+                borderColor: 'rgba(75, 192, 192, 1)', 
+                fill: false,
+                spanGaps: true
+            }]
+        };
+        
+        const relapseChart = new Chart(ctx, {
+            type: 'line', 
+            data: data,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+            }
+        });
+    } catch(err) {
+        console.log(err);
+        
+        const relapseChartError = $('#relapseChartError');
+        relapseChartError.text('Sorry, there was an unexpected problem when getting the chart :(');
+        $('#relapseChartContainer').height('400px');
+    }
 });

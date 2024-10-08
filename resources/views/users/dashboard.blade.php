@@ -62,11 +62,11 @@
     
     </div></div>
 
-    <div class="container card border-radius-2-rem shadow mt-5 chartWrapper">
-        <div class="card-body chartAreaWrapper" id="chartContainer">
-            <canvas id="relapseChart" height="400"></canvas>
+    <div class="container card mt-5 border-radius-2-rem">
+        <div class="card-body" id="relapseChartContainer">
+            <span id="relapseChartError" class="m-auto text-muted"></span>
+            <canvas id="relapseChart"></canvas>
         </div>
-        <canvas id="relapseChartAxis" height="300" width="0"></canvas>
     </div>
 
     <div class="container mt-5">
