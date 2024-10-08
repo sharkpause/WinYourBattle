@@ -37,6 +37,16 @@ $(document).ready(async () => {
             dataset.push(response.data[i].streak_time);
         }
 
+        if(Math.max(...dataset) < 86,400) {
+            for(let i = 0; i < dataset.length; ++i) {
+                dataset[i] /= 3600;
+            }
+        } else if(dataset.max() < 3600) {
+            for(let i = 0; i < dataset.length; ++i) {
+                dataset[i] /= 60;
+            }
+        }
+
         const ctx = $('#relapseChart')[0].getContext('2d');
 
         const data = {
@@ -50,7 +60,7 @@ $(document).ready(async () => {
             }]
         };
         
-        const relapseChart = new Chart(ctx, {
+        const chart = new Chart(ctx, {
             type: 'line', 
             data: data,
             options: {
@@ -62,6 +72,12 @@ $(document).ready(async () => {
                 },
             }
         });
+
+        chart.config.data.labels.push("A label");
+        chart.config.data.labels.push("A label2");
+        chart.config.data.datasets[0].data.push(10);
+        chart.config.data.datasets[0].data.push(20);
+        chart.update();
     } catch(err) {
         console.log(err);
         
