@@ -5,9 +5,14 @@
     <div class="container"><div class="card border-radius-2-rem shadow"><div class="card-body m-3">
         <h1 class="mb-5">Share Your Thoughts!</h1>
 
-        <form method="POST" action="{{ route('posts.store') }}">
+        <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
             
+            <input type="file" name="image">
+            @error('image')
+                <p class="ms-1 text-danger">{{ $message }}</p>
+            @enderror
+
             <input type="text" class="form-control mb-1 @error('title') error-border @enderror" name="title" placeholder="Title goes here...">
             @error('title')
                 <p class="ms-1 text-danger">{{ $message }}</p>

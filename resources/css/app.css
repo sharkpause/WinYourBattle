@@ -105,6 +105,8 @@ select.form-control:focus {
 
 textarea, .post-body {
     white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 .text-green {
@@ -122,4 +124,8 @@ textarea, .post-body {
 
 .font-italic {
     font-style: italic;
+}
+
+.mw-97 {
+    max-width: 97% !important;
 }

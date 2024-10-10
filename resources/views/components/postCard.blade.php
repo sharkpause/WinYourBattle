@@ -5,7 +5,7 @@
       <img src="https://picsum.photos/30" class="rounded-circle">
   </div>
   <div class="flex-grow-1 ms-3">
-      <span class="h5">{{ $post->title }} </span>
+      <span class="h5 text-break mw-97">{{ $post->title }} </span>
       @auth
       @if(auth()->user()->id === $post->user->id)
         <div class="float-end">
@@ -28,10 +28,16 @@
           <span class="text-muted">{{ $post->created_at->diffForHumans() }}</span>
       </div>
 
-      @if ($full)
-        <span class="post-body">{{ $post->body }}</span>  
+      @if ($post->image !== null)
+        <div class="mb-3">
+          <img class="mw-97" src="{{ asset('storage/' . $post->image) }}">
+        </div>
+      @endif
+
+      @if ($full || Str::length($post->body) <= 3000)
+        <span class="post-body text-wrap mw-97">{{ $post->body }}</span>  
       @else
-        <span class="post-body">{{ Str::words($post->body, 30) }}</span>
+        <span class="post-body text-wrap mw-97">{{ Str::limit($post->body, 3000, $end='...') }}</span>
         <a href="{{ route('posts.show', $post) }}" class="no-underline">Read more</a>
       @endif
     </div>

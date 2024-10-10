@@ -3,7 +3,6 @@
     <x-navbarSpace></x-navbarSpace>
 
     <div class="container">
-
         @if(session('success'))
             <x-alert msg="{{ session('success') }}" classes="text-white post-success-alert"></x-alert>
         @endif

@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -41,10 +42,20 @@ class PostController extends Controller implements HasMiddleware
     {
         $fields = $request->validate([
             'title' => ['required', 'max:255'],
-            'body' => ['required']
+            'body' => ['required'],
+            'image' => ['nullable', 'file', 'max:4096', 'mimes:png,jpg,jpeg,webp']
         ]);
 
-        Auth::user()->posts()->create($fields);
+        $path = null;
+        if($request->hasFile('image')) {
+            $path = Storage::disk('public')->put('posts_images', $request->image);
+        }
+
+        Auth::user()->posts()->create([
+            'title' => $request->title,
+            'body' => $request->body,
+            'image' => $path
+        ]);
 
         return redirect()->route('posts.index')->with(['success' => 'Your post was posted!']);
     }
