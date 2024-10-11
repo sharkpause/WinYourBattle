@@ -29,21 +29,34 @@ $(document).ready(async () => {
 
     try {
         const response = await axios.get('/get-statistics');
+        const responseDataLength = Object.keys(response.data).length;
 
+        let timeUnit;
         let labels = [];
         let dataset = [];
-        for(let i = Object.keys(response.data).length - 1; i >= 0; --i) {
-            labels.push(response.data[i].relapse_date);
+        for(let i = responseDataLength - 1; i > 0; --i) {
+            console.log(response.data[i].relapse_date, userTimezone);
+            labels.push(
+                (new Date(response.data[i].relapse_date)).toLocaleString('en-CA')
+            );
             dataset.push(response.data[i].streak_time);
         }
 
-        if(Math.max(...dataset) < 86,400) {
-            for(let i = 0; i < dataset.length; ++i) {
-                dataset[i] /= 3600;
-            }
-        } else if(dataset.max() < 3600) {
+        if(responseDataLength > 0) {
+            const beforeRelapse = new Date(response.data[responseDataLength - 1].relapse_date);
+            const nowTime = new Date();
+            console.log(Math.abs(beforeRelapse - nowTime) / 1000 / 60 / 60);
+        }
+
+        if(Math.max(...dataset) < 3600) {
             for(let i = 0; i < dataset.length; ++i) {
                 dataset[i] /= 60;
+                timeUnit = 'Minutes';
+            }
+        } else if(Math.max(...dataset) < 86,400) {
+            for(let i = 0; i < dataset.length; ++i) {
+                dataset[i] /= 3600;
+                timeUnit = 'Hours';
             }
         }
 
@@ -70,13 +83,26 @@ $(document).ready(async () => {
                         beginAtZero: true
                     }
                 },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' ' + timeUnit;
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                return tooltipItem.raw + ' ' + timeUnit;
+                            }
+                        }
+                    }
+                }
             }
         });
-
-        chart.config.data.labels.push("A label");
-        chart.config.data.labels.push("A label2");
-        chart.config.data.datasets[0].data.push(10);
-        chart.config.data.datasets[0].data.push(20);
         chart.update();
     } catch(err) {
         console.log(err);
