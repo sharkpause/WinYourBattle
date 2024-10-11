@@ -27,11 +27,16 @@ $(document).ready(async () => {
 
     $('#timezoneInput').val(userTimezone);
 
+    let latestRelapse;
     try {
         const response = await axios.get('/get-statistics');
         const responseDataLength = Object.keys(response.data).length;
 
-        let timeUnit;
+        if(responseDataLength <= 0) return;
+
+        latestRelapse = response.data[0].relapse_date;
+
+        let timeUnit = '';
         let labels = [];
         let dataset = [];
         for(let i = responseDataLength - 1; i > 0; --i) {
@@ -40,8 +45,6 @@ $(document).ready(async () => {
             );
             dataset.push(response.data[i].streak_time);
         }
-
-        console.log(labels, dataset);
 
         if(Math.max(...dataset) < 3600) {
             for(let i = 0; i < dataset.length; ++i) {
@@ -98,37 +101,6 @@ $(document).ready(async () => {
                 }
             }
         });
-
-        //const relapseDate = new Date(response.data[responseDataLength - 1].relapse_date);
-
-        //function updateTime() {
-        //    const diffInSeconds = Math.floor(((new Date()) - relapseDate) / 1000);
-        //    console.log(new Date(), relapseDate);
-//
-        //    const days = Math.floor(diffInSeconds / (3600 * 24));
-        //    const hours = Math.floor((diffInSeconds % (3600 * 24)) / 3600);
-        //    const minutes = Math.floor((diffInSeconds % 3600) / 60);
-        //    const seconds = diffInSeconds % 60;
-//
-        //    let timeString = '';
-//
-        //    if(days > 0) {
-        //        timeString += days + ' day' + (days > 1 ? 's' : '') + ', ';
-        //    }
-        //    if(hours > 0) {
-        //        timeString += hours + ' hour' + (hours > 1 ? 's' : '') + ', ';
-        //    }
-        //    if(minutes > 0) {
-        //        timeString += minutes + ' minute' + (minutes > 1 ? 's' : '') + ', ';
-        //    }
-        //    if(seconds > 0) {
-        //        timeString += seconds + ' second' + (seconds > 1 ? 's' : '');
-        //    }
-//
-        //    $('#relapseTimeText').text(timeString);
-        //}
-
-        //setInterval(updateTime, 1000);
     } catch(err) {
         console.log(err);
         
@@ -136,4 +108,32 @@ $(document).ready(async () => {
         relapseChartError.text('Sorry, there was an unexpected problem when getting the chart :(');
         $('#relapseChartContainer').height('400px');
     }
+    
+    function updateTime() {
+        const diffInSeconds = Math.floor(((new Date()) - new Date(latestRelapse)) / 1000);
+        
+        const days = Math.floor(diffInSeconds / (3600 * 24));
+        const hours = Math.floor((diffInSeconds % (3600 * 24)) / 3600);
+        const minutes = Math.floor((diffInSeconds % 3600) / 60);
+        const seconds = diffInSeconds % 60;
+        
+        let timeString = '';
+
+        if(days > 0) {
+            timeString += days + ' day' + (days > 1 ? 's' : '') + ', ';
+        }
+        if(hours > 0) {
+            timeString += hours + ' hour' + (hours > 1 ? 's' : '') + ', ';
+        }
+        if(minutes > 0) {
+            timeString += minutes + ' minute' + (minutes > 1 ? 's' : '') + ', ';
+        }
+        if(seconds > 0) {
+            timeString += seconds + ' second' + (seconds > 1 ? 's' : '');
+        }
+
+        $('#relapseTimeText').text(timeString);
+    }
+    
+    setInterval(updateTime, 1000);
 });

@@ -66,6 +66,12 @@
             <canvas id="relapseChart"></canvas>
         </div>
     </div>
+    <p class="text-muted fs-6 container">
+        The chart shows the date and time of a relapse
+        (the date and time when you click the "I relapse" button or
+        when you set an initial relapse date and time) and how long
+        the streak lasted until the next relapse (the next date and time if you click the "I relapse" button)
+    </p>
 
     <div class="container mt-5">
         <h1 class="mb-4">Your latest posts</h1>
