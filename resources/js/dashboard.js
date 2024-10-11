@@ -65,7 +65,7 @@ $(document).ready(async () => {
         const data = {
             labels: labels, 
             datasets: [{
-                label: 'Relapses', 
+                label: 'Streak times', 
                 data: dataset,
                 borderColor: 'rgba(75, 192, 192, 1)', 
                 fill: false,
