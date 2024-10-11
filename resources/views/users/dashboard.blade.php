@@ -46,9 +46,7 @@
         @enderror
     @else
         <p class="mt-4">It has been
-            <span class="text-green">
-                {{ \Carbon\Carbon::parse($statistics->date_of_relapse)->diffForHumans() }}
-            </span>
+            <span class="text-green" id="relapseTimeText"></span>
             since you relapsed, keep it up!
         </p>
 

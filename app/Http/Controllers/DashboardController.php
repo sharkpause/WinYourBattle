@@ -79,7 +79,7 @@ class DashboardController extends Controller
         $data = Auth::user()->relapseTracks()->latest()->take(8)->get()->reverse();
 
         $data->each(function ($item) {
-            $item->relapse_date = Carbon::parse($item->your_datetime_field)->timezone(Auth::user()->statistics()->value('timezone'));
+            $item->relapse_date = Carbon::parse($item->relapse_date)->timezone(Auth::user()->statistics()->value('timezone'));
         });
 
         return response()->json($data);

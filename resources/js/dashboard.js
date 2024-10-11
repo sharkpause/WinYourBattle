@@ -35,18 +35,13 @@ $(document).ready(async () => {
         let labels = [];
         let dataset = [];
         for(let i = responseDataLength - 1; i > 0; --i) {
-            console.log(response.data[i].relapse_date, userTimezone);
             labels.push(
-                (new Date(response.data[i].relapse_date)).toLocaleString('en-CA')
+                (new Date(response.data[i].relapse_date)).toLocaleString('en-CA').replace(/\.$/, '').replace('p.m', 'PM').replace('a.m', 'AM')
             );
             dataset.push(response.data[i].streak_time);
         }
 
-        if(responseDataLength > 0) {
-            const beforeRelapse = new Date(response.data[responseDataLength - 1].relapse_date);
-            const nowTime = new Date();
-            console.log(Math.abs(beforeRelapse - nowTime) / 1000 / 60 / 60);
-        }
+        console.log(labels, dataset);
 
         if(Math.max(...dataset) < 3600) {
             for(let i = 0; i < dataset.length; ++i) {
@@ -103,7 +98,37 @@ $(document).ready(async () => {
                 }
             }
         });
-        chart.update();
+
+        //const relapseDate = new Date(response.data[responseDataLength - 1].relapse_date);
+
+        //function updateTime() {
+        //    const diffInSeconds = Math.floor(((new Date()) - relapseDate) / 1000);
+        //    console.log(new Date(), relapseDate);
+//
+        //    const days = Math.floor(diffInSeconds / (3600 * 24));
+        //    const hours = Math.floor((diffInSeconds % (3600 * 24)) / 3600);
+        //    const minutes = Math.floor((diffInSeconds % 3600) / 60);
+        //    const seconds = diffInSeconds % 60;
+//
+        //    let timeString = '';
+//
+        //    if(days > 0) {
+        //        timeString += days + ' day' + (days > 1 ? 's' : '') + ', ';
+        //    }
+        //    if(hours > 0) {
+        //        timeString += hours + ' hour' + (hours > 1 ? 's' : '') + ', ';
+        //    }
+        //    if(minutes > 0) {
+        //        timeString += minutes + ' minute' + (minutes > 1 ? 's' : '') + ', ';
+        //    }
+        //    if(seconds > 0) {
+        //        timeString += seconds + ' second' + (seconds > 1 ? 's' : '');
+        //    }
+//
+        //    $('#relapseTimeText').text(timeString);
+        //}
+
+        //setInterval(updateTime, 1000);
     } catch(err) {
         console.log(err);
         
