@@ -46,12 +46,13 @@ $(document).ready(async () => {
             dataset.push(response.data[i].streak_time);
         }
 
-        if(Math.max(...dataset) < 3600) {
+        const maxData = Math.max(...dataset);
+        if(maxData < 3600) {
             for(let i = 0; i < dataset.length; ++i) {
                 dataset[i] /= 60;
                 timeUnit = 'Minutes';
             }
-        } else if(Math.max(...dataset) < 86,400) {
+        } else if(maxData < 86,400) { // TODO: Might change this design to only convert each dataset to its own time unit instead of converting everything into one time unit
             for(let i = 0; i < dataset.length; ++i) {
                 dataset[i] /= 3600;
                 timeUnit = 'Hours';
