@@ -2,6 +2,30 @@ import $ from 'jquery';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
+function timeUnits(seconds) {
+    if(seconds < 60) {
+        return 'seconds';
+    } else if(seconds < 3600) {
+        return 'minutes';
+    } else if(seconds < 86400) {
+        return 'hours';
+    } else {
+        return 'days';
+    }
+}
+
+function convertTime(seconds) {
+    if(seconds < 60) {
+        return seconds;
+    } else if(seconds < 3600) {
+        return Math.floor(seconds / 60);
+    } else if(seconds < 86400) {
+        return Math.floor(seconds / 3600);
+    } else {
+        return Math.floor(seconds / 86400);
+    }
+}
+
 $(document).ready(async () => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -36,26 +60,25 @@ $(document).ready(async () => {
 
         latestRelapse = response.data[0].relapse_date;
 
-        let timeUnit = '';
         let labels = [];
-        let dataset = [];
+        let datasetSeconds = [];
+        let datasetConverted = {};
         for(let i = responseDataLength - 1; i > 0; --i) {
             labels.push(
                 (new Date(response.data[i].relapse_date)).toLocaleString('en-CA').replace(/\.$/, '').replace('p.m', 'PM').replace('a.m', 'AM')
             );
-            dataset.push(response.data[i].streak_time);
+            datasetSeconds.push(response.data[i].streak_time);
         }
 
-        const maxData = Math.max(...dataset);
-        if(maxData < 3600) {
-            for(let i = 0; i < dataset.length; ++i) {
-                dataset[i] /= 60;
-                timeUnit = 'Minutes';
-            }
-        } else if(maxData < 86,400) { // TODO: Might change this design to only convert each dataset to its own time unit instead of converting everything into one time unit
-            for(let i = 0; i < dataset.length; ++i) {
-                dataset[i] /= 3600;
-                timeUnit = 'Hours';
+        for(let i = 0; i < datasetSeconds.length; ++i) { // Rework this to display "n hours, n minutes, n seconds" instead 
+            if(datasetSeconds[i] < 60) {
+                datasetConverted[datasetSeconds[i]] = [datasetSeconds[i], 'seconds'];
+            } else if(datasetSeconds[i] < 3600) {
+                datasetConverted[datasetSeconds[i]] = [(datasetSeconds[i] / 60).toFixed(2), 'minutes'];
+            } else if(datasetSeconds[i] < 86400) {
+                datasetConverted[datasetSeconds[i]] = [(datasetSeconds[i] / 3600).toFixed(2), 'hours'];
+            } else {
+                datasetConverted[datasetSeconds[i]] = [(datasetSeconds[i] / 86400).toFixed(2), 'days'];
             }
         }
 
@@ -65,7 +88,7 @@ $(document).ready(async () => {
             labels: labels, 
             datasets: [{
                 label: 'Streak times', 
-                data: dataset,
+                data: datasetSeconds,
                 borderColor: 'rgba(75, 192, 192, 1)', 
                 fill: false,
                 spanGaps: true
@@ -86,7 +109,7 @@ $(document).ready(async () => {
                     y: {
                         ticks: {
                             callback: function(value) {
-                                return value + ' ' + timeUnit;
+                                return convertTime(value) + ' ' + timeUnits(value);
                             }
                         }
                     }
@@ -95,7 +118,7 @@ $(document).ready(async () => {
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                return tooltipItem.raw + ' ' + timeUnit;
+                                return datasetConverted[tooltipItem.raw][0] + ' ' + datasetConverted[tooltipItem.raw][1];
                             }
                         }
                     }
