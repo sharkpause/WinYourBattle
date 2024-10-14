@@ -2,31 +2,47 @@ import $ from 'jquery';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
 
-function timeUnits(seconds) {
-    if(seconds < 60) {
-        return 'seconds';
-    } else if(seconds < 3600) {
-        return 'minutes';
-    } else if(seconds < 86400) {
-        return 'hours';
-    } else {
-        return 'days';
+function convertTime(seconds, precise) {
+    let timeSeconds = seconds;
+    let timeString = '';
+
+    if(timeSeconds > 86400) {
+        const days = String(Math.floor(timeSeconds / 86400)); 
+        timeSeconds -= Number(days) * 86400;
+        if(timeSeconds === 0) {
+            timeString += days + ' days';
+        } else {
+            timeString += days + ' days, ';
+        }
     }
+    if(timeSeconds > 3600) {
+        const hours = String(Math.floor(timeSeconds / 3600));
+        timeSeconds -= Number(hours) * 3600;
+        if(timeSeconds === 0) {
+            timeString += hours + ' hours';
+        } else {
+            timeString += hours + ' hours, ';
+        }
+    }
+    if(precise) {
+        if(timeSeconds > 60) {
+            const minutes = String(Math.floor(timeSeconds / 60));
+            timeSeconds -= Number(minutes) * 60;
+            if(timeSeconds === 0) {
+                timeString += minutes + ' minutes';
+            } else {
+                timeString += minutes + ' minutes, ';
+            }
+        }
+        if(timeSeconds > 0) {
+            timeString += timeSeconds + ' seconds';
+        }
+    }
+
+    return timeString;
 }
 
-function convertTime(seconds) {
-    if(seconds < 60) {
-        return seconds;
-    } else if(seconds < 3600) {
-        return Math.floor(seconds / 60);
-    } else if(seconds < 86400) {
-        return Math.floor(seconds / 3600);
-    } else {
-        return Math.floor(seconds / 86400);
-    }
-}
-
-$(document).ready(async () => {
+(async () => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
     const time = (new Date()).getHours();
@@ -61,25 +77,12 @@ $(document).ready(async () => {
         latestRelapse = response.data[0].relapse_date;
 
         let labels = [];
-        let datasetSeconds = [];
-        let datasetConverted = {};
+        let dataset = [];
         for(let i = responseDataLength - 1; i > 0; --i) {
             labels.push(
                 (new Date(response.data[i].relapse_date)).toLocaleString('en-CA').replace(/\.$/, '').replace('p.m', 'PM').replace('a.m', 'AM')
             );
-            datasetSeconds.push(response.data[i].streak_time);
-        }
-
-        for(let i = 0; i < datasetSeconds.length; ++i) { // Rework this to display "n hours, n minutes, n seconds" instead 
-            if(datasetSeconds[i] < 60) {
-                datasetConverted[datasetSeconds[i]] = [datasetSeconds[i], 'seconds'];
-            } else if(datasetSeconds[i] < 3600) {
-                datasetConverted[datasetSeconds[i]] = [(datasetSeconds[i] / 60).toFixed(2), 'minutes'];
-            } else if(datasetSeconds[i] < 86400) {
-                datasetConverted[datasetSeconds[i]] = [(datasetSeconds[i] / 3600).toFixed(2), 'hours'];
-            } else {
-                datasetConverted[datasetSeconds[i]] = [(datasetSeconds[i] / 86400).toFixed(2), 'days'];
-            }
+            dataset.push(response.data[i].streak_time);
         }
 
         const ctx = $('#relapseChart')[0].getContext('2d');
@@ -88,7 +91,7 @@ $(document).ready(async () => {
             labels: labels, 
             datasets: [{
                 label: 'Streak times', 
-                data: datasetSeconds,
+                data: dataset,
                 borderColor: 'rgba(75, 192, 192, 1)', 
                 fill: false,
                 spanGaps: true
@@ -109,7 +112,7 @@ $(document).ready(async () => {
                     y: {
                         ticks: {
                             callback: function(value) {
-                                return convertTime(value) + ' ' + timeUnits(value);
+                                return convertTime(value, false);
                             }
                         }
                     }
@@ -118,7 +121,7 @@ $(document).ready(async () => {
                     tooltip: {
                         callbacks: {
                             label: function(tooltipItem) {
-                                return datasetConverted[tooltipItem.raw][0] + ' ' + datasetConverted[tooltipItem.raw][1];
+                                return convertTime(tooltipItem.raw, true);
                             }
                         }
                     }
@@ -160,4 +163,4 @@ $(document).ready(async () => {
     }
     
     setInterval(updateTime, 1000);
-});
+})();
