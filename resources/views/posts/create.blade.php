@@ -8,7 +8,7 @@
         <form method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
             @csrf
             
-            <input type="file" name="image">
+            <input type="file" name="image" class="form-control mw-30">
             @error('image')
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
