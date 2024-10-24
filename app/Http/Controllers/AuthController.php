@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Mail\WelcomeMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -18,6 +20,8 @@ class AuthController extends Controller
         $user = User::create($fields);
 
         Auth::login($user);
+
+        Mail::to($request->email)->send(new WelcomeMail(Auth::user()));
 
         return redirect()->intended('dashboard');
     }

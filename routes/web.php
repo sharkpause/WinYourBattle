@@ -28,6 +28,4 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/set-new-relapse', [DashboardController::class, 'setNewRelapse'])->name('set-new-relapse');
     
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
-
-    Route::get('/test-mail', [TestMailController::class, 'index']);
 });
