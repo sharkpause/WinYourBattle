@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Mail\WelcomeMail;
+use App\Events\UserLoggedIn;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -37,6 +38,8 @@ class AuthController extends Controller
         ]);
         
         if(Auth::attempt($fields, $request->remember)) {
+            event(new UserLoggedIn(Auth::user()));
+            
             return redirect()->intended('dashboard');
         } else {
             return back()->withErrors([
