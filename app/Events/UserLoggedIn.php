@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,7 +19,7 @@ class UserLoggedIn
     /**
      * Create a new event instance.
      */
-    public function __construct(User $user)
+    public function __construct(public User $user, public Request $request)
     {
         //
     }
