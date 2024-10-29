@@ -26,8 +26,6 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
-        //Mail::to($request->email)->send(new WelcomeMail(Auth::user()));
-
         return redirect()->intended('dashboard');
     }
 
@@ -38,7 +36,7 @@ class AuthController extends Controller
         ]);
         
         if(Auth::attempt($fields, $request->remember)) {
-            event(new UserLoggedIn(Auth::user()));
+            event(new UserLoggedIn(Auth::user(), $request));
             
             return redirect()->intended('dashboard');
         } else {

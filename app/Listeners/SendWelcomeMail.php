@@ -2,13 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Mail\LoggedInMail;
-use App\Events\UserLoggedIn;
+use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendLoggedInEmail
+class SendWelcomeMail
 {
     /**
      * Create the event listener.
@@ -21,7 +21,7 @@ class SendLoggedInEmail
     /**
      * Handle the event.
      */
-    public function handle(UserLoggedIn $event): void
+    public function handle(Registered $event): void
     {
         Mail::to($event->user->email)->send(new WelcomeMail($event->user));
     }

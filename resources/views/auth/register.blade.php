@@ -35,6 +35,7 @@
               <a href="{{ route('login') }}" class="text-end text-muted fs-6 text-sm-end">Already have an account? Log in</a>
       
               <button type="submit" class="btn btn-primary width-100 mt-3" id="submitButton">Register</button>
+              <div id="spinnerDiv"></div>
       
             </form>
         </div>
