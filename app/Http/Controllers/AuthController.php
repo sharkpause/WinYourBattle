@@ -56,6 +56,7 @@ class AuthController extends Controller
     }
 
     public function verifyNotice() {
+        if(Auth::user()->email_verified_at !== null) return redirect('/dashboard');
         return view('auth.verify-email');
     }
 

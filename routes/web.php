@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TestMailController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::redirect('/', 'posts', 301);
@@ -14,9 +15,14 @@ Route::resource('posts', PostController::class);
 Route::middleware(['guest'])->group(function () {
     Route::view('/register', 'auth.register')->name('register');
     Route::view('/login', 'auth.login')->name('login');
+    Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
 
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/forgot-password', [ResetPasswordController::class, 'passwordEmail'])->name('password.email');
+    Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'passwordReset'])->name('password.reset');
 });
 
 Route::get('/{user}/posts', [DashboardController::class, 'userPosts'])->name('posts.user');

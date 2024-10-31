@@ -3,7 +3,7 @@
   <div class="container"><div class="d-flex flex-column min-vh-80 justify-content-center align-items-center"><div class="card col-4 border-radius-2-rem shadow">
         <div class="card-body m-3">
           <h3 class="mb-5">Register</h3>
-          <form method="POST" action="{{ route('register') }}" id="registerForm">
+          <form method="POST" action="{{ route('register') }}" id="form">
               @csrf
       
               <div class="form-group mb-4">
@@ -34,13 +34,15 @@
 
               <a href="{{ route('login') }}" class="text-end text-muted fs-6 text-sm-end">Already have an account? Log in</a>
       
-              <button type="submit" class="btn btn-primary width-100 mt-3" id="submitButton">Register</button>
-              <div id="spinnerDiv"></div>
+              <button type="submit" class="width-100 btn btn-primary mt-2" id="submitButton">
+                <span id="spinnerElem" class="float-start"></span>
+                <span class="text-center">Register</span>
+              </button>
       
             </form>
         </div>
   </div></div></div>
 
-  @vite('resources/js/register.js')
+  @vite('resources/js/submitButtonUnclickable.js')
 
 </x-layout>

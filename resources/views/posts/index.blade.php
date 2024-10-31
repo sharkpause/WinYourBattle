@@ -4,7 +4,7 @@
 
     <div class="container">
         @if(session('success'))
-            <x-alert msg="{{ session('success') }}" classes="text-white post-success-alert"></x-alert>
+            <x-alert msg="{{ session('success') }}" classes="text-white success-alert"></x-alert>
         @endif
 
         <div class="mb-5">
@@ -23,5 +23,5 @@
 
     <x-paginator :posts="$posts"></x-paginator>
 
-    @vite('resources/js/index.js')
+    @vite('resources/js/alert.js')
 </x-layout>

@@ -23,6 +23,6 @@ class SendLoggedInEmail
      */
     public function handle(UserLoggedIn $event): void
     {
-        Mail::to($event->user->email)->send(new WelcomeMail($event->user));
+        Mail::to($event->user->email)->send(new LoggedInMail($event->user));
     }
 }

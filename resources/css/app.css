@@ -83,7 +83,7 @@ select.form-control:focus {
     cursor: pointer;
 }
 
-.post-success-alert {
+.success-alert {
     border: none;
     background-color: #2ecc71;
     width: 25%;
