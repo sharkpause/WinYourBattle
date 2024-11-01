@@ -68,7 +68,7 @@
 
     <div class="container card mt-5 border-radius-2-rem shadow">
         <div class="card-body" id="relapseChartContainer">
-            <span id="relapseChartError" class="m-auto text-muted"></span>
+            <div class="d-flex"><span id="relapseChartError" class="my-auto"></span></div>
             <canvas id="relapseChart"></canvas>
         </div>
     </div>

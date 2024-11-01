@@ -72,7 +72,12 @@ function convertTime(seconds, precise) {
         const response = await axios.get('/get-statistics');
         const responseDataLength = Object.keys(response.data).length;
 
-        if(responseDataLength <= 0) return;
+        if(responseDataLength <= 0) {
+            const relapseChartError = $('#relapseChartError');
+            relapseChartError.text('No relapses yet, make sure to click that "I relapse" button if you do! (let\'s hope that won\'t happen :)');
+
+            return;
+        }
 
         latestRelapse = response.data[0].relapse_date;
 
