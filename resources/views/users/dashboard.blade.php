@@ -45,7 +45,7 @@
             <span class="ms-1 text-danger">{{ $message }}</span>
         @enderror
     @else
-        <p class="mt-4">It has been
+        <p class="mt-4 col-5">It has been
             <span class="text-green" id="relapseTimeText"></span>
             since you relapsed, keep it up!
         </p>
@@ -60,7 +60,7 @@
     
     </div></div>
 
-    <div class="container card mt-5 border-radius-2-rem">
+    <div class="container card mt-5 border-radius-2-rem shadow">
         <div class="card-body" id="relapseChartContainer">
             <span id="relapseChartError" class="m-auto text-muted"></span>
             <canvas id="relapseChart"></canvas>
