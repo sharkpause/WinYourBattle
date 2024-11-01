@@ -24,6 +24,8 @@ class AuthController extends Controller
 
         Auth::login($user);
 
+        event(new Registered($user));
+
         return redirect()->intended('dashboard');
     }
 
@@ -60,8 +62,6 @@ class AuthController extends Controller
 
     public function verifyEmail(EmailVerificationRequest $request) {
         $request->fulfill();
-
-        event(new Registered($user));
          
         return redirect()->route('dashboard');
     }

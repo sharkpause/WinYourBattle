@@ -4,6 +4,12 @@
 
     <div class="card container border-radius-2-rem shadow">
     <div class="card-body m-3">
+        <p>A</p>
+    </div>
+    </div>
+
+    <div class="mt-5 card container border-radius-2-rem shadow">
+    <div class="card-body m-3">
 
     <span class="col-6">
         <span id="current-time" class="h1"></span>
@@ -35,7 +41,7 @@
                     <p class="ms-1 text-danger">{{ $message }}</p>
                 @enderror
             </div>
-            </div>
+            </div>shadow
         </form>
 
         @error('date_of_relapse')
