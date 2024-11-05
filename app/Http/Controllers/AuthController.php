@@ -17,10 +17,15 @@ class AuthController extends Controller
         $fields = $request->validate([
             'username' => ['required', 'max:30', 'min:3'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'confirmed', 'min:3']
+            'password' => ['required', 'confirmed', 'min:8']
         ]);
 
-        $user = User::create($fields);
+        $user = User::create([
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password,
+            'image' => '/profile_images/default.jpeg'
+        ]);
 
         Auth::login($user);
 

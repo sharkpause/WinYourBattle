@@ -23,7 +23,7 @@
                 @auth
                 <li class="nav-item dropdown">
                 <a href="#" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://picsum.photos/40" class="rounded-circle">
+                    <img src="{{ Auth::user()->image }}" class="rounded-circle">
                 </a>
                 
                 <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbarDropdown">

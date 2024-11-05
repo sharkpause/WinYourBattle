@@ -41,7 +41,7 @@
                     <p class="ms-1 text-danger">{{ $message }}</p>
                 @enderror
             </div>
-            </div>shadow
+            </div>
         </form>
 
         @error('date_of_relapse')
@@ -66,19 +66,22 @@
     
     </div></div>
 
-    <div class="container card mt-5 border-radius-2-rem shadow">
-        <div class="card-body" id="relapseChartContainer">
-            <div class="d-flex"><span id="relapseChartError" class="my-auto"></span></div>
-            <canvas id="relapseChart"></canvas>
+    <div id="chartContainer">
+        <div class="container card mt-5 border-radius-2-rem shadow">
+            <div class="card-body" id="relapseChartContainer">
+                <div class="d-flex"><span id="relapseChartError" class="my-auto"></span></div>
+                <canvas id="relapseChart"></canvas>
+            </div>
         </div>
+        <p class="text-muted fs-6 container">
+            The chart shows the date and time of a relapse
+            (the date and time when you click the "I relapse" button or
+            when you set an initial relapse date and time) and how long
+            the streak lasted until the next relapse (the next date and time if you click the "I relapse" button)
+        </p>
     </div>
-    <p class="text-muted fs-6 container">
-        The chart shows the date and time of a relapse
-        (the date and time when you click the "I relapse" button or
-        when you set an initial relapse date and time) and how long
-        the streak lasted until the next relapse (the next date and time if you click the "I relapse" button)
-    </p>
 
+    @if($posts->total())
     <div class="container mt-5">
         <h1 class="mb-4">Your latest posts</h1>
 
@@ -86,6 +89,7 @@
             <x-postCard :post="$post"></x-postCard>
         @endforeach
     </div>
+    @endif
 
     <x-paginator :posts="$posts"></x-paginator>
 
