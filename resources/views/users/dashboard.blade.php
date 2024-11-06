@@ -4,7 +4,20 @@
 
     <div class="card container border-radius-2-rem shadow">
     <div class="card-body m-3">
-        <p>A</p>
+        <div class="d-flex align-items-start justify-content-between">
+            <div class="d-flex align-items-start">
+                <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px">
+                <span class="h1 ms-5">{{ Auth::user()->username }}</span>
+            </div>
+        
+            <div>
+                <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
+                <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
+                    <button class="dropdown-item" type="submit">Delete Post</button>
+                    <a class="dropdown-item no-underline">Edit Post</a>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 

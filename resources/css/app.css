@@ -133,3 +133,18 @@ textarea, .post-body {
 .mw-30 {
     max-width: 30% !important;
 }
+
+.hw-40px {
+    height: 40px;
+    width: 40px;
+}
+
+.hw-45px {
+    height: 45px;
+    width: 45px;
+}
+
+.hw-200px {
+    height: 200px;
+    width: 200px;
+}
