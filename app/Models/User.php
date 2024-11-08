@@ -23,7 +23,8 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'username',
         'email',
         'password',
-        'image'
+        'image',
+        'bio'
     ];
 
     /**

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\TestMailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResetPasswordController;
@@ -41,4 +42,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/email/verify/{id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
 
     Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:5,1')->name('verification.send');
+
+    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
 });

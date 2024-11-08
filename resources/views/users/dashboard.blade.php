@@ -7,14 +7,22 @@
         <div class="d-flex align-items-start justify-content-between">
             <div class="d-flex align-items-start">
                 <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px">
-                <span class="h1 ms-5">{{ Auth::user()->username }}</span>
+                
+                <div class="ms-5">
+                    <h1>{{ Auth::user()->username }}</h1>
+                    <p class="text-muted">{{ Auth::user()->bio }}</p>
+                </div>
             </div>
-        
+                
             <div>
                 <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
                 <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                    <button class="dropdown-item" type="submit">Delete Post</button>
-                    <a class="dropdown-item no-underline">Edit Post</a>
+                    <a href="" class="dropdown-item no-underline">Edit Account Info</a>
+                    <form action="" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="dropdown-item red-on-hover" type="submit">Delete Account</button>
+                    </form>
                 </div>
             </div>
         </div>

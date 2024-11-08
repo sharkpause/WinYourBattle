@@ -2,7 +2,7 @@
 
 <div class="d-flex mb-4 bg-light p-3 border-radius-1-rem shadow">
   <div class="flex-shrink-0">
-      <img src="{{ asset('storage/' .  Auth::user()->image) }}" class="hw-40px rounded-circle">
+      <img src="{{ asset('storage/' .  $post->user->image) }}" class="hw-40px rounded-circle">
   </div>
   <div class="flex-grow-1 ms-3">
       <span class="h5 text-break mw-97">{{ $post->title }} </span>
@@ -15,7 +15,7 @@
               <form action="{{ route('posts.destroy', $post) }}" method="POST">
                   @csrf
                   @method('DELETE')
-                  <button class="dropdown-item" type="submit">Delete Post</button>
+                  <button class="dropdown-item red-on-hover" type="submit">Delete Post</button>
               </form>
               <a href="{{ route('posts.edit', $post) }}" class="dropdown-item no-underline">Edit Post</a>
             </div>
