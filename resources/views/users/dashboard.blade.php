@@ -17,7 +17,7 @@
             <div>
                 <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
                 <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                    <a href="" class="dropdown-item no-underline">Edit Account Info</a>
+                    <a href="{{ route('users.edit', Auth::user()->id) }}" class="dropdown-item no-underline">Edit Account Info</a>
                     <form action="" method="POST">
                         @csrf
                         @method('DELETE')

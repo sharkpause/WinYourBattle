@@ -43,5 +43,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:5,1')->name('verification.send');
 
-    Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
 });
