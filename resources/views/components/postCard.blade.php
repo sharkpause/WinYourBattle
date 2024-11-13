@@ -34,9 +34,9 @@
       @endif
 
       @if ($full || Str::length($post->body) <= 3000)
-        <span class="post-body text-wrap mw-97">{{ $post->body }}</span>  
+        <span class="keep-whitespace text-wrap mw-97">{{ $post->body }}</span>  
       @else
-        <span class="post-body text-wrap mw-97">{{ Str::limit($post->body, 3000, $end='...') }}</span>
+        <span class="keep-whitespace text-wrap mw-97">{{ Str::limit($post->body, 3000, $end='...') }}</span>
         <a href="{{ route('posts.show', $post) }}" class="no-underline">Read more</a>
       @endif
     </div>

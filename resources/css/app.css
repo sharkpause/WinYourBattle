@@ -103,7 +103,7 @@ select.form-control:focus {
     margin-right: 0.8rem !important;
 }
 
-textarea, .post-body {
+.keep-whitespace {
     white-space: pre-wrap;
     word-wrap: break-word;
     word-break: break-word;

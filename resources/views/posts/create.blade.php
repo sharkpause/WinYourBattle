@@ -18,7 +18,7 @@
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
 
-            <textarea class="form-control mb-1 @error('body') error-border @enderror" name="body" placeholder="And whatever you are thinking goes here!"></textarea>
+            <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror" name="body" placeholder="And whatever you are thinking goes here!"></textarea>
             @error('body')
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
