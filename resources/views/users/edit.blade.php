@@ -4,25 +4,31 @@
 
     <div class="card container border-radius-2-rem shadow">
         <div class="card-body m-3">
-            <form method="POST" action="" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('users.update', Auth::user()->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
 
                 <div class="d-flex align-items-start mb-4">
                     <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px">
 
-                    <input type="file" name="image" class="form-control mw-30 ms-5 my-auto">
-                    @error('image')
+                    <div class="mw-30 ms-5 my-auto">
+                        <label class="h4" for="image">New profile picture?</label>
+                        <input type="file" name="image" class="form-control">
+                        @error('image')
+                            <p class="ms-1 text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="mt-5">
+                    <label class="h3" for="bio">New bio?</label>
+                    <input name="bio" type="text" class="form-control" placeholder="Your bio goes here!" value="{{ Auth::user()->bio }}">
+                    @error('bio')
                         <p class="ms-1 text-danger">{{ $message }}</p>
                     @enderror
                 </div>
-
-                <input type="text" class="form-control" placeholder="Your bio goes here!" value="{{ Auth::user()->bio }}">
-                @error('bio')
-                    <p class="ms-1 text-danger">{{ $message }}</p>
-                @enderror
     
-                <button class="btn btn-primary float-end">Edit Account</button>
+                <button class="btn btn-primary float-end mt-2">Edit Account</button>
             </form>
         </div>
     </div>
