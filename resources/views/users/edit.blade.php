@@ -9,23 +9,22 @@
                 @method('PATCH')
 
                 <div class="d-flex align-items-start mb-4">
-                    <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px">
-
-                    <div class="mw-30 ms-5 my-auto">
-                        <label class="h4" for="image">New profile picture?</label>
-                        <input type="file" name="image" class="form-control">
+                    <input type="file" name="image" class="hidden">
+                    <label for="image pointer-on-hover" class="image-container position-relative pointer-on-hover d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px profile-image">
+                        <i class="fas fa-edit icon icon-on-top"></i>
+                    </label>
+                    
+                    <div class="ms-5 my-auto">
                         @error('image')
                             <p class="ms-1 text-danger">{{ $message }}</p>
                         @enderror
-                    </div>
-                </div>
 
-                <div class="mt-5">
-                    <label class="h3" for="bio">New bio?</label>
-                    <input name="bio" type="text" class="form-control" placeholder="Your bio goes here!" value="{{ Auth::user()->bio }}">
-                    @error('bio')
-                        <p class="ms-1 text-danger">{{ $message }}</p>
-                    @enderror
+                        <input name="bio" type="text" class="form-control" placeholder="Your bio goes here!" value="{{ Auth::user()->bio }}" style="max-width: 100%;">
+                        @error('bio')
+                            <p class="ms-1 text-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
     
                 <button class="btn btn-primary float-end mt-2">Edit Account</button>
@@ -34,28 +33,3 @@
     </div>
 
 </x-layout>
-
-<!--
-<div class="d-flex align-items-start justify-content-between">
-                <div class="d-flex align-items-start">
-                    <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px">
-                    
-                    <div class="ms-5">
-                        <h1>{{ Auth::user()->username }}</h1>
-                        <p class="text-muted">{{ Auth::user()->bio }}</p>
-                    </div>
-                </div>
-                    
-                <div>
-                    <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
-                    <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('users.edit', Auth::user()->id) }}" class="dropdown-item no-underline">Edit Account Info</a>
-                        <form action="" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button class="dropdown-item red-on-hover" type="submit">Delete Account</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
--->
