@@ -14,14 +14,19 @@
                         <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px profile-image">
                         <i class="fas fa-edit icon icon-on-top"></i>
                     </label>
+                    @error('image')
+                        <p class="ms-1 text-danger">{{ $message }}</p>
+                    @enderror
                     
-                    <div class="ms-5 my-auto">
-                        @error('image')
-                            <p class="ms-1 text-danger">{{ $message }}</p>
-                        @enderror
-
-                        <input name="bio" type="text" class="form-control" placeholder="Your bio goes here!" value="{{ Auth::user()->bio }}" style="max-width: 100%;">
-                        @error('bio')
+                    <div class="ms-5 my-auto flex-grow-1">
+                        <input  name="bio"
+                                type="text"
+                                class="form-control w-100"
+                                placeholder="Your bio goes here!"
+                                value="{{ Auth::user()->bio }}"
+                                style="max-width: 100%;">
+                        
+                                @error('bio')
                             <p class="ms-1 text-danger">{{ $message }}</p>
                         @enderror
                     </div>
