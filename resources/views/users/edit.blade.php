@@ -9,8 +9,8 @@
                 @method('PATCH')
 
                 <div class="d-flex align-items-start mb-4">
-                    <input type="file" name="image" class="hidden">
-                    <label for="image pointer-on-hover" class="image-container position-relative pointer-on-hover d-flex align-items-center justify-content-center">
+                    <input type="file" name="image" class="hidden" id="profile_image">
+                    <label for="profile_image" class="image-container position-relative pointer-on-hover d-flex align-items-center justify-content-center">
                         <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px profile-image">
                         <i class="fas fa-edit icon icon-on-top"></i>
                     </label>
