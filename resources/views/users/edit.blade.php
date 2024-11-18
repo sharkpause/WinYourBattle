@@ -9,9 +9,9 @@
                 @method('PATCH')
 
                 <div class="d-flex align-items-start mb-4">
-                    <input type="file" name="image" class="hidden" id="profile_image">
-                    <label for="profile_image" class="image-container position-relative pointer-on-hover d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px profile-image">
+                    <input type="file" name="image" class="hidden" id="profile_image_input">
+                    <label for="profile_image_input" class="image-container position-relative pointer-on-hover d-flex align-items-center justify-content-center">
+                        <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px profile-image" id="profile_image_preview">
                         <i class="fas fa-edit icon icon-on-top"></i>
                     </label>
                     @error('image')
@@ -36,5 +36,7 @@
             </form>
         </div>
     </div>
+
+    @vite('resources/js/userEdit.js')
 
 </x-layout>
