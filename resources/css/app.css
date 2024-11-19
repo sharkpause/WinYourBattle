@@ -213,3 +213,7 @@ select.form-control:focus {
 .button-click-animation:active {
     transform: scale(0.95);
 }
+
+.button-click-animation-sm:active {
+    transform: scale(0.99);
+}

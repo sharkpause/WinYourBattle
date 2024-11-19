@@ -14,7 +14,7 @@
             <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
-                    <a class="nav-link text-white" href="{{ route('posts.index') }}">Home</a>
+                    <a class="nav-link text-white button-click-animation" href="{{ route('posts.index') }}">Home</a>
                   </li>
                 </ul>
             </div>
@@ -23,7 +23,7 @@
                 @auth
                 <li class="nav-item dropdown">
                 <a href="#" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-45px">
+                    <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-45px button-click-animation">
                 </a>
                 
                 <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
@@ -37,8 +37,8 @@
                 </li>
                 @endauth
                 @guest
-                    <a class="nav-link text-white" href="{{ route('login') }}">Log in</a>
-                    <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
+                    <a class="nav-link text-white button-click-animation" href="{{ route('login') }}">Log in</a>
+                    <a class="nav-link text-white button-click-animation" href="{{ route('register') }}">Register</a>
                 @endguest
             </ul>
         </nav>

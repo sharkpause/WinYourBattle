@@ -13,7 +13,7 @@
         </div>
 
         @auth
-            <input type="text" class="shadow p-3 form-control border-radius-2-rem mb-5" id="user-post-input" placeholder="What are you thinking right now?" data-url="{{ route('posts.create') }}">
+            <input type="text" class="shadow p-3 form-control border-radius-2-rem mb-5 button-click-animation-sm" id="user-post-input" placeholder="What are you thinking right now?" data-url="{{ route('posts.create') }}">
         @endauth
 
         @foreach ($posts as $post)

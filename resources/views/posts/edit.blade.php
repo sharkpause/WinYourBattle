@@ -21,18 +21,21 @@
 
             @if ($post->image !== null)
               <div class="mb-3">
-                <img class="mw-30" src="{{ asset('storage/' . $post->image) }}">
+                <img class="mw-30" src="{{ asset('storage/' . $post->image) }}" id="post_image_preview">
               </div>
             @endif
 
-            <input type="file" name="image" class="form-control mw-30">
+            <input type="file" name="image" class="hidden" id="post_image_input">
+            <label for="post_image_input" class="pointer-on-hover post-image-upload-button button-click-animation">
+                <i class="fas fa-image"></i>
+            </label>
             @error('image')
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
 
-            <button class="btn btn-primary float-end">Edit Post</button>
+            <button class="btn btn-primary float-end button-click-animation">Edit Post</button>
         </form>
     </div></div></div>
 
-    @vite('resources/js/autoResizeTextarea.js')
+    @vite(['resources/js/postEdit.js', 'resources/js/autoResizeTextarea.js'])
 </x-layout>

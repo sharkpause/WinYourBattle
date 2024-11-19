@@ -13,7 +13,7 @@
             <div class="d-inline form-group">
                 <div class="d-flex align-items-center gap-1">
                     <input type="file" name="image" class="hidden" id="post_image">
-                    <label for="post_image" class="pointer-on-hover post-image-upload-button button-click-animation ">
+                    <label for="post_image" class="pointer-on-hover post-image-upload-button button-click-animation">
                         <i class="fas fa-image"></i>
                     </label>
                     @error('image')
@@ -32,7 +32,7 @@
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
 
-            <button class="btn btn-primary float-end">Create post</button>
+            <button class="btn btn-primary float-end button-click-animation">Create post</button>
         </form>
     </div></div></div>
 
