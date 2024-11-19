@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('relapse_tracks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->dateTime('relapse_date')->nullable();
             $table->bigInteger('streak_time')->nullable();
             $table->timestamps();
