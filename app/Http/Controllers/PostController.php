@@ -127,17 +127,17 @@ class PostController extends Controller implements HasMiddleware
         return back()->with('success', 'Your post was deleted!');
     }
 
-    public function like(Post $post) {
-        dd('OK');
+    public function like(Request $request, $id) {
         Like::create([
             'user_id' => Auth::user()->id,
-            'post_id' => $post->id,
+            'post_id' => $id,
         ]);
 
-        $post->update([
-            'likes' => 1
-        ]);
+        $post = Post::findOrFail($id);
+        $post->increment('likes');
 
-        return back()->with('success', 'You successfully liked the post');
+        return response()->json([
+            'likes' => $post->likes
+        ]);
     }
 }
