@@ -45,4 +45,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::patch('/{id}/edit', [UserController::class, 'update'])->name('users.update');
+
+    Route::post('/posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
 });

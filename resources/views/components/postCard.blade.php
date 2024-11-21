@@ -41,10 +41,10 @@
       @endif
 
       <div class="mt-3">
-        <button class="no-styling"><i class="fa-solid fa-thumbs-up me-1"></i></button>
+        <button class="no-styling" id="likeButton"><i class="fa-solid fa-thumbs-up me-1"></i></button>
         <span id="likeCount" class="me-5">{{ $post->likes }}</span>
 
-        <button class="no-styling"><i class="fa-solid fa-thumbs-down me-1"></i></button>
+        <button class="no-styling" id="dislikeButton"><i class="fa-solid fa-thumbs-down me-1"></i></button>
         <span id="dislikeCount">{{ $post->dislikes }}</span>
       </div>
     </div>

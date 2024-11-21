@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -124,5 +125,19 @@ class PostController extends Controller implements HasMiddleware
         $post->delete();
 
         return back()->with('success', 'Your post was deleted!');
+    }
+
+    public function like(Post $post) {
+        dd('OK');
+        Like::create([
+            'user_id' => Auth::user()->id,
+            'post_id' => $post->id,
+        ]);
+
+        $post->update([
+            'likes' => 1
+        ]);
+
+        return back()->with('success', 'You successfully liked the post');
     }
 }
