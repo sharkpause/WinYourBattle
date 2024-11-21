@@ -39,5 +39,13 @@
         <span class="keep-whitespace text-wrap mw-97">{{ Str::limit($post->body, 3000, $end='...') }}</span>
         <a href="{{ route('posts.show', $post) }}" class="no-underline">Read more</a>
       @endif
+
+      <div class="mt-3">
+        <button class="no-styling"><i class="fa-solid fa-thumbs-up me-1"></i></button>
+        <span id="likeCount" class="me-5">{{ $post->likes }}</span>
+
+        <button class="no-styling"><i class="fa-solid fa-thumbs-down me-1"></i></button>
+        <span id="dislikeCount">{{ $post->dislikes }}</span>
+      </div>
     </div>
 </div>
