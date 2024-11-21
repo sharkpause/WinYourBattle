@@ -39,7 +39,7 @@
             <p class="text-danger error-font-size">{{ $message }}</p>
         @enderror
 
-        <button type="submit" class="width-100 btn btn-primary">Log in</button>
+        <button type="submit" class="width-100 btn btn-primary button-click-animation">Log in</button>
     </form>
     </div>
   </div></div></div>

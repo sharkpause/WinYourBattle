@@ -6,7 +6,7 @@
         <form action="{{ route('verification.send') }}" method="POST">
             @csrf
 
-            <button class="btn btn-primary form-control">Send again</button>
+            <button class="btn btn-primary form-control button-click-animation">Send again</button>
         </form>
       </div>
     </div></div></div>

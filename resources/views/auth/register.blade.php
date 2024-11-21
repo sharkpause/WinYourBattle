@@ -34,7 +34,7 @@
 
               <a href="{{ route('login') }}" class="text-end text-muted fs-6 text-sm-end">Already have an account? Log in</a>
       
-              <button type="submit" class="width-100 btn btn-primary mt-2" id="submitButton">
+              <button type="submit" class="width-100 btn btn-primary mt-2 button-click-animation" id="submitButton">
                 <span id="spinnerElem" class="float-start"></span>
                 <span class="text-center">Register</span>
               </button>

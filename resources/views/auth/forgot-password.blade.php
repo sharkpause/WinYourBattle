@@ -19,7 +19,7 @@
           @enderror
         </div>
 
-        <button type="submit" class="width-100 btn btn-primary" id="submitButton">
+        <button type="submit" class="width-100 btn btn-primary button-click-animation" id="submitButton">
           <span id="spinnerElem" class="float-start"></span>
           <span class="text-center">Send the email</span>
         </button>
