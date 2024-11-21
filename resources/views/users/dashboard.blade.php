@@ -81,7 +81,7 @@
             @csrf
             @method('PUT')
 
-            <button class="btn btn-primary btn-muted-blue text-white" type="submit">I relapsed</button>
+            <button class="btn btn-primary btn-muted-blue text-white button-click-animation" type="submit">I relapsed</button>
         </form>
     @endif
     

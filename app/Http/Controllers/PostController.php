@@ -54,7 +54,9 @@ class PostController extends Controller implements HasMiddleware
         Auth::user()->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $path
+            'image' => $path,
+            'likes' => 0,
+            'dislikes' => 0
         ]);
 
         return redirect()->route('posts.index')->with(['success' => 'Your post was posted!']);
@@ -102,7 +104,7 @@ class PostController extends Controller implements HasMiddleware
         $post->update([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $path
+            'image' => $path,
         ]);
 
         return redirect()->route('posts.index')->with(['success' => 'Your post was updated!']);

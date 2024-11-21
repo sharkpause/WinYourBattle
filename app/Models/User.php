@@ -64,4 +64,9 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     {
         return $this->hasOne(Statistic::class);
     }
+
+    public function likedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
 }
