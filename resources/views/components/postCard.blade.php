@@ -40,14 +40,22 @@
         <a href="{{ route('posts.show', $post) }}" class="no-underline">Read more</a>
       @endif
 
+      @auth
       <div class="mt-3">
-        <button class="no-styling" id="likeButton" data-post-id="{{ $post->id }}" data-csrf-token="{{ csrf_token() }}"><i class="fa-solid fa-thumbs-up me-1"></i></button>
-        <span id="likeCount" class="me-5">{{ $post->likes }}</span>
+        <button class="no-styling
+          @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
+
+          id="likeButton" data-post-id="{{ $post->id }}"
+          data-csrf-token="{{ csrf_token() }}">
+            <i class="fa-solid fa-thumbs-up me-1"></i>
+        </button>
+        <span id="likeCount" class="me-5">{{ $post->like_count }}</span>
 
         <button class="no-styling" id="dislikeButton"><i class="fa-solid fa-thumbs-down me-1"></i></button>
         <span id="dislikeCount">{{ $post->dislikes }}</span>
       </div>
     </div>
+    @endauth
 </div>
 
 @vite(['resources/js/postCard.js'])

@@ -20,7 +20,7 @@
                         <p class="ms-1 text-danger">{{ $message }}</p>
                     @enderror
 
-                    <input type="text" class="form-control mb-1 mt-1 @error('title') error-border @enderror" name="title" placeholder="Title goes here...">
+                    <input type="text" class="form-control mb-1 mt-1 @error('title') error-border @enderror" name="title" placeholder="Title goes here..." autocomplete="off">
                     @error('title')
                         <p class="ms-1 text-danger">{{ $message }}</p>
                     @enderror

@@ -9,7 +9,7 @@
             @csrf
             @method('PATCH')
             
-            <input type="text" class="form-control mb-1 @error('title') error-border @enderror" name="title" placeholder="New title goes here..." value="{{ $post->title }}">
+            <input type="text" autocomplete="off" class="form-control mb-1 @error('title') error-border @enderror" name="title" placeholder="New title goes here..." value="{{ $post->title }}">
             @error('title')
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror

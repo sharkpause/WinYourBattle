@@ -24,7 +24,8 @@
                                 class="form-control w-100"
                                 placeholder="Your bio goes here!"
                                 value="{{ Auth::user()->bio }}"
-                                style="max-width: 100%;">
+                                style="max-width: 100%;"
+                                autocomplete="off">
                         
                                 @error('bio')
                             <p class="ms-1 text-danger">{{ $message }}</p>

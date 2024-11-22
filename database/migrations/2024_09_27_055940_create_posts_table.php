@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignID('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('body');
-            $table->unsignedBigInteger('likes')->default(0);
-            $table->unsignedBigIinteger('dislikes')->default(0);
+            $table->unsignedBigInteger('like_count')->default(0);
+            $table->unsignedBigInteger('dislike_count')->default(0);
             $table->timestamps();
             $table->string('image')->nullable();
         });

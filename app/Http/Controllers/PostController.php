@@ -56,8 +56,8 @@ class PostController extends Controller implements HasMiddleware
             'title' => $request->title,
             'body' => $request->body,
             'image' => $path,
-            'likes' => 0,
-            'dislikes' => 0
+            'like_count' => 0,
+            'dislike_count' => 0
         ]);
 
         return redirect()->route('posts.index')->with(['success' => 'Your post was posted!']);
@@ -134,10 +134,10 @@ class PostController extends Controller implements HasMiddleware
         ]);
 
         $post = Post::findOrFail($id);
-        $post->increment('likes');
+        $post->increment('like_count');
 
         return response()->json([
-            'likes' => $post->likes
+            'like_count' => $post->like_count
         ]);
     }
 }
