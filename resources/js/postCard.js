@@ -80,8 +80,12 @@ commentSectionButton.on('click', async function (e) {
     if(commentSectionButton.attr('data-opened') === 'false') {
         $('#commentSectionButtonIcon').addClass('text-primary');
         commentSectionButton.attr('data-opened', 'true');
+
+        $('#commentSection').removeClass('d-none');
     } else if(commentSectionButton.attr('data-opened') === 'true') {
         $('#commentSectionButtonIcon').removeClass('text-primary');
         commentSectionButton.attr('data-opened', 'false');
+
+        $('#commentSection').addClass('d-none');
     }
 });
