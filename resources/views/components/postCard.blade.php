@@ -70,9 +70,14 @@
   </div>
 
     <div class="mt-4 mb-5 d-none" id="commentSection">
-      <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
+      <form method="POST" action="{{ route('comments.store', $post->id) }}">
+        @csrf
+
+        <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"></textarea>
+        <button type="submit" class="float-end btn btn-primary">Post comment</button>
+      </form>
     </div>
     @endauth
 </div>

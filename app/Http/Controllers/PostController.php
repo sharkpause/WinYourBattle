@@ -129,20 +129,21 @@ class PostController extends Controller implements HasMiddleware
         return back()->with('success', 'Your post was deleted!');
     }
 
-    public function like(Request $request, $id) { // $id = post ID
-        if(!$this->validateUserAndPost(Auth::user()->id, $id))
-            return response()->json([ 'error' => "User or post doesn't exist" ], 404);
+    public function like(Request $request, $post_id) {
+        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        if($validatorResponse != true)
+            return $validatorResponse;
         
-        if(Dislike::where('user_id', Auth::user()->id)->where('post_id', $id)->exists()) {
-            $this->handleUndislike($id);
+        if(Dislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
+            $this->handleUndislike($post_id);
         }
 
         Like::create([
             'user_id' => Auth::user()->id,
-            'post_id' => $id,
+            'post_id' => $post_id,
         ]);
 
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($post_id);
         $post->increment('like_count');
 
         return response()->json([
@@ -150,31 +151,36 @@ class PostController extends Controller implements HasMiddleware
         ]);
     }
 
-    public function unlike(Request $request, $id) { // $id = post ID
-        if(!$this->validateUserAndPost(Auth::user()->id, $id))
-            return response()->json([ 'error' => "User or post doesn't exist" ], 404);
+    public function unlike(Request $request, $post_id) {
+        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        if($validatorResponse != true)
+            return $validatorResponse;
 
-        $this->handleUnlike($id);
+        $this->handleUnlike($post_id);
         
         return response()->json([
             'like_count' => $post->like_count
         ]);
     }
 
-    public function dislike(Request $request, $id) { // $id = post ID
-        if(!$this->validateUserAndPost(Auth::user()->id, $id))
+    public function dislike(Request $request, $post_id) {
+        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        if($validatorResponse != true)
+            return $validatorResponse;
+
+        if(!$this->validateUserAndPost(Auth::user()->id, $post_id))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
 
-        if(Like::where('user_id', Auth::user()->id)->where('post_id', $id)->exists()) {
-            $this->handleUnlike($id);
+        if(Like::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
+            $this->handleUnlike($post_id);
         }
 
         Dislike::create([
             'user_id' => Auth::user()->id,
-            'post_id' => $id,
+            'post_id' => $post_id,
         ]);
 
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($post_id);
         $post->increment('dislike_count');
 
         return response()->json([
@@ -182,11 +188,12 @@ class PostController extends Controller implements HasMiddleware
         ]);
     }
 
-    public function undislike(Request $request, $id) { // $id = post ID
-        if(!$this->validateUserAndPost(Auth::user()->id, $id))
-            return response()->json([ 'error' => "User or post doesn't exist" ], 404);
+    public function undislike(Request $request, $post_id) {
+        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        if($validatorResponse != true)
+            return $validatorResponse;
 
-        $this->handleUndislike($id);
+        $this->handleUndislike($post_id);
         
         return response()->json([
             'dislike_count' => $post->dislike_count
@@ -194,24 +201,39 @@ class PostController extends Controller implements HasMiddleware
     }
 
     private function validateUserAndPost($userID, $postID) {
-        return User::where('id', $userID)->exists() && Post::where('id', $postID)->exists();
+        if(!(User::where('id', $userID)->exists() && Post::where('id', $postID)->exists())) {
+            return response()->json(['error' => 'Invalid user or post'], 404);
+        }
+
+        if(Validator::make(
+            ['user_id' => $user_id, 'post_id' => $post_id],
+            [
+                'user_id' => ['required', 'integer', 'exists:users,id'],
+                'post_id' => ['required', 'integer', 'exists:posts,id'],
+            ]
+        )->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        return true;
     }
 
-    private function handleUndislike($id) {
-        $dislike = Dislike::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
+    private function handleUndislike($post_id) {
+        $dislike = Dislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
 
         $dislike->delete();
         
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($post_id);
         $post->decrement('dislike_count');
     }
 
-    private function handleUnlike($id) {
-        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
+    private function handleUnlike($post_id) {
+        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
 
         $like->delete();
         
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($post_id);
         $post->decrement('like_count');
     }
+
 }

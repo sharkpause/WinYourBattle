@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TestMailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResetPasswordController;
@@ -46,9 +47,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::patch('/{id}/edit', [UserController::class, 'update'])->name('users.update');
 
-    Route::post('/posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
-    Route::post('/posts/{id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
+    Route::post('/posts/{post_id}/like', [PostController::class, 'like'])->name('posts.like');
+    Route::post('/posts/{post_id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
 
-    Route::post('/posts/{id}/dislike', [PostController::class, 'dislike'])->name('posts.dislike');
-    Route::post('/posts/{id}/undislike', [PostController::class, 'undislike'])->name('posts.undislike');
+    Route::post('/posts/{post_id}/dislike', [PostController::class, 'dislike'])->name('posts.dislike');
+    Route::post('/posts/{post_id}/undislike', [PostController::class, 'undislike'])->name('posts.undislike');
+
+    Route::post('/posts/{post_id}/comment', [CommentController::class, 'store'])->name('comments.store');
 });
