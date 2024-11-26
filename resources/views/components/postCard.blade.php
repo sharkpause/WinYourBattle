@@ -42,7 +42,7 @@
 
       @auth
       <div class="mt-3">
-        <button class="no-styling
+        <button class="no-styling button-click-animation
           @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
           id="likeButton" data-post-id="{{ $post->id }}"
           data-csrf-token="{{ csrf_token() }}"
@@ -52,7 +52,7 @@
         </button>
         <span id="likeCount" class="me-5">{{ $post->like_count }}</span>
 
-        <button class="no-styling
+        <button class="no-styling button-click-animation
         @if($post->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
         id="dislikeButton" data-post-id="{{ $post->id }}"
         data-csrf-token="{{ csrf_token() }}"
@@ -61,7 +61,7 @@
         <i class="fa-solid fa-thumbs-down me-1"></i></button>
         <span id="dislikeCount">{{ $post->dislike_count }}</span>
 
-        <button class="float-end no-styling me-5" id="commentSectionButton" data-opened="false">
+        <button class="float-end no-styling me-5 button-click-animation" id="commentSectionButton" data-opened="false">
           <i class="fa fa-comment" id="commentSectionButtonIcon"></i>
         </button>
       </div>
