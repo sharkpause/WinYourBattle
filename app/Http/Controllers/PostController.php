@@ -140,4 +140,17 @@ class PostController extends Controller implements HasMiddleware
             'like_count' => $post->like_count
         ]);
     }
+
+    public function unlike(Request $request, $id) {
+        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
+
+        $like->delete();
+        
+        $post = Post::findOrFail($id);
+        $post->decrement('like_count');
+        
+        return response()->json([
+            'like_count' => $post->like_count
+        ]);
+    }
 }
