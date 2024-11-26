@@ -116,7 +116,7 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
-        Gate::authorize('modify', $post);
+        Gate::authorize('modify', Auth::user()->id, $post->id);
 
         if($post->image) {
             Storage::disk('public')->delete($post->image);
@@ -128,6 +128,8 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function like(Request $request, $id) {
+        Gate::authorize('exists', [Auth::user()->id, $id]);
+
         Like::create([
             'user_id' => Auth::user()->id,
             'post_id' => $id,
@@ -149,6 +151,20 @@ class PostController extends Controller implements HasMiddleware
         $post = Post::findOrFail($id);
         $post->decrement('like_count');
         
+        return response()->json([
+            'like_count' => $post->like_count
+        ]);
+    }
+
+    public function dislike(Request $request, $id) {
+        Like::create([
+            'user_id' => Auth::user()->id,
+            'post_id' => $id,
+        ]);
+
+        $post = Post::findOrFail($id);
+        $post->increment('like_count');
+
         return response()->json([
             'like_count' => $post->like_count
         ]);
