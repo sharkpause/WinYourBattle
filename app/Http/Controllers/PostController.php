@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -127,8 +128,10 @@ class PostController extends Controller implements HasMiddleware
         return back()->with('success', 'Your post was deleted!');
     }
 
-    public function like(Request $request, $id) {
-        Gate::authorize('exists', [Auth::user()->id, $id]);
+    public function like(Request $request, $id) { // $id = post ID
+        if(!(User::where('id', Auth::user()->id)->exists() &&
+            Post::where('id', $id)->exists()))
+            return response()->json([ 'error' => "User or post doesn't exist" ], 404);
 
         Like::create([
             'user_id' => Auth::user()->id,
@@ -143,7 +146,11 @@ class PostController extends Controller implements HasMiddleware
         ]);
     }
 
-    public function unlike(Request $request, $id) {
+    public function unlike(Request $request, $id) { // $id = post ID
+        if(!(User::where('id', Auth::user()->id)->exists() &&
+            Post::where('id', $id)->exists()))
+            return response()->json([ 'error' => "User or post doesn't exist" ], 404);
+            
         $like = Like::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
 
         $like->delete();
