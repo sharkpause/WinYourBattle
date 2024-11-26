@@ -38,7 +38,7 @@ $('#dislikeButton').on('click', async function(e) {
         const dislikeCountElem = $('#dislikeCount');
         dislikeCountElem.text(Number(dislikeCountElem.text()) + 1);
         $(this).attr('data-disliked', 'true');
-        $(this).addClass('text-primary');
+        $(this).addClass('text-danger');
 
         try {
             await axios.post('/posts/' + postID + '/dislike', { _token: $(this).data('csrf-token') });
@@ -49,7 +49,7 @@ $('#dislikeButton').on('click', async function(e) {
         const dislikeCountElem = $('#dislikeCount');
         dislikeCountElem.text(Number(dislikeCountElem.text()) - 1);
         $(this).attr('data-disliked', 'false');
-        $(this).removeClass('text-primary');
+        $(this).removeClass('text-danger');
         
         try {
             await axios.post('/posts/' + postID + '/undislike', { _token: $(this).data('csrf-token') });
