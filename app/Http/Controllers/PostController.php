@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Dislike;
+use App\Models\PostLike;
+use App\Models\PostDislike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
@@ -59,7 +60,7 @@ class PostController extends Controller implements HasMiddleware
             'body' => $request->body,
             'image' => $path,
             'like_count' => 0,
-            'dislike_count' => 0
+            'PostDislike_count' => 0
         ]);
 
         return redirect()->route('posts.index')->with(['success' => 'Your post was posted!']);
@@ -134,11 +135,11 @@ class PostController extends Controller implements HasMiddleware
         if($validatorResponse != true)
             return $validatorResponse;
         
-        if(Dislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
+        if(PostDislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
             $this->handleUndislike($post_id);
         }
 
-        Like::create([
+        PostLike::create([
             'user_id' => Auth::user()->id,
             'post_id' => $post_id,
         ]);
@@ -159,7 +160,7 @@ class PostController extends Controller implements HasMiddleware
         $this->handleUnlike($post_id);
         
         return response()->json([
-            'like_count' => $post->like_count
+            'like_count' => Post::findOrFail($post_id)->like_count
         ]);
     }
 
@@ -171,11 +172,11 @@ class PostController extends Controller implements HasMiddleware
         if(!$this->validateUserAndPost(Auth::user()->id, $post_id))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
 
-        if(Like::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
+        if(PostLike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
             $this->handleUnlike($post_id);
         }
 
-        Dislike::create([
+        PostDislike::create([
             'user_id' => Auth::user()->id,
             'post_id' => $post_id,
         ]);
@@ -196,7 +197,7 @@ class PostController extends Controller implements HasMiddleware
         $this->handleUndislike($post_id);
         
         return response()->json([
-            'dislike_count' => $post->dislike_count
+            'dislike_count' => Post::findOrFail($post_id)->dislike_count
         ]);
     }
 
@@ -206,7 +207,7 @@ class PostController extends Controller implements HasMiddleware
         }
 
         if(Validator::make(
-            ['user_id' => $user_id, 'post_id' => $post_id],
+            ['user_id' => $userID, 'post_id' => $postID],
             [
                 'user_id' => ['required', 'integer', 'exists:users,id'],
                 'post_id' => ['required', 'integer', 'exists:posts,id'],
@@ -219,7 +220,7 @@ class PostController extends Controller implements HasMiddleware
     }
 
     private function handleUndislike($post_id) {
-        $dislike = Dislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
+        $dislike = PostDislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
 
         $dislike->delete();
         
@@ -228,7 +229,7 @@ class PostController extends Controller implements HasMiddleware
     }
 
     private function handleUnlike($post_id) {
-        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
+        $like = PostLike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
 
         $like->delete();
         

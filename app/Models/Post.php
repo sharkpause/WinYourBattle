@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Like;
+use App\Models\PostLike;
 use App\Models\User;
-use App\Models\Dislike;
+use App\Models\PostDislike;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -27,10 +27,10 @@ class Post extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class); 
+        return $this->hasMany(PostLike::class); 
     }
     public function dislikes()
     {
-        return $this->hasMany(Dislike::class);
+        return $this->hasMany(PostDislike::class);
     }
 }
