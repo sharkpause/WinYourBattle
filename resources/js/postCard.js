@@ -4,9 +4,17 @@ import axios from 'axios';
 $('#likeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
+    const likeCountElem = $('#likeCount');
+    const dislikeCountElem = $('#dislikeCount');
+    const dislikeButton = $('#dislikeButton');
+
+    if(dislikeButton.attr('data-disliked').trim() === 'true') {
+        dislikeCountElem.text(Number(dislikeCountElem.text()) - 1);
+        dislikeButton.attr('data-disliked', 'false');
+        dislikeButton.removeClass('text-danger');
+    }
 
     if($(this).attr('data-liked').trim() === 'false') {
-        const likeCountElem = $('#likeCount');
         likeCountElem.text(Number(likeCountElem.text()) + 1);
         $(this).attr('data-liked', 'true');
         $(this).addClass('text-primary');
@@ -17,7 +25,6 @@ $('#likeButton').on('click', async function(e) {
             console.log(err);
         }
     } else if($(this).attr('data-liked').trim() === 'true') {
-        const likeCountElem = $('#likeCount');
         likeCountElem.text(Number(likeCountElem.text()) - 1);
         $(this).attr('data-liked', 'false');
         $(this).removeClass('text-primary');
@@ -33,9 +40,17 @@ $('#likeButton').on('click', async function(e) {
 $('#dislikeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
+    const dislikeCountElem = $('#dislikeCount');
+    const likeCountElem = $('#likeCount');
+    const likeButton = $('#likeButton');
+
+    if(likeButton.attr('data-liked').trim() === 'true') {
+        likeCountElem.text(Number(likeCountElem.text()) - 1);
+        likeButton.attr('data-liked', 'false');
+        likeButton.removeClass('text-primary');
+    }
 
     if($(this).attr('data-disliked').trim() === 'false') {
-        const dislikeCountElem = $('#dislikeCount');
         dislikeCountElem.text(Number(dislikeCountElem.text()) + 1);
         $(this).attr('data-disliked', 'true');
         $(this).addClass('text-danger');
@@ -46,7 +61,6 @@ $('#dislikeButton').on('click', async function(e) {
             console.log(err);
         }
     } else if($(this).attr('data-disliked').trim() === 'true') {
-        const dislikeCountElem = $('#dislikeCount');
         dislikeCountElem.text(Number(dislikeCountElem.text()) - 1);
         $(this).attr('data-disliked', 'false');
         $(this).removeClass('text-danger');
