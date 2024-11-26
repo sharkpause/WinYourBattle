@@ -130,9 +130,12 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function like(Request $request, $id) { // $id = post ID
-        if(!(User::where('id', Auth::user()->id)->exists() &&
-            Post::where('id', $id)->exists()))
+        if(!$this->validateUserAndPost(Auth::user()->id, $id))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
+        
+        if(Dislike::where('user_id', Auth::user()->id)->where('post_id', $id)->exists()) {
+            $this->handleUndislike($id);
+        }
 
         Like::create([
             'user_id' => Auth::user()->id,
@@ -148,16 +151,10 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function unlike(Request $request, $id) { // $id = post ID
-        if(!(User::where('id', Auth::user()->id)->exists() &&
-            Post::where('id', $id)->exists()))
+        if(!$this->validateUserAndPost(Auth::user()->id, $id))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
 
-        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
-
-        $like->delete();
-        
-        $post = Post::findOrFail($id);
-        $post->decrement('like_count');
+        $this->handleUnlike($id);
         
         return response()->json([
             'like_count' => $post->like_count
@@ -165,6 +162,13 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function dislike(Request $request, $id) { // $id = post ID
+        if(!$this->validateUserAndPost(Auth::user()->id, $id))
+            return response()->json([ 'error' => "User or post doesn't exist" ], 404);
+
+        if(Like::where('user_id', Auth::user()->id)->where('post_id', $id)->exists()) {
+            $this->handleUnlike($id);
+        }
+
         Dislike::create([
             'user_id' => Auth::user()->id,
             'post_id' => $id,
@@ -179,19 +183,35 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function undislike(Request $request, $id) { // $id = post ID
-        if(!(User::where('id', Auth::user()->id)->exists() &&
-            Post::where('id', $id)->exists()))
+        if(!$this->validateUserAndPost(Auth::user()->id, $id))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
 
+        $this->handleUndislike($id);
+        
+        return response()->json([
+            'dislike_count' => $post->dislike_count
+        ]);
+    }
+
+    private function validateUserAndPost($userID, $postID) {
+        return User::where('id', $userID)->exists() && Post::where('id', $postID)->exists();
+    }
+
+    private function handleUndislike($id) {
         $dislike = Dislike::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
 
         $dislike->delete();
         
         $post = Post::findOrFail($id);
         $post->decrement('dislike_count');
+    }
+
+    private function handleUnlike($id) {
+        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
+
+        $like->delete();
         
-        return response()->json([
-            'dislike_count' => $post->dislike_count
-        ]);
+        $post = Post::findOrFail($id);
+        $post->decrement('like_count');
     }
 }
