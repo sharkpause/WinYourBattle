@@ -58,3 +58,16 @@ $('#dislikeButton').on('click', async function(e) {
         }
     }
 });
+
+const commentSectionButton = $('#commentSectionButton');
+commentSectionButton.on('click', async function (e) {
+    e.preventDefault();
+
+    if(commentSectionButton.attr('data-opened') === 'false') {
+        $('#commentSectionButtonIcon').addClass('text-primary');
+        commentSectionButton.attr('data-opened', 'true');
+    } else if(commentSectionButton.attr('data-opened') === 'true') {
+        $('#commentSectionButtonIcon').removeClass('text-primary');
+        commentSectionButton.attr('data-opened', 'false');
+    }
+});

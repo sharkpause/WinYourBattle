@@ -60,6 +60,10 @@
         
         <i class="fa-solid fa-thumbs-down me-1"></i></button>
         <span id="dislikeCount">{{ $post->dislike_count }}</span>
+
+        <button class="float-end no-styling me-5" id="commentSectionButton" data-opened="false">
+          <i class="fa fa-comment" id="commentSectionButtonIcon"></i>
+        </button>
       </div>
     </div>
     @endauth
