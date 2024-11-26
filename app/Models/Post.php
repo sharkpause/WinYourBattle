@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Like;
+use App\Models\User;
+use App\Models\Dislike;
+
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-
-use App\Models\User;
 
 class Post extends Model
 {
@@ -26,5 +28,9 @@ class Post extends Model
     public function likes()
     {
         return $this->hasMany(Like::class); 
+    }
+    public function dislikes()
+    {
+        return $this->hasMany(Dislike::class);
     }
 }

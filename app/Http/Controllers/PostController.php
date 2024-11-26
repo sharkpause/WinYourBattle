@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Dislike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -150,7 +151,7 @@ class PostController extends Controller implements HasMiddleware
         if(!(User::where('id', Auth::user()->id)->exists() &&
             Post::where('id', $id)->exists()))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
-            
+
         $like = Like::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
 
         $like->delete();
@@ -163,17 +164,34 @@ class PostController extends Controller implements HasMiddleware
         ]);
     }
 
-    public function dislike(Request $request, $id) {
-        Like::create([
+    public function dislike(Request $request, $id) { // $id = post ID
+        Dislike::create([
             'user_id' => Auth::user()->id,
             'post_id' => $id,
         ]);
 
         $post = Post::findOrFail($id);
-        $post->increment('like_count');
+        $post->increment('dislike_count');
 
         return response()->json([
-            'like_count' => $post->like_count
+            'dislike_count' => $post->dislike_count
+        ]);
+    }
+
+    public function undislike(Request $request, $id) { // $id = post ID
+        if(!(User::where('id', Auth::user()->id)->exists() &&
+            Post::where('id', $id)->exists()))
+            return response()->json([ 'error' => "User or post doesn't exist" ], 404);
+
+        $dislike = Dislike::where('user_id', Auth::user()->id)->where('post_id', $id)->firstOrFail();
+
+        $dislike->delete();
+        
+        $post = Post::findOrFail($id);
+        $post->decrement('dislike_count');
+        
+        return response()->json([
+            'dislike_count' => $post->dislike_count
         ]);
     }
 }

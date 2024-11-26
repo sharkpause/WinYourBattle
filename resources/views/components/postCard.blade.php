@@ -48,11 +48,18 @@
           id="likeButton" data-post-id="{{ $post->id }}"
           data-csrf-token="{{ csrf_token() }}"
           data-liked="@if($post->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
-            <i class="fa-solid fa-thumbs-up me-1"></i>
+          
+          <i class="fa-solid fa-thumbs-up me-1"></i>
         </button>
         <span id="likeCount" class="me-5">{{ $post->like_count }}</span>
 
-        <button class="no-styling" id="dislikeButton"><i class="fa-solid fa-thumbs-down me-1"></i></button>
+        <button class="no-styling
+        @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
+        id="dislikeButton"
+        data-csrf-token="{{ csrf_token() }}"
+        data-disliked="@if($post->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
+        
+        <i class="fa-solid fa-thumbs-down me-1"></i></button>
         <span id="dislikeCount">{{ $post->dislikes }}</span>
       </div>
     </div>

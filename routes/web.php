@@ -48,4 +48,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
+
+    Route::post('/posts/{id}/dislike', [PostController::class, 'dislike'])->name('posts.dislike');
+    Route::post('/posts/{id}/undislike', [PostController::class, 'undislike'])->name('posts.undislike');
 });
