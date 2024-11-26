@@ -44,7 +44,6 @@
       <div class="mt-3">
         <button class="no-styling
           @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
-
           id="likeButton" data-post-id="{{ $post->id }}"
           data-csrf-token="{{ csrf_token() }}"
           data-liked="@if($post->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
@@ -54,13 +53,13 @@
         <span id="likeCount" class="me-5">{{ $post->like_count }}</span>
 
         <button class="no-styling
-        @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
-        id="dislikeButton"
+        @if($post->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
+        id="dislikeButton" data-post-id="{{ $post->id }}"
         data-csrf-token="{{ csrf_token() }}"
         data-disliked="@if($post->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
         
         <i class="fa-solid fa-thumbs-down me-1"></i></button>
-        <span id="dislikeCount">{{ $post->dislikes }}</span>
+        <span id="dislikeCount">{{ $post->dislike_count }}</span>
       </div>
     </div>
     @endauth

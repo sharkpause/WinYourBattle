@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Dislike extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'post_id'
+    ];
 }
