@@ -60,7 +60,7 @@ class PostController extends Controller implements HasMiddleware
             'body' => $request->body,
             'image' => $path,
             'like_count' => 0,
-            'PostDislike_count' => 0
+            'dislike_count' => 0
         ]);
 
         return redirect()->route('posts.index')->with(['success' => 'Your post was posted!']);

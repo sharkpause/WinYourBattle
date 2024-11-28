@@ -70,12 +70,11 @@
   </div>
 
     <div class="mt-4 mb-5 d-none" id="commentSection">
-      <form method="POST" action="{{ route('comments.store', $post->id) }}">
-        @csrf
-
+      <form method="POST" id="commentForm" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
-                placeholder="What do you think about this post?"></textarea>
+                placeholder="What do you think about this post?"
+                id="commentTextarea"></textarea>
         <button type="submit" class="float-end btn btn-primary">Post comment</button>
       </form>
     </div>

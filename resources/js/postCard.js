@@ -74,7 +74,7 @@ $('#dislikeButton').on('click', async function(e) {
 });
 
 const commentSectionButton = $('#commentSectionButton');
-commentSectionButton.on('click', async function (e) {
+commentSectionButton.on('click', async function(e) {
     e.preventDefault();
 
     if(commentSectionButton.attr('data-opened') === 'false') {
@@ -87,5 +87,19 @@ commentSectionButton.on('click', async function (e) {
         commentSectionButton.attr('data-opened', 'false');
 
         $('#commentSection').addClass('d-none');
+    }
+});
+
+$('#commentForm').on('submit', async function(e) {
+    e.preventDefault();
+
+    try {
+        await axios.post('/posts/' + $(this).attr('data-post-id') + '/comment',
+        {
+            _token: $(this).attr('data-csrf-token'),
+            body: $('#commentTextarea').val(),
+        });
+    } catch(err) {
+        console.log(err);
     }
 });

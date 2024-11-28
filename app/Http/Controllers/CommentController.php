@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -20,11 +22,22 @@ class CommentController extends Controller
      */
     public function store(Request $request, $post_id)
     {
+        if(!Post::where('id', $post_id)->exists())
+            return response()->json([ 'error' => 'Post does not exist'], 404);
+
         $fields = $request->validate([
-            'user_id' => ['required', 'integer', 'exists:users,id'],
-            'post_id' => ['required', 'integer', 'exists:posts,id'],
             'body' => ['required'],
         ]);
+        
+        Auth::user()->comments()->create([
+            'body' => $request->body,
+            'like_count' => 0,
+            'dislike_count' => 0,
+            'user_id' => Auth::user()->id,
+            'post_id' => $post_id
+        ]);
+
+        return response()->json([ 'success' => 'Your comment was posted!' ]);
     }
 
     /**

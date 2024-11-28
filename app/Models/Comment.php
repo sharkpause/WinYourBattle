@@ -14,4 +14,18 @@ class Comment extends Model
         'post_id',
         'body'
     ];
+
+    public function likes()
+    {
+        return $this->hasMany(PostLike::class); 
+    }
+    public function dislikes()
+    {
+        return $this->hasMany(PostDislike::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }
