@@ -41,8 +41,8 @@
           <a href="{{ route('posts.show', $post) }}" class="no-underline">Read more</a>
         @endif
         
-        @auth
         <div class="mt-3">
+          @auth
           <button class="no-styling button-click-animation
             @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
             id="likeButton" data-post-id="{{ $post->id }}"
@@ -61,6 +61,7 @@
           
           <i class="fa-solid fa-thumbs-down me-1"></i></button>
           <span id="dislikeCount">{{ $post->dislike_count }}</span>
+          @endauth
         
           <button class="float-end no-styling me-5 button-click-animation" id="commentSectionButton" data-opened="false">
             <i class="fa fa-comment" id="commentSectionButtonIcon"></i>
@@ -70,15 +71,20 @@
   </div>
 
     <div class="mt-4 mb-5 d-none" id="commentSection">
-      <form method="POST" id="commentForm" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
+      @auth<form method="POST" id="commentForm" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"
                 id="commentTextarea"></textarea>
         <button type="submit" class="float-end btn btn-primary">Post comment</button>
-      </form>
+      </form>@endauth
+
+
+        @foreach ($post->comments()->get() as $comment)
+            <x-commentCard :comment="$comment"></x-commentCard>
+        @endforeach
+
     </div>
-    @endauth
 </div>
 
 @vite(['resources/js/postCard.js', 'resources/js/autoResizeTextarea.js'])
