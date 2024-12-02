@@ -7,7 +7,7 @@
     <div class="d-flex flex-column min-vh-80 justify-content-center align-items-center"><div class="card col-4 border-radius-2-rem shadow">
     <div class="card-body m-3">
     <h3 class="mb-5">Log in</h3>
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" id="form">
         @csrf
 
         <div class="form-group mb-4">
@@ -39,10 +39,13 @@
             <p class="text-danger error-font-size">{{ $message }}</p>
         @enderror
 
-        <button type="submit" class="width-100 btn btn-primary button-click-animation">Log in</button>
+        <button type="submit" class="width-100 btn btn-primary button-click-animation" id="submitButton">
+          <span id="spinnerElem" class="float-start"></span>
+          <span class="text-center">Log in</span>
+        </button>
     </form>
     </div>
   </div></div></div>
 
-  @vite('resources/js/alert.js')
+  @vite(['resources/js/alert.js', 'resources/js/submitButtonUnclickable.js'])
 </x-layout>
