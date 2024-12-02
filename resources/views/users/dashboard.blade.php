@@ -106,7 +106,7 @@
     <div class="container mt-5">
         <h1 class="mb-4">Your latest posts</h1>
 
-        @foreach ($posts as $post)
+        @foreach($posts as $post)
             <x-postCard :post="$post"></x-postCard>
         @endforeach
     </div>

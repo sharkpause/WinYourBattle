@@ -70,8 +70,8 @@
       </div>
   </div>
 
-    <div class="mt-4 mb-5 d-none" id="commentSection">
-      @auth<form method="POST" id="commentForm" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
+    <div class="mt-4 d-none" id="commentSection">
+      @auth<form class="mb-5" method="POST" id="commentForm" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"
@@ -79,11 +79,9 @@
         <button type="submit" class="float-end btn btn-primary">Post comment</button>
       </form>@endauth
 
-
-        @foreach ($post->comments()->get() as $comment)
-            <x-commentCard :comment="$comment"></x-commentCard>
-        @endforeach
-
+      @foreach($post->comments()->get() as $comment)
+          <x-commentCard :comment="$comment"></x-commentCard>
+      @endforeach
     </div>
 </div>
 
