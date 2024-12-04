@@ -21,8 +21,8 @@
                 data-url="{{ route('posts.create') }}">
         @endauth
 
-        @foreach ($posts as $post)
-            <x-postCard :post="$post"></x-postCard>
+        @foreach($posts as $post)
+            <x-postCard :post="$post" :id="$post->id"></x-postCard>
         @endforeach
     </div>
 

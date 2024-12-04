@@ -1,4 +1,4 @@
-@props(['post', 'full' => false])
+@props(['post', 'full' => false, 'id'])
 
 <div class="mb-4 bg-light p-3 border-radius-1-rem shadow">
   <div class="d-flex">
@@ -63,15 +63,15 @@
           <span id="dislikeCount">{{ $post->dislike_count }}</span>
           @endauth
         
-          <button class="float-end no-styling me-5 button-click-animation" id="commentSectionButton" data-opened="false">
+          <button class="float-end no-styling me-5 button-click-animation commentSectionButton" data-opened="false" data-post-id="{{ $id }}">
             <i class="fa fa-comment" id="commentSectionButtonIcon"></i>
           </button>
         </div>
       </div>
   </div>
 
-    <div class="mt-4 d-none" id="commentSection">
-      @auth<form class="mb-5" method="POST" id="commentForm" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
+    <div class="mt-4 d-none" id="commentSection-{{ $id }}">
+      @auth<form class="mb-4_5 commentForm" method="POST" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"
@@ -79,10 +79,13 @@
         <button type="submit" class="float-end btn btn-primary">Post comment</button>
       </form>@endauth
 
+      @if($post->comments()->count() > 0)
+      <span class="mt-5"></span>
       @foreach($post->comments()->get() as $comment)
           <x-commentCard :comment="$comment"></x-commentCard>
       @endforeach
-    </div>
+      @endif
+  </div>
 </div>
 
 @vite(['resources/js/postCard.js', 'resources/js/autoResizeTextarea.js'])

@@ -73,24 +73,23 @@ $('#dislikeButton').on('click', async function(e) {
     }
 });
 
-const commentSectionButton = $('#commentSectionButton');
-commentSectionButton.on('click', async function(e) {
+$('.commentSectionButton').on('click', async function(e) {
     e.preventDefault();
 
-    if(commentSectionButton.attr('data-opened') === 'false') {
-        $('#commentSectionButtonIcon').addClass('text-primary');
-        commentSectionButton.attr('data-opened', 'true');
+    if($(this).attr('data-opened').trim() === 'false') {
+        $(this).find('.commentSectionButtonIcon').addClass('text-primary');
+        $(this).attr('data-opened', 'true');
 
-        $('#commentSection').removeClass('d-none');
-    } else if(commentSectionButton.attr('data-opened') === 'true') {
-        $('#commentSectionButtonIcon').removeClass('text-primary');
-        commentSectionButton.attr('data-opened', 'false');
+        $('#commentSection-' + $(this).attr('data-post-id')).removeClass('d-none');
+    } else if($(this).attr('data-opened').trim() === 'true') {
+        $(this).find('.commentSectionButtonIcon').removeClass('text-primary');
+        $(this).attr('data-opened', 'false');
 
-        $('#commentSection').addClass('d-none');
+        $('#commentSection-' + $(this).attr('data-post-id')).addClass('d-none');
     }
 });
 
-$('#commentForm').on('submit', async function(e) {
+$('.commentForm').on('submit', async function(e) {
     e.preventDefault();
 
     try {
