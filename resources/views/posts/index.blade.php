@@ -22,7 +22,7 @@
         @endauth
 
         @foreach($posts as $post)
-            <x-postCard :post="$post" :id="$post->id"></x-postCard>
+            <x-postCard :post="$post"></x-postCard>
         @endforeach
     </div>
 
