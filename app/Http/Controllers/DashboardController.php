@@ -24,8 +24,8 @@ class DashboardController extends Controller
 
     public function setInitialRelapseDate(Request $request) {
         $fields = $request->validate([
-            'date_of_relapse' => ['required', 'date'],
-            'time_of_relapse' => ['required', 'date_format:H:i:s'],
+            'date_of_relapse' => ['required', 'date', 'before_or_equal:now'],
+            'time_of_relapse' => ['required', 'date_format:H:i:s', 'before_or_equal:now'],
             'timezone' => ['required']
         ]);
 
