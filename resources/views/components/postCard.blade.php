@@ -75,15 +75,18 @@
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"
-                id="commentTextarea"></textarea>
+                id="commentTextarea"
+                autocomplete="off"></textarea>
         <button type="submit" class="float-end btn btn-primary">Post comment</button>
       </form>@endauth
 
       @if($post->comments()->count() > 0)
       <span class="mt-5"></span>
+      <span id="commentCards-{{ $post->id }}">
       @foreach($post->comments()->get() as $comment)
           <x-commentCard :comment="$comment"></x-commentCard>
       @endforeach
+      </span>
       @endif
   </div>
 </div>

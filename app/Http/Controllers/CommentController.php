@@ -29,15 +29,15 @@ class CommentController extends Controller
             'body' => ['required'],
         ]);
         
-        Auth::user()->comments()->create([
+        $comment = Comment::create([
+            'post_id' => $post_id,
+            'user_id' => Auth::id(),
             'body' => $request->body,
             'like_count' => 0,
-            'dislike_count' => 0,
-            'user_id' => Auth::user()->id,
-            'post_id' => $post_id
+            'dislike_count' => 0
         ]);
 
-        return response()->json([ 'success' => 'Your comment was posted!' ]);
+        return response()->json([ 'html' => view('components.commentCard', ['comment' => $comment])->render() ]);
     }
 
     /**

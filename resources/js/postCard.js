@@ -93,11 +93,13 @@ $('.commentForm').on('submit', async function(e) {
     e.preventDefault();
 
     try {
-        await axios.post('/posts/' + $(this).attr('data-post-id') + '/comment',
+        const response = await axios.post('/posts/' + $(this).attr('data-post-id') + '/comment',
         {
             _token: $(this).attr('data-csrf-token'),
             body: $('#commentTextarea').val(),
         });
+
+        $('#commentCards-' + $(this).attr('data-post-id')).append(response.data.html);
     } catch(err) {
         console.log(err);
     }
