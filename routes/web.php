@@ -30,12 +30,14 @@ Route::middleware(['guest'])->group(function () {
 Route::get('/{user}/posts', [DashboardController::class, 'userPosts'])->name('posts.user');
 
 Route::middleware(['auth'])->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard'); 
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); 
 
-    Route::put('/set-initial-relapse-date', [DashboardController::class, 'setInitialRelapseDate'])->name('set-initial-relapse-date');
     Route::put('/set-new-relapse', [DashboardController::class, 'setNewRelapse'])->name('set-new-relapse');
-    
+    Route::put('/set-initial-relapse-date', [DashboardController::class, 'setInitialRelapseDate'])->name('set-initial-relapse-date');
+    Route::delete('/reset-relapse-data', [DashboardController::class, 'resetRelapseData'])->name('reset-relapse-data');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
+
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');

@@ -163,4 +163,14 @@ function convertTime(seconds, precise) {
     }
     
     setInterval(updateTime, 1000);
+
+    $('#relapseButton').on('click', async function(e) {
+        await axios.put($(this).attr('data-url'), { csrf_token: $(this).attr('data-csrf-token') });
+        window.location.reload();
+    });
+    
+    $('#resetRelapseButton').on('click', async function(e) {
+        await axios.delete($(this).attr('data-url'), { csrf_token: $(this).attr('data-csrf-token') });
+        window.location.reload();
+    });
 })();

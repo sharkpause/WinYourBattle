@@ -76,13 +76,9 @@
             <span class="text-green" id="relapseTimeText"></span>
             since you relapsed, keep it up!
         </p>
-
-        <form method="POST" action="{{ route('set-new-relapse') }}" class="form-inline">
-            @csrf
-            @method('PUT')
-
-            <button class="btn btn-primary btn-muted-blue text-white button-click-animation" type="submit">I relapsed</button>
-        </form>
+        
+        <button data-url="{{ route('set-new-relapse') }}" class="btn-no-hover btn-muted-blue text-white button-click-animation" id="relapseButton" data-csrf-token="{{ csrf_token() }}">I relapsed</button>
+        <button data-url="{{ route('reset-relapse-data') }}" class="btn-no-hover btn-red text-white button-click-animation" id="resetRelapseButton" data-csrf-token="{{ csrf_token() }}">Reset relapse data</button>
     @endif
     
     </div></div>

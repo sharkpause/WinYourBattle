@@ -66,7 +66,14 @@ class DashboardController extends Controller
         $user->relapseTracks()->create(['relapse_date' => $date]);
         Auth::user()->statistics()->update(['date_of_relapse' => $date]);
 
-        return redirect('dashboard');
+        return response()->json([ 'success' => 'Successfully updated relapse date' ]);
+    }
+
+    public function resetRelapseData(Request $request) {
+        RelapseTrack::where('user_id', Auth::user()->id)->delete();
+        Statistic::where('user_id', Auth::user()->id)->delete();
+
+        return response()->json([ 'success' => 'Successfully reseted relapse data' ]);
     }
 
     public function userPosts(User $user) {
