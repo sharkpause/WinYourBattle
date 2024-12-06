@@ -1,5 +1,5 @@
-@props(['posts'])
+@props(['items'])
 
 <div class="container justify-content-end d-flex">
-    {{ $posts->links() }}
+    {{ $items->links() }}
 </div>
