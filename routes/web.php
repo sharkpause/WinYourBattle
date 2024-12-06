@@ -56,4 +56,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post_id}/undislike', [PostController::class, 'undislike'])->name('posts.undislike');
 
     Route::post('/posts/{post_id}/comment', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/posts/{post_id}/comment', [CommentController::class, 'index'])->name('comments.index');
 });
