@@ -13,28 +13,29 @@
             <div>
                 {{ $comment->body }}
             </div>
+            
+            @auth
+            <div class="mt-2">
+                <button class="no-styling button-click-animation
+                  @if($comment->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
+                  id="likeButton" data-comment-id="{{ $comment->id }}"
+                  data-csrf-token="{{ csrf_token() }}"
+                  data-liked="@if($comment->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
+
+                  <i class="fa-solid fa-thumbs-up me-1"></i>
+                </button>
+                <span id="likeCount" class="me-5">{{ $comment->like_count }}</span>
+            
+                <button class="no-styling button-click-animation
+                @if($comment->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
+                id="dislikeButton" data-comment-id="{{ $comment->id }}"
+                data-csrf-token="{{ csrf_token() }}"
+                data-disliked="@if($comment->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
+
+                <i class="fa-solid fa-thumbs-down me-1"></i></button>
+                <span id="dislikeCount">{{ $comment->dislike_count }}</span>
+            </div>
+            @endauth
         </div>
     </div>
-    @auth
-        <div>
-            <button class="no-styling button-click-animation
-              @if($comment->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
-              id="likeButton" data-comment-id="{{ $comment->id }}"
-              data-csrf-token="{{ csrf_token() }}"
-              data-liked="@if($comment->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
-
-              <i class="fa-solid fa-thumbs-up me-1"></i>
-            </button>
-            <span id="likeCount" class="me-5">{{ $comment->like_count }}</span>
-          
-            <button class="no-styling button-click-animation
-            @if($comment->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
-            id="dislikeButton" data-comment-id="{{ $comment->id }}"
-            data-csrf-token="{{ csrf_token() }}"
-            data-disliked="@if($comment->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
-
-            <i class="fa-solid fa-thumbs-down me-1"></i></button>
-            <span id="dislikeCount">{{ $comment->dislike_count }}</span>
-        </div>
-        @endauth
 </div>
