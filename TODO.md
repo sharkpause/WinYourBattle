@@ -4,3 +4,4 @@
 - [X] Task 2: Create an API to return the client 10 comments at a time to paginate comments
 - [ ] Task 3: Change the way of displaying comments in the blade and js file of postCard to reflect that pagination change
 - [ ] Task 4: Implement the like and dislike comment feature
+- [ ] Task 5: Change the comment index API to return blade views instead of comment objects
