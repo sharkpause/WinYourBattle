@@ -16,7 +16,7 @@ class CommentController extends Controller
     {
         $comments = Comment::latest()->paginate(10);
 
-        return response()->json([ 'comments' => $comments ]);
+        return response()->json([ 'html' => view('components.commentSection', ['comments' => $comments])->render() ]);
     }
 
     /**
