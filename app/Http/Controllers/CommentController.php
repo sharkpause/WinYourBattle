@@ -46,8 +46,10 @@ class CommentController extends Controller
     public function show(Request $request, $post_id)
     {
         $comments = Comment::where('post_id', $post_id)->latest()->paginate(10);
-
-        return response()->json([ 'html' => view('components.commentSection', ['comments' => $comments])->render() ]);
+        return response()->json([
+            'html' => view('components.commentSection', [ 'comments' => $comments, 'post_id' => $post_id ])->render(),
+            'paginator' => view('components.paginator', [ 'items' => $comments ])->render()
+        ]);
     }
 
     /**

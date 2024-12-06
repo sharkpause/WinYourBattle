@@ -63,7 +63,7 @@
           <span id="dislikeCount">{{ $post->dislike_count }}</span>
           @endauth
         
-          <button class="float-end no-styling me-5 button-click-animation commentSectionButton" data-opened="false" data-post-id="{{ $post->id }}">
+          <button class="float-end no-styling me-5 button-click-animation commentSectionButton" data-opened="false" data-post-id="{{ $post->id }}" data-opened-first-time="false">
             <i class="fa fa-comment" id="commentSectionButtonIcon"></i>
           </button>
         </div>
@@ -82,7 +82,7 @@
 
       @if($post->comments()->count() > 0)
       <span class="mt-5"></span>
-      <span id="commentCards-{{ $post->id }}"></span>
+      <div id="commentCards-{{ $post->id }}"></div>
       @endif
   </div>
 </div>

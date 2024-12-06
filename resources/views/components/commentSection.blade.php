@@ -1,7 +1,7 @@
-@props(['comments'])
+@props(['comments', '$post_id'])
 
 @foreach($comments as $comment)
     @include('components.commentCard', ['comment' => $comment])
 @endforeach
 
-<x-paginator :items="$comments"></x-paginator>
+<div id="commentPaginator-{{ $post_id }}"></div>

@@ -76,14 +76,33 @@ $('#dislikeButton').on('click', async function(e) {
 $('.commentSectionButton').on('click', async function(e) {
     e.preventDefault();
 
+    const postID = $(this).attr('data-post-id');
+
     if($(this).attr('data-opened').trim() === 'false') {
         $(this).find('.commentSectionButtonIcon').addClass('text-primary');
         $(this).attr('data-opened', 'true');
 
-        $('#commentSection-' + $(this).attr('data-post-id')).removeClass('d-none');
+        $('#commentSection-' + postID).removeClass('d-none');
 
-        const response = await axios.get('/posts/' + $(this).attr('data-post-id') + '/comment');
-        $('#commentSection-' + $(this).attr('data-post-id')).append(response.data.html);
+        if($(this).attr('data-opened-first-time') === "false") {
+            const response = await axios.get('/posts/' + postID + '/comment');
+            $('#commentCards-' + postID).html(response.data.html);
+            $('#commentPaginator-' + postID).html(response.data.paginator);
+
+            $(this).attr('data-opened-first-time', 'true')
+        }
+
+        $(document).on('click', '#commentPaginator-' + postID + ' a', async function(e) {
+            e.preventDefault();
+        
+            try {
+                const response = await axios.get($(this).attr('href'));
+                $('#commentCards-' + postID).html(response.data.html);
+                $('#commentPaginator-' + postID).html(response.data.paginator);
+            } catch (error) {
+                console.error('Error fetching paginated comments:', error);
+            }
+        });
     } else if($(this).attr('data-opened').trim() === 'true') {
         $(this).find('.commentSectionButtonIcon').removeClass('text-primary');
         $(this).attr('data-opened', 'false');
