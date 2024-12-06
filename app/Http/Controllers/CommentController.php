@@ -14,9 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::latest()->paginate(10);
-
-        return response()->json([ 'html' => view('components.commentSection', ['comments' => $comments])->render() ]);
+        //
     }
 
     /**
@@ -45,9 +43,11 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Comment $comment)
+    public function show(Request $request, $post_id)
     {
-        //
+        $comments = Comment::where('post_id', $post_id)->latest()->paginate(10);
+
+        return response()->json([ 'html' => view('components.commentSection', ['comments' => $comments])->render() ]);
     }
 
     /**
