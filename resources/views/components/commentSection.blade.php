@@ -4,4 +4,4 @@
     @include('components.commentCard', ['comment' => $comment])
 @endforeach
 
-{{ $comments->links() }}
+<x-paginator :items="$comments"></x-paginator>

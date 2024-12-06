@@ -26,7 +26,7 @@
         @endforeach
     </div>
 
-    <x-paginator :posts="$posts"></x-paginator>
+    <x-paginator :items="$posts"></x-paginator>
 
     @vite(['resources/js/alert.js', 'resources/js/index.js'])
 </x-layout>

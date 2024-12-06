@@ -81,6 +81,9 @@ $('.commentSectionButton').on('click', async function(e) {
         $(this).attr('data-opened', 'true');
 
         $('#commentSection-' + $(this).attr('data-post-id')).removeClass('d-none');
+
+        const response = await axios.get('/posts/' + $(this).attr('data-post-id') + '/comment');
+        $('#commentSection-' + $(this).attr('data-post-id')).append(response.data.html);
     } else if($(this).attr('data-opened').trim() === 'true') {
         $(this).find('.commentSectionButtonIcon').removeClass('text-primary');
         $(this).attr('data-opened', 'false');
@@ -96,7 +99,7 @@ $('.commentForm').on('submit', async function(e) {
         const response = await axios.post('/posts/' + $(this).attr('data-post-id') + '/comment',
         {
             _token: $(this).attr('data-csrf-token'),
-            body: $('#commentTextarea').val(),
+            body: $(this).find('#commentTextarea').val(),
         });
 
         $('#commentCards-' + $(this).attr('data-post-id')).append(response.data.html);

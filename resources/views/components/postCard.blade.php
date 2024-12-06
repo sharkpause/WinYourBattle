@@ -82,11 +82,7 @@
 
       @if($post->comments()->count() > 0)
       <span class="mt-5"></span>
-      <span id="commentCards-{{ $post->id }}">
-      @foreach($post->comments()->get() as $comment)
-          <x-commentCard :comment="$comment"></x-commentCard>
-      @endforeach
-      </span>
+      <span id="commentCards-{{ $post->id }}"></span>
       @endif
   </div>
 </div>
