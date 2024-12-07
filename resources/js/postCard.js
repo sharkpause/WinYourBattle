@@ -1,21 +1,21 @@
 import $ from 'jquery';
 import axios from 'axios';
 
-$('.likeButton').on('click', async function(e) {
+$('.postLikeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
-    const likeCountElem = $('#likeCount-' + postID);
-    const dislikeCountElem = $('#dislikeCount-' + postID);
-    const dislikeButton = $(`.dislikeButton[data-post-id="${postID}"]`);
+    const postLikeCountElem = $('#postLikeCount-' + postID);
+    const postDislikeCountElem = $('#postDislikeCount-' + postID);
+    const postDislikeButton = $(`.postDislikeButton[data-post-id="${postID}"]`);
 
-    if(dislikeButton.attr('data-disliked').trim() === 'true') {
-        dislikeCountElem.text(Number(dislikeCountElem.text()) - 1);
-        dislikeButton.attr('data-disliked', 'false');
-        dislikeButton.removeClass('text-danger');
+    if(postDislikeButton.attr('data-disliked').trim() === 'true') {
+        postDislikeCountElem.text(Number(postDislikeCountElem.text()) - 1);
+        postDislikeButton.attr('data-disliked', 'false');
+        postDislikeButton.removeClass('text-danger');
     }
 
     if($(this).attr('data-liked').trim() === 'false') {
-        likeCountElem.text(Number(likeCountElem.text()) + 1);
+        postLikeCountElem.text(Number(postLikeCountElem.text()) + 1);
         $(this).attr('data-liked', 'true');
         $(this).addClass('text-primary');
 
@@ -25,7 +25,7 @@ $('.likeButton').on('click', async function(e) {
             console.log(err);
         }
     } else if($(this).attr('data-liked').trim() === 'true') {
-        likeCountElem.text(Number(likeCountElem.text()) - 1);
+        postLikeCountElem.text(Number(postLikeCountElem.text()) - 1);
         $(this).attr('data-liked', 'false');
         $(this).removeClass('text-primary');
         
@@ -37,21 +37,21 @@ $('.likeButton').on('click', async function(e) {
     }
 });
 
-$('.dislikeButton').on('click', async function(e) {
+$('.postDislikeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
-    const dislikeCountElem = $('#dislikeCount-' + postID);
-    const likeCountElem = $('#likeCount-' + postID);
-    const likeButton = $(`.likeButton[data-post-id="${postID}"]`);
+    const postDislikeCountElem = $('#postDislikeCount-' + postID);
+    const postLikeCountElem = $('#postLikeCount-' + postID);
+    const postLikeButton = $(`.postLikeButton[data-post-id="${postID}"]`);
 
-    if(likeButton.attr('data-liked').trim() === 'true') {
-        likeCountElem.text(Number(likeCountElem.text()) - 1);
-        likeButton.attr('data-liked', 'false');
-        likeButton.removeClass('text-primary');
+    if(postLikeButton.attr('data-liked').trim() === 'true') {
+        postLikeCountElem.text(Number(postLikeCountElem.text()) - 1);
+        postLikeButton.attr('data-liked', 'false');
+        postLikeButton.removeClass('text-primary');
     }
 
     if($(this).attr('data-disliked').trim() === 'false') {
-        dislikeCountElem.text(Number(dislikeCountElem.text()) + 1);
+        postDislikeCountElem.text(Number(postDislikeCountElem.text()) + 1);
         $(this).attr('data-disliked', 'true');
         $(this).addClass('text-danger');
 
@@ -61,7 +61,7 @@ $('.dislikeButton').on('click', async function(e) {
             console.log(err);
         }
     } else if($(this).attr('data-disliked').trim() === 'true') {
-        dislikeCountElem.text(Number(dislikeCountElem.text()) - 1);
+        postDislikeCountElem.text(Number(postDislikeCountElem.text()) - 1);
         $(this).attr('data-disliked', 'false');
         $(this).removeClass('text-danger');
         

@@ -18,24 +18,24 @@
             <div class="mt-2">
                 <button class="no-styling button-click-animation
                   @if($comment->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
-                  id="likeButton" data-comment-id="{{ $comment->id }}"
+                  class="commentLikeButton" data-comment-id="{{ $comment->id }}"
                   data-csrf-token="{{ csrf_token() }}"
                   data-liked="@if($comment->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
 
                   <i class="fa-solid fa-thumbs-up me-1"></i>
                 </button>
-                <span id="likeCount" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
+                <span id="commentLikeCount" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
                 <!-- The 0 is there on both like and dislike count because if
                     $comment->like_count of dislike_count is 0, it won't make anything appear on the front end -->
             
                 <button class="no-styling button-click-animation
                 @if($comment->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
-                id="dislikeButton" data-comment-id="{{ $comment->id }}"
+                class="commentDislikeButton" data-comment-id="{{ $comment->id }}"
                 data-csrf-token="{{ csrf_token() }}"
                 data-disliked="@if($comment->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
 
                 <i class="fa-solid fa-thumbs-down me-1"></i></button>
-                <span id="dislikeCount">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>
+                <span id="commentDislikeCount">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>
             </div>
             @endauth
         </div>
