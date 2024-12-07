@@ -16,26 +16,26 @@
             
             @auth
             <div class="mt-2">
-                <button class="no-styling button-click-animation
+                <button class="no-styling button-click-animation commentLikeButton
                   @if($comment->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
-                  class="commentLikeButton" data-comment-id="{{ $comment->id }}"
+                  data-comment-id="{{ $comment->id }}"
                   data-csrf-token="{{ csrf_token() }}"
                   data-liked="@if($comment->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
 
                   <i class="fa-solid fa-thumbs-up me-1"></i>
                 </button>
-                <span id="commentLikeCount" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
+                <span id="commentLikeCount-{{ $comment->id }}" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
                 <!-- The 0 is there on both like and dislike count because if
                     $comment->like_count of dislike_count is 0, it won't make anything appear on the front end -->
             
-                <button class="no-styling button-click-animation
+                <button class="no-styling button-click-animation commentDislikeButton
                 @if($comment->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
-                class="commentDislikeButton" data-comment-id="{{ $comment->id }}"
+                data-comment-id="{{ $comment->id }}"
                 data-csrf-token="{{ csrf_token() }}"
                 data-disliked="@if($comment->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
 
                 <i class="fa-solid fa-thumbs-down me-1"></i></button>
-                <span id="commentDislikeCount">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>
+                <span id="commentDislikeCount-{{ $comment->id }}">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>
             </div>
             @endauth
         </div>
