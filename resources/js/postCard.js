@@ -1,12 +1,12 @@
 import $ from 'jquery';
 import axios from 'axios';
 
-$('#likeButton').on('click', async function(e) {
+$('.likeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
-    const likeCountElem = $('#likeCount');
-    const dislikeCountElem = $('#dislikeCount');
-    const dislikeButton = $('#dislikeButton');
+    const likeCountElem = $('.likeCount-' + postID);
+    const dislikeCountElem = $('.dislikeCount-' + postID);
+    const dislikeButton = $(`.dislikeButton[data-post-id="${postID}"]`);
 
     if(dislikeButton.attr('data-disliked').trim() === 'true') {
         dislikeCountElem.text(Number(dislikeCountElem.text()) - 1);
@@ -37,12 +37,12 @@ $('#likeButton').on('click', async function(e) {
     }
 });
 
-$('#dislikeButton').on('click', async function(e) {
+$('.dislikeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
-    const dislikeCountElem = $('#dislikeCount');
-    const likeCountElem = $('#likeCount');
-    const likeButton = $('#likeButton');
+    const dislikeCountElem = $('.dislikeCount-' + postID);
+    const likeCountElem = $('.likeCount-' + postID);
+    const likeButton = $(`.likeButton[data-post-id="${postID}"]`);
 
     if(likeButton.attr('data-liked').trim() === 'true') {
         likeCountElem.text(Number(likeCountElem.text()) - 1);

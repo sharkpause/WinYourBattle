@@ -43,24 +43,24 @@
         
         <div class="mt-3">
           @auth
-          <button class="no-styling button-click-animation
+          <button class="no-styling button-click-animation likeButton
             @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
-            id="likeButton" data-post-id="{{ $post->id }}"
+            data-post-id="{{ $post->id }}"
             data-csrf-token="{{ csrf_token() }}"
             data-liked="@if($post->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
             
             <i class="fa-solid fa-thumbs-up me-1"></i>
           </button>
-          <span id="likeCount" class="me-5">{{ $post->like_count }}</span>
+          <span class="likeCount-{{ $post->id }}" class="me-5">{{ $post->like_count }}</span>
         
-          <button class="no-styling button-click-animation
+          <button class="no-styling button-click-animation dislikeButton
           @if($post->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
-          id="dislikeButton" data-post-id="{{ $post->id }}"
+          data-post-id="{{ $post->id }}"
           data-csrf-token="{{ csrf_token() }}"
           data-disliked="@if($post->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
           
           <i class="fa-solid fa-thumbs-down me-1"></i></button>
-          <span id="dislikeCount">{{ $post->dislike_count }}</span>
+          <span class="dislikeCount-{{ $post->id }}">{{ $post->dislike_count }}</span>
           @endauth
         
           <button class="float-end no-styling me-5 button-click-animation commentSectionButton" data-opened="false" data-post-id="{{ $post->id }}" data-opened-first-time="false">
