@@ -92,6 +92,26 @@ class CommentController extends Controller
         ]);
     }
 
+    public function dislike(Request $request, $post_id, $comment_id) {
+        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+        
+        if(CommentLike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->exists()) {
+            $this->handleUnlike($comment_id);
+        }
+
+        CommentDislike::create([
+            'user_id' => Auth::user()->id,
+            'comment_id' => $comment_id,
+        ]);
+
+        $comment = Comment::findOrFail($comment_id);
+        $comment->increment('dislike_count');
+
+        return response()->json([
+            'dislike_count' => $comment->dislike_count
+        ]);
+    }
+
     public function unlike(Request $request, $post_id, $comment_id) {
         $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
 
@@ -99,6 +119,16 @@ class CommentController extends Controller
         
         return response()->json([
             'like_count' => Comment::findOrFail($comment_id)->like_count
+        ]);
+    }
+
+    public function undislike(Request $request, $post_id, $comment_id) {
+        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+
+        $this->handleUndislike($comment_id);
+        
+        return response()->json([
+            'dislike_count' => Comment::findOrFail($comment_id)->dislike_count
         ]);
     }
 
@@ -112,7 +142,12 @@ class CommentController extends Controller
     }
 
     private function handleUndislike($comment_id) {
-        //
+        $dislike = CommentDislike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->firstOrFail();
+
+        $dislike->delete();
+        
+        $comment = Comment::findOrFail($comment_id);
+        $comment->decrement('dislike_count');
     }
 
     private function validateUserAndComment($userID, $commentID) {
