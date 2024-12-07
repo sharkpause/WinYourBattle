@@ -3,6 +3,7 @@ import axios from 'axios';
 
 $('.postLikeButton').on('click', async function(e) {
     e.preventDefault();
+
     const postID = $(this).data('post-id');
     const postLikeCountElem = $('#postLikeCount-' + postID);
     const postDislikeCountElem = $('#postDislikeCount-' + postID);
@@ -39,6 +40,7 @@ $('.postLikeButton').on('click', async function(e) {
 
 $('.postDislikeButton').on('click', async function(e) {
     e.preventDefault();
+    
     const postID = $(this).data('post-id');
     const postDislikeCountElem = $('#postDislikeCount-' + postID);
     const postLikeCountElem = $('#postLikeCount-' + postID);
