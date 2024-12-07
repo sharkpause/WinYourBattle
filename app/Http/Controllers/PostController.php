@@ -132,8 +132,6 @@ class PostController extends Controller implements HasMiddleware
 
     public function like(Request $request, $post_id) {
         $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
-        if($validatorResponse != true)
-            return $validatorResponse;
         
         if(PostDislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
             $this->handleUndislike($post_id);
@@ -154,8 +152,6 @@ class PostController extends Controller implements HasMiddleware
 
     public function unlike(Request $request, $post_id) {
         $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
-        if($validatorResponse != true)
-            return $validatorResponse;
 
         $this->handleUnlike($post_id);
         
@@ -166,8 +162,6 @@ class PostController extends Controller implements HasMiddleware
 
     public function dislike(Request $request, $post_id) {
         $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
-        if($validatorResponse != true)
-            return $validatorResponse;
 
         if(!$this->validateUserAndPost(Auth::user()->id, $post_id))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
@@ -191,8 +185,6 @@ class PostController extends Controller implements HasMiddleware
 
     public function undislike(Request $request, $post_id) {
         $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
-        if($validatorResponse != true)
-            return $validatorResponse;
 
         $this->handleUndislike($post_id);
         
