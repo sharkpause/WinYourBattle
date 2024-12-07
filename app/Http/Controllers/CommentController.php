@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -66,5 +68,23 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    }
+
+    private function validateUserAndComment($userID, $commentID) {
+        if(!(User::where('id', $userID)->exists() && Comment::where('id', $commentID)->exists())) {
+            return response()->json(['error' => 'Invalid user or comment'], 404);
+        }
+
+        if(Validator::make(
+            ['user_id' => $userID, 'comment_id' => $commentID],
+            [
+                'user_id' => ['required', 'integer', 'exists:users,id'],
+                'comment_id' => ['required', 'integer', 'exists:comments,id'],
+            ]
+        )->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        return true;
     }
 }
