@@ -4,8 +4,8 @@ import axios from 'axios';
 $('.likeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
-    const likeCountElem = $('.likeCount-' + postID);
-    const dislikeCountElem = $('.dislikeCount-' + postID);
+    const likeCountElem = $('#likeCount-' + postID);
+    const dislikeCountElem = $('#dislikeCount-' + postID);
     const dislikeButton = $(`.dislikeButton[data-post-id="${postID}"]`);
 
     if(dislikeButton.attr('data-disliked').trim() === 'true') {
@@ -40,8 +40,8 @@ $('.likeButton').on('click', async function(e) {
 $('.dislikeButton').on('click', async function(e) {
     e.preventDefault();
     const postID = $(this).data('post-id');
-    const dislikeCountElem = $('.dislikeCount-' + postID);
-    const likeCountElem = $('.likeCount-' + postID);
+    const dislikeCountElem = $('#dislikeCount-' + postID);
+    const likeCountElem = $('#likeCount-' + postID);
     const likeButton = $(`.likeButton[data-post-id="${postID}"]`);
 
     if(likeButton.attr('data-liked').trim() === 'true') {
