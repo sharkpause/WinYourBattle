@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use App\Models\CommentLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -68,6 +69,28 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+    }
+
+    public function like(Request $request, $comment_id) {
+        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+        if($validatorResponse != true)
+            return $validatorResponse;
+        
+        //if(CommentDislike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->exists()) {
+        //    $this->handleUndislike($commend_id);
+        //}
+
+        CommentLike::create([
+            'user_id' => Auth::user()->id,
+            'comment_id' => $comment_id,
+        ]);
+
+        $comment = Comment::findOrFail($comment_id);
+        $comment->increment('like_count');
+
+        return response()->json([
+            'like_count' => $comment->like_count
+        ]);
     }
 
     private function validateUserAndComment($userID, $commentID) {
