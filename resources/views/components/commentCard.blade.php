@@ -24,7 +24,7 @@
 
                   <i class="fa-solid fa-thumbs-up me-1"></i>
                 </button>
-                <span id="likeCount" class="me-5">{{ $comment->like_count }}</span>
+                <span id="likeCount" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
             
                 <button class="no-styling button-click-animation
                 @if($comment->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
@@ -33,7 +33,7 @@
                 data-disliked="@if($comment->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
 
                 <i class="fa-solid fa-thumbs-down me-1"></i></button>
-                <span id="dislikeCount">{{ $comment->dislike_count }}</span>
+                <span id="dislikeCount">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>
             </div>
             @endauth
         </div>
