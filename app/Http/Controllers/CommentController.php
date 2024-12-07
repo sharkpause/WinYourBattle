@@ -71,10 +71,6 @@ class CommentController extends Controller
     }
 
     private function validateUserAndComment($userID, $commentID) {
-        if(!(User::where('id', $userID)->exists() && Comment::where('id', $commentID)->exists())) {
-            return response()->json(['error' => 'Invalid user or comment'], 404);
-        }
-
         if(Validator::make(
             ['user_id' => $userID, 'comment_id' => $commentID],
             [
@@ -83,6 +79,10 @@ class CommentController extends Controller
             ]
         )->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        if(!(User::where('id', $userID)->exists() && Comment::where('id', $commentID)->exists())) {
+            return response()->json(['error' => 'Invalid user or comment'], 404);
         }
 
         return true;

@@ -202,10 +202,6 @@ class PostController extends Controller implements HasMiddleware
     }
 
     private function validateUserAndPost($userID, $postID) {
-        if(!(User::where('id', $userID)->exists() && Post::where('id', $postID)->exists())) {
-            return response()->json(['error' => 'Invalid user or post'], 404);
-        }
-
         if(Validator::make(
             ['user_id' => $userID, 'post_id' => $postID],
             [
@@ -214,6 +210,10 @@ class PostController extends Controller implements HasMiddleware
             ]
         )->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
+        }
+        
+        if(!(User::where('id', $userID)->exists() && Post::where('id', $postID)->exists())) {
+            return response()->json(['error' => 'Invalid user or post'], 404);
         }
 
         return true;
