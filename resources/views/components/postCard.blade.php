@@ -82,8 +82,8 @@
 
       @if($post->comments()->count() > 0)
       <span class="mt-5"></span>
-      <div id="commentCards-{{ $post->id }}"></div>
       @endif
+      <div id="commentCards-{{ $post->id }}"></div>
   </div>
 </div>
 

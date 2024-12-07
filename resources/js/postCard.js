@@ -121,7 +121,7 @@ $('.commentForm').on('submit', async function(e) {
             body: $(this).find('#commentTextarea').val(),
         });
 
-        $('#commentCards-' + $(this).attr('data-post-id')).append(response.data.html);
+        $('#commentCards-' + $(this).attr('data-post-id')).prepend(response.data.html);
     } catch(err) {
         console.log(err);
     }
