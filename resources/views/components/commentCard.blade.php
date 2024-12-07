@@ -6,6 +6,22 @@
             <img src="{{ asset('storage/' .  $comment->user->image) }}" class="hw-40px rounded-circle">
         </div>
         <div class="flex-grow-1 ms-3">
+            @auth
+            @if(Auth::user()->id === $comment->user->id)
+              <div class="float-end">
+                  <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
+
+                  <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
+                    <form  method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="dropdown-item red-on-hover" type="submit">Delete Post</button>
+                    </form>
+                    <a  class="dropdown-item no-underline">Edit Post</a>
+                  </div>
+              </div>
+            @endif
+            @endauth
             <div>
                 <a class="no-underline me-3" href="{{ route('posts.user', $comment->post->user) }}">{{ $comment->user->username }}</a>
                 <span class="text-muted">{{ $comment->created_at->diffForHumans() }}</span>
