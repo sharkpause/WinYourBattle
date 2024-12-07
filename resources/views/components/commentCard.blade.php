@@ -12,12 +12,8 @@
                   <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
 
                   <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                    <form  method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="dropdown-item red-on-hover" type="submit">Delete Post</button>
-                    </form>
-                    <a  class="dropdown-item no-underline">Edit Post</a>
+                    <a id="deleteComment-{{ $comment->id }}" class="dropdown-item red-on-hover" data-comment-id="{{ $comment->id }}" type="submit">Delete Comment</a>
+                    <a id="editComment-{{ $comment->id }}" href="" data-comment-id="{{ $comment->id }}" class="dropdown-item no-underline">Edit Comment</a>
                   </div>
               </div>
             @endif
