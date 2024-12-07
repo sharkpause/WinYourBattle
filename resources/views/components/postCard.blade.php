@@ -81,7 +81,7 @@
       </form>@endauth
 
       @if($post->comments()->count() > 0)
-      <span class="mt-5"></span>
+      <div class="mt-5"></div>
       @endif
       <div id="commentCards-{{ $post->id }}"></div>
   </div>
