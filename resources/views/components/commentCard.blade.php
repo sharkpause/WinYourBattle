@@ -20,11 +20,13 @@
                   @if($comment->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
                   data-comment-id="{{ $comment->id }}"
                   data-csrf-token="{{ csrf_token() }}"
-                  data-liked="@if($comment->likes()->where('user_id', Auth::id())->exists()) true @else false @endif">
+                  data-liked="@if($comment->likes()->where('user_id', Auth::id())->exists()) true @else false @endif"
+                  data-like-url="{{ route('comments.like', [$comment->post->id, $comment->id]) }}"
+                  data-unlike-url="{{ route('comments.unlike', [$comment->post->id, $comment->id]) }}">
 
                   <i class="fa-solid fa-thumbs-up me-1"></i>
                 </button>
-                <span id="commentLikeCount-{{ $comment->id }}" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
+                <span id="commentLikeCount-{{ $comment->id }}" class="me-5">{{ $comment->like_count }}</span>
                 <!-- The 0 is there on both like and dislike count because if
                     $comment->like_count of dislike_count is 0, it won't make anything appear on the front end -->
             
@@ -32,7 +34,9 @@
                 @if($comment->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
                 data-comment-id="{{ $comment->id }}"
                 data-csrf-token="{{ csrf_token() }}"
-                data-disliked="@if($comment->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
+                data-disliked="@if($comment->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif"
+                data-dislike-url="{{ route('comments.dislike', [$comment->post->id, $comment->id]) }}"
+                data-undislike-url="{{ route('comments.undislike', [$comment->post->id, $comment->id]) }}">
 
                 <i class="fa-solid fa-thumbs-down me-1"></i></button>
                 <span id="commentDislikeCount-{{ $comment->id }}">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>

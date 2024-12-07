@@ -57,5 +57,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/posts/{post_id}/comment', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/posts/{post_id}/comment', [CommentController::class, 'show'])->name('comments.show');
-    Route::post('/posts/{post_id}/comment/{comment_id}', [CommentController::class, 'like'])->name('comments.like');
+    
+    Route::post('/posts/{post_id}/comment/{comment_id}/like', [CommentController::class, 'like'])->name('comments.like');
+    Route::post('/posts/{post_id}/comment/{comment_id}/unlike', [CommentController::class, 'unlike'])->name('comments.unlike');
+    Route::post('/posts/{post_id}/comment/{comment_id}/dislike', [CommentController::class, 'dislike'])->name('comments.dislike');
+    Route::post('/posts/{post_id}/comment/{comment_id}/undislike', [CommentController::class, 'undislike'])->name('comments.undislike');
 });

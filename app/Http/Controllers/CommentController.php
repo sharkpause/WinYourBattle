@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\CommentLike;
 use Illuminate\Http\Request;
+use App\Models\CommentDislike;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -71,14 +72,12 @@ class CommentController extends Controller
         //
     }
 
-    public function like(Request $request, $comment_id) {
+    public function like(Request $request, $post_id, $comment_id) {
         $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
-        if($validatorResponse != true)
-            return $validatorResponse;
         
-        //if(CommentDislike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->exists()) {
-        //    $this->handleUndislike($commend_id);
-        //}
+        if(CommentDislike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->exists()) {
+            $this->handleUndislike($comment_id);
+        }
 
         CommentLike::create([
             'user_id' => Auth::user()->id,
@@ -91,6 +90,29 @@ class CommentController extends Controller
         return response()->json([
             'like_count' => $comment->like_count
         ]);
+    }
+
+    public function unlike(Request $request, $post_id, $comment_id) {
+        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+
+        $this->handleUnlike($comment_id);
+        
+        return response()->json([
+            'like_count' => Comment::findOrFail($comment_id)->like_count
+        ]);
+    }
+
+    private function handleUnlike($comment_id) {
+        $like = CommentLike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->firstOrFail();
+
+        $like->delete();
+        
+        $comment = Comment::findOrFail($comment_id);
+        $comment->decrement('like_count');
+    }
+
+    private function handleUndislike($comment_id) {
+        //
     }
 
     private function validateUserAndComment($userID, $commentID) {
