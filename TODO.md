@@ -8,3 +8,4 @@
 - [X] Task 6: Fix the index API to return according to post id, and move it to the show API instead
 - [X] Task 7: Fix comment pagination
 - [ ] Task 8: Refactor and polish the entire codebase
+- [ ] Task 9: Add comment editing and deleting
