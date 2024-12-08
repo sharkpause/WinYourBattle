@@ -105,14 +105,36 @@ $(document).on('click', '.deleteCommentButton', async function(e) {
 $(document).on('click', '.editCommentButton', async function(e) {
     e.preventDefault();
 
-    const commentBodyElem = $('#comment-body-' + $(this).attr('data-comment-id'));
+    const commentID = $(this).attr('data-comment-id');
+    const commentBodyElem = $('#comment-body-' + commentID);
     commentBodyElem.html(
         '<textarea class="form-control mb-1 keep-whitespace"' +
                 'name="body"' +
                 'placeholder="Changed your mind?"' +
-                'id="comment-edit-text-area"' +
+                `id="comment-edit-text-area-${commentID}"` +
                 'autocomplete="off">' +
             $('<span>').text(commentBodyElem.text().trim()).html() +
         '</textarea>' +
-        '<button class="btn btn-primary float-end button-click-animation">Submit Edit</button>');
+        `<button class="btn btn-primary float-end button-click-animation comment-submit-edit"
+                 data-comment-id="${commentID}"
+                 data-url="${$(this).attr('data-url')}"
+                 data-csrf-token="${$(this).attr('data-csrf-token')}">Submit Edit</button>`);
+});
+
+$(document).on('click', '.comment-submit-edit', async function(e) {
+    e.preventDefault();
+
+    try {
+        const commentID = $(this).attr('data-comment-id');
+        const commentEditTextareaElemValue = $('#comment-edit-text-area-' + commentID).val();
+        
+        await axios.patch($(this).attr('data-url'), { body: commentEditTextareaElemValue, _token: $(this).attr('data-csrf-token') });
+
+        $('#comment-body-' + commentID).html(`
+            <div id="comment-body-{{ ${commentID} }}">
+                ${commentEditTextareaElemValue}
+            </div>`);
+    } catch(err) {
+        console.log(err);
+    }
 });

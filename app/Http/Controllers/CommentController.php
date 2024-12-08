@@ -60,19 +60,21 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, Comment $comment, $post_id, $comment_id)
     {
-        if(!(Auth::id() == $comment->user_id)) return response()->json(['error' => 'You are not allowed to edit this post'], 403);
+        $selectedComment = Comment::findOrFail($comment_id);
+        if(!(Auth::user()->id == $selectedComment->user_id))
+            return response()->json(['error' => 'You are not allowed to edit this post'], 403);
 
         $request->validate([
             'body' => ['required'],
         ]);
 
-        $comment->update([
+        $selectedComment->update([
            'body' => $request->body,
         ]);
 
-        return back()->with('success', 'Your comment was updated!');
+        return response()->json(['success' => 'Your comment was updated!'], 200);
     }
 
     /**
@@ -81,11 +83,12 @@ class CommentController extends Controller
     public function destroy(Comment $comment, $post_id, $comment_id)
     {
         $selectedComment = Comment::findOrFail($comment_id);
-        if(!(Auth::user()->id == $selectedComment->user_id)) return response()->json(['error' => 'You are not allowed to delete this post'], 403);
+        if(!(Auth::user()->id == $selectedComment->user_id))
+            return response()->json(['error' => 'You are not allowed to delete this post'], 403);
 
         $selectedComment->delete();
 
-        return back()->with('success', 'Your comment was deleted!');
+        return response()->json(['success' => 'Your comment was deleted!'], 200);
     }
 
     public function like(Request $request, $post_id, $comment_id) {
