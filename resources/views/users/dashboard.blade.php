@@ -108,7 +108,7 @@
     </div>
     @endif
 
-    <x-paginator :posts="$posts"></x-paginator>
+    <x-paginator :items="$posts"></x-paginator>
 
     @vite('resources/js/dashboard.js')
 
