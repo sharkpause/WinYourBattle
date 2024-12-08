@@ -12,8 +12,16 @@
                   <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
 
                   <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                    <a data-url="{{ route('comments.destroy', [$comment->post->id, $comment->id]) }}" class="dropdown-item red-on-hover deleteCommentButton" data-comment-id="{{ $comment->id }}" type="submit">Delete Comment</a>
-                    <a data-url="{{ route('comments.update', [$comment->post->id, $comment->id]) }}" data-comment-id="{{ $comment->id }}" class="dropdown-item no-underline editCommentButton">Edit Comment</a>
+                    <a
+                        data-url="{{ route('comments.destroy', [$comment->post->id, $comment->id]) }}"
+                        class="dropdown-item red-on-hover deleteCommentButton"
+                        data-comment-id="{{ $comment->id }}"
+                        data-csrf-token="{{ csrf_token() }}">Delete Comment</a>
+                    <a
+                        data-url="{{ route('comments.update', [$comment->post->id, $comment->id]) }}"
+                        data-comment-id="{{ $comment->id }}"
+                        class="dropdown-item no-underline editCommentButton"
+                        data-csrf-token="{{ csrf_token() }}">Edit Comment</a>
                   </div>
               </div>
             @endif

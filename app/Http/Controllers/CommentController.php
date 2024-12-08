@@ -62,7 +62,7 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        Gate::authorize('update', $comment);
+        if(!(Auth::id() == $comment->user_id)) return response()->json(['error' => 'You are not allowed to edit this post'], 403);
 
         $request->validate([
             'body' => ['required'],
@@ -78,11 +78,12 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment, $post_id, $comment_id)
     {
-        Gate::authorize('delete', $comment->id);
+        $selectedComment = Comment::findOrFail($comment_id);
+        if(!(Auth::user()->id == $selectedComment->user_id)) return response()->json(['error' => 'You are not allowed to delete this post'], 403);
 
-        $comment->delete();
+        $selectedComment->delete();
 
         return back()->with('success', 'Your comment was deleted!');
     }

@@ -87,8 +87,14 @@ $('.commentDislikeButton').on('click', async function(e) {
     }
 });
 
-$('.deleteCommentButton').on('click', async function(e) {
+$(document).on('click', '.deleteCommentButton', async function(e) {
     e.preventDefault();
 
     $('#commentCard-' + $(this).attr('data-comment-id')).remove();
+
+    try {
+        await axios.delete($(this).attr('data-url'), { _token: $(this).data('csrf-token') });
+    } catch(err) {
+        console.log(err);
+    }
 });
