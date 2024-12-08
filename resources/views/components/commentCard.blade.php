@@ -14,13 +14,13 @@
                   <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
                     <a
                         data-url="{{ route('comments.destroy', [$comment->post->id, $comment->id]) }}"
-                        class="dropdown-item red-on-hover deleteCommentButton"
+                        class="dropdown-item red-on-hover deleteCommentButton pointer-on-hover"
                         data-comment-id="{{ $comment->id }}"
                         data-csrf-token="{{ csrf_token() }}">Delete Comment</a>
                     <a
                         data-url="{{ route('comments.update', [$comment->post->id, $comment->id]) }}"
                         data-comment-id="{{ $comment->id }}"
-                        class="dropdown-item no-underline editCommentButton"
+                        class="dropdown-item no-underline editCommentButton pointer-on-hover"
                         data-csrf-token="{{ csrf_token() }}">Edit Comment</a>
                   </div>
               </div>
@@ -30,7 +30,7 @@
                 <a class="no-underline me-3" href="{{ route('posts.user', $comment->post->user) }}">{{ $comment->user->username }}</a>
                 <span class="text-muted">{{ $comment->created_at->diffForHumans() }}</span>
             </div>
-            <div>
+            <div id="comment-body-{{ $comment->id }}">
                 {{ $comment->body }}
             </div>
             
@@ -66,4 +66,4 @@
     </div>
 </div>
 
-@vite('resources/js/commentCard.js')
+@vite(['resources/js/commentCard.js', 'resources/js/autoResizeTextarea.js'])
