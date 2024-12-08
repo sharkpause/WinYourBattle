@@ -12,8 +12,8 @@
                   <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
 
                   <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                    <a id="deleteComment-{{ $comment->id }}" class="dropdown-item red-on-hover" data-comment-id="{{ $comment->id }}" type="submit">Delete Comment</a>
-                    <a id="editComment-{{ $comment->id }}" href="" data-comment-id="{{ $comment->id }}" class="dropdown-item no-underline">Edit Comment</a>
+                    <a data-url="{{ route('comments.delete') }}" id="deleteComment-{{ $comment->id }}" class="dropdown-item red-on-hover" data-comment-id="{{ $comment->id }}" type="submit">Delete Comment</a>
+                    <a data-url="{{ route('comments.edit') }}" id="editComment-{{ $comment->id }}" href="" data-comment-id="{{ $comment->id }}" class="dropdown-item no-underline">Edit Comment</a>
                   </div>
               </div>
             @endif

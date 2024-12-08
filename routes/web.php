@@ -55,11 +55,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post_id}/dislike', [PostController::class, 'dislike'])->name('posts.dislike');
     Route::post('/posts/{post_id}/undislike', [PostController::class, 'undislike'])->name('posts.undislike');
 
-    Route::post('/posts/{post_id}/comment', [CommentController::class, 'store'])->name('comments.store');
-    Route::get('/posts/{post_id}/comment', [CommentController::class, 'show'])->name('comments.show');
+    Route::post('/posts/{post_id}/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::get('/posts/{post_id}/comments', [CommentController::class, 'show'])->name('comments.show');
     
-    Route::post('/posts/{post_id}/comment/{comment_id}/like', [CommentController::class, 'like'])->name('comments.like');
-    Route::post('/posts/{post_id}/comment/{comment_id}/unlike', [CommentController::class, 'unlike'])->name('comments.unlike');
-    Route::post('/posts/{post_id}/comment/{comment_id}/dislike', [CommentController::class, 'dislike'])->name('comments.dislike');
-    Route::post('/posts/{post_id}/comment/{comment_id}/undislike', [CommentController::class, 'undislike'])->name('comments.undislike');
+    Route::post('/posts/{post_id}/comments/{comment_id}/like', [CommentController::class, 'like'])->name('comments.like');
+    Route::post('/posts/{post_id}/comments/{comment_id}/unlike', [CommentController::class, 'unlike'])->name('comments.unlike');
+    Route::post('/posts/{post_id}/comments/{comment_id}/dislike', [CommentController::class, 'dislike'])->name('comments.dislike');
+    Route::post('/posts/{post_id}/comments/{comment_id}/undislike', [CommentController::class, 'undislike'])->name('comments.undislike');
+
+    Route::destroy('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::patch('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'update'])->name('comments.update');
 });

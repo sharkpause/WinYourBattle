@@ -87,7 +87,7 @@ $('.commentSectionButton').on('click', async function(e) {
         $('#commentSection-' + postID).removeClass('d-none');
 
         if($(this).attr('data-opened-first-time') === "false") {
-            const response = await axios.get('/posts/' + postID + '/comment');
+            const response = await axios.get('/posts/' + postID + '/comments');
             $('#commentCards-' + postID).html(response.data.html);
             $('#commentPaginator-' + postID).html(response.data.paginator);
 
@@ -117,7 +117,7 @@ $('.commentForm').on('submit', async function(e) {
     e.preventDefault();
 
     try {
-        const response = await axios.post('/posts/' + $(this).attr('data-post-id') + '/comment',
+        const response = await axios.post('/posts/' + $(this).attr('data-post-id') + '/comments',
         {
             _token: $(this).attr('data-csrf-token'),
             body: $(this).find('#commentTextarea').val(),
