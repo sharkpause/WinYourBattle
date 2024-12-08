@@ -85,4 +85,10 @@ $('.commentDislikeButton').on('click', async function(e) {
             $(this).addClass('text-danger');
         }
     }
-}); 
+});
+
+$('.deleteCommentButton').on('click', async function(e) {
+    e.preventDefault();
+
+    $('#commentCard-' + $(this).attr('data-comment-id')).remove();
+});

@@ -1,6 +1,6 @@
 @props(['comment', 'full' => false])
 
-<div class="mt-4 p-3 border-radius-1-rem shadow-sm">
+<div class="mt-4 p-3 border-radius-1-rem shadow-sm" id="commentCard-{{ $comment->id }}">
     <div class="d-flex">
         <div class="flex-shrink-0">
             <img src="{{ asset('storage/' .  $comment->user->image) }}" class="hw-40px rounded-circle">
@@ -12,8 +12,8 @@
                   <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
 
                   <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                    <a data-url="{{ route('comments.delete') }}" id="deleteComment-{{ $comment->id }}" class="dropdown-item red-on-hover" data-comment-id="{{ $comment->id }}" type="submit">Delete Comment</a>
-                    <a data-url="{{ route('comments.edit') }}" id="editComment-{{ $comment->id }}" href="" data-comment-id="{{ $comment->id }}" class="dropdown-item no-underline">Edit Comment</a>
+                    <a data-url="{{ route('comments.destroy', [$comment->post->id, $comment->id]) }}" class="dropdown-item red-on-hover deleteCommentButton" data-comment-id="{{ $comment->id }}" type="submit">Delete Comment</a>
+                    <a data-url="{{ route('comments.update', [$comment->post->id, $comment->id]) }}" data-comment-id="{{ $comment->id }}" class="dropdown-item no-underline editCommentButton">Edit Comment</a>
                   </div>
               </div>
             @endif
