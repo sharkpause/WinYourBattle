@@ -38,7 +38,7 @@
 
                   <i class="fa-solid fa-thumbs-up me-1"></i>
                 </button>
-                <span id="commentLikeCount-{{ $comment->id }}" class="me-5">{{ $comment->like_count }}</span>
+                <span id="commentLikeCount-{{ $comment->id }}" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
                 <!-- The 0 is there on both like and dislike count because if
                     $comment->like_count of dislike_count is 0, it won't make anything appear on the front end -->
             
