@@ -9,6 +9,7 @@ use App\Models\CommentLike;
 use Illuminate\Http\Request;
 use App\Models\CommentDislike;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
@@ -61,7 +62,17 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        Gate::authorize('update', $comment);
+
+        $request->validate([
+            'body' => ['required'],
+        ]);
+
+        $comment->update([
+           'body' => $request->body,
+        ]);
+
+        return back()->with('success', 'Your comment was updated!');
     }
 
     /**
@@ -69,7 +80,11 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        Gate::authorize('delete', $comment->id);
+
+        $comment->delete();
+
+        return back()->with('success', 'Your comment was deleted!');
     }
 
     public function like(Request $request, $post_id, $comment_id) {

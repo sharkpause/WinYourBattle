@@ -63,6 +63,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post_id}/comments/{comment_id}/dislike', [CommentController::class, 'dislike'])->name('comments.dislike');
     Route::post('/posts/{post_id}/comments/{comment_id}/undislike', [CommentController::class, 'undislike'])->name('comments.undislike');
 
-    Route::destroy('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'destroy'])->name('comments.destroy');
+    Route::delete('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::patch('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'update'])->name('comments.update');
 });
