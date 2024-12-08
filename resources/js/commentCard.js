@@ -101,3 +101,18 @@ $(document).on('click', '.deleteCommentButton', async function(e) {
         commentCard.show();
     }
 });
+
+$(document).on('click', '.editCommentButton', async function(e) {
+    e.preventDefault();
+
+    const commentBodyElem = $('#comment-body-' + $(this).attr('data-comment-id'));
+    commentBodyElem.html(
+        '<textarea class="form-control mb-1 keep-whitespace"' +
+                'name="body"' +
+                'placeholder="Changed your mind?"' +
+                'id="comment-edit-text-area"' +
+                'autocomplete="off">' +
+            $('<span>').text(commentBodyElem.text().trim()).html() +
+        '</textarea>' +
+        '<button class="btn btn-primary float-end button-click-animation">Submit Edit</button>');
+});
