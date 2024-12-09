@@ -33,6 +33,8 @@
 
         <div class="mt-2 mb-2">
           <a class="text-muted" href="{{ route('password.request') }}">I forgot my password</a>
+          <br class="mb-2">
+          <a class="text-muted" href="{{ route('register') }}">I already have an account</a>
         </div>
 
         @error('login_failed')
