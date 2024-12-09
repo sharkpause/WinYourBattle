@@ -82,17 +82,17 @@
         </p>
         
         <div class="d-flex gap-1">
-            <form action="{{ route('set-new-relapse') }}" method="POST">
+            <form action="{{ route('set-new-relapse') }}" method="POST" id="setNewRelapseForm">
                 @csrf
                 @method('PUT')
 
-                <button class="btn-no-hover btn-muted-blue text-white button-click-animation">I relapsed</button>
+                <button class="btn-no-hover btn-muted-blue text-white button-click-animation" id="setNewRelapseButton">I relapsed</button>
             </form>
-            <form action="{{ route('reset-relapse-data') }}" method="POST">
+            <form action="{{ route('reset-relapse-data') }}" method="POST" id="resetRelapseDataForm">
                 @csrf
                 @method('DELETE')
 
-                <button class="btn-no-hover btn-red text-white button-click-animation">Reset relapse data</button>
+                <button class="btn-no-hover btn-red text-white button-click-animation" id="resetRelapseDataButton">Reset relapse data</button>
             </form>
         </div>
     @endif

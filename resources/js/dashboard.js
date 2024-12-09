@@ -165,4 +165,14 @@ function convertTime(seconds, precise) {
     }
     
     setInterval(updateTime, 1000);
+
+    $('#resetRelapseDataForm').on('submit', function(e) {
+        $('#resetRelapseDataButton').attr('disabled', 'true');
+        $(this)[0].requestSubmit();
+    });
+
+    $('#setNewRelapseForm').on('submit', function(e) {
+        $('#setNewRelapseButton').attr('disabled', 'true');
+        $(this)[0].requestSubmit();
+    });
 })();
