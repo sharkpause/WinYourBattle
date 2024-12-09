@@ -115,16 +115,22 @@ $('.commentSectionButton').on('click', async function(e) {
 
 $('.commentForm').on('submit', async function(e) {
     e.preventDefault();
+    
+    const commentTextareaElem = $(this).find('#commentTextarea');
+    const textareaValue = commentTextareaElem.val();
+    commentTextareaElem.val('');
 
     try {
         const response = await axios.post('/posts/' + $(this).attr('data-post-id') + '/comments',
         {
             _token: $(this).attr('data-csrf-token'),
-            body: $(this).find('#commentTextarea').val(),
+            body: textareaValue,
         });
 
         $('#commentCards-' + $(this).attr('data-post-id')).prepend(response.data.html);
     } catch(err) {
         console.log(err);
+
+        commentTextareaElem.val(textareaValue);
     }
 });
