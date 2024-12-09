@@ -260,3 +260,16 @@ select.form-control:focus {
 .mb-4_5 {
     margin-bottom: 2rem;
 }
+
+.submit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers all content initially */
+    position: relative; /* Allows the spinner to be absolutely positioned */
+  }
+  
+  .spinner-elem {
+    position: absolute;
+    left: 10px; /* Adjust this value as needed for spacing from the left edge */
+    visibility: hidden; /* Reserve space without showing the spinner */
+  }
