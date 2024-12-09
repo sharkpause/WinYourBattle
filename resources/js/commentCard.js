@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import axios from 'axios';
 
+import './components/autoResizeTextarea';
+
 $('.commentLikeButton').on('click', async function(e) {
     e.preventDefault();
     

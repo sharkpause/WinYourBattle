@@ -66,4 +66,4 @@
     </div>
 </div>
 
-@vite(['resources/js/commentCard.js', 'resources/js/autoResizeTextarea.js'])
+@vite('resources/js/commentCard.js')
