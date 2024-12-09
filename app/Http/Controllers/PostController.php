@@ -119,7 +119,8 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
-        Gate::authorize('modify', Auth::user()->id, $post->id);
+        if(!(Auth::user()->id === $post->user_id))
+            return back()->withErrors([ 'error' => 'You are not authorized to delete this post' ]);
 
         if($post->image) {
             Storage::disk('public')->delete($post->image);
