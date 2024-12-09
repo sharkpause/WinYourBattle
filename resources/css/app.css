@@ -85,6 +85,12 @@ select.form-control:focus {
     width: 25%;
 }
 
+.danger-alert {
+    border: none;
+    background-color: #e74c3c;
+    width: 25%;
+}
+
 .no-underline {
     text-decoration: none;
 }
