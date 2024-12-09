@@ -41,9 +41,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
-
+    Route::put('/email/verify', [AuthController::class, 'verifyChangeEmail'])->name('verification.change-email');
     Route::get('/email/verify/{id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
-
     Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:5,1')->name('verification.send');
 
     Route::get('/{id}/edit', [UserController::class, 'edit'])->name('users.edit');

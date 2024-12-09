@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\User;
 use App\Mail\WelcomeMail;
 use App\Events\UserLoggedIn;
@@ -76,5 +77,19 @@ class AuthController extends Controller
         $request->user()->sendEmailVerificationNotification();
      
         return back()->with('success', 'Verification link sent!');
+    }
+
+    public function verifyChangeEmail(Request $request) {
+        $fields = $request->validate([
+            'email' => ['required', 'email', 'max:255', 'unique:users']
+        ]);
+        
+        try {
+            Auth::user()->update([ 'email' => $request->email ]);
+        } catch(Exception $e) {
+            return back()->withErrors([ 'message' => 'Something went wrong while updating your email, please try again later' ]);
+        }
+
+        return back()->with('success', 'Email changed successfully!');
     }
 }
