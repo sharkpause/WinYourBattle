@@ -10,7 +10,7 @@
       <div class="d-flex flex-column min-vh-80 justify-content-center align-items-center"><div class="card col-4 border-radius-2-rem shadow">
           <div class="card-body m-3">
             <h3 class="mb-5">Reset password</h3>
-            <form method="POST" action="{{ route('password.update') }}" id="form">
+            <form method="POST" action="{{ route('password.update') }}" class="form-with-spinner">
                 @csrf
 
                 <input type="hidden" name="token" value="{{ $token }}">
@@ -28,15 +28,14 @@
                   @error('password') @enderror
                 </div>
         
-                <button type="submit" class="width-100 btn btn-primary button-click-animation" id="submitButton">
-                  <span id="spinnerElem" class="float-start"></span>
-                  <span class="text-center">Reset my password</span>
+                <button type="submit" class="width-100 btn btn-primary button-click-animation submit-button">
+                  <x-spinner></x-spinner>
+                  <span class="text-center w-100">Reset my password</span>
                 </button>
-        
               </form>
           </div>
     </div></div></div>
   
-    @vite(['resources/js/alert.js', 'resources/js/submitButtonUnclickable.js'])
+    @vite('resources/js/resetPassword.js')
   
   </x-layout>
