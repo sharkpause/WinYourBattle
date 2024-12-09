@@ -50,7 +50,7 @@
     @if($statistics === null || $statistics->date_of_relapse === null)
         <p class="mt-3">You haven't set a relapse date yet</p>
     
-        <form method="POST" action="{{ route('set-initial-relapse-date') }}" class="form-inline">
+        <form method="POST" action="{{ route('set-initial-relapse-date') }}" class="form-inline" id="setInitialRelapseForm">
             @csrf
             @method('PUT')
 
@@ -60,7 +60,7 @@
                 <input name="date_of_relapse" type="date" class="form-control">
                 <input name="time_of_relapse" type="time" class="form-control" step="1">
                 <div class="input-group-append">
-                    <button class="btn btn-primary set-relapse-button" type="submit">Set relapse date</button>
+                    <button class="btn btn-primary set-relapse-button" type="submit" id="setInitialRelapseButton">Set relapse date</button>
                 </div>
                 @error('statistic_failed')
                     <p class="ms-1 text-danger">{{ $message }}</p>
@@ -126,8 +126,8 @@
 
     <x-paginator :items="$posts"></x-paginator>
 
-    @vite('resources/js/dashboard.js')
-
     </div>
 
 </x-layout>
+
+@vite('resources/js/dashboard.js')

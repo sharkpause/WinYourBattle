@@ -167,12 +167,18 @@ function convertTime(seconds, precise) {
     setInterval(updateTime, 1000);
 
     $('#resetRelapseDataForm').on('submit', function(e) {
-        $('#resetRelapseDataButton').attr('disabled', 'true');
+        $('#resetRelapseDataButton').attr('disabled', 'disabled');
         $(this)[0].requestSubmit();
     });
 
     $('#setNewRelapseForm').on('submit', function(e) {
-        $('#setNewRelapseButton').attr('disabled', 'true');
+        $('#setNewRelapseButton').attr('disabled', 'disabled');
         $(this)[0].requestSubmit();
+    });
+
+    $('#setInitialRelapseForm').on('submit', function(e) {
+        e.preventDefault();
+        
+        alert('a');
     });
 })();

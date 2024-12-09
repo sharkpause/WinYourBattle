@@ -1,6 +1,8 @@
 import $ from 'jquery';
 import axios from 'axios';
 
+import './components/autoResizeTextarea.js';
+
 $('.postLikeButton').on('click', async function(e) {
     e.preventDefault();
 

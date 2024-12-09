@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+import './components/autoResizeTextarea.js';
+
 $('#post_image_input').on('change', function() {
     const file = this.files[0];
 

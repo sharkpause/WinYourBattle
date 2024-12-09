@@ -36,6 +36,6 @@
         </form>
     </div></div></div>
 
-    @vite(['resources/js/create.js', 'resources/js/autoResizeTextarea.js'])
+    @vite('resources/js/create.js')
 
 </x-layout>

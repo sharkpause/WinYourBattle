@@ -89,4 +89,4 @@
   </div>
 </div>
 
-@vite(['resources/js/postCard.js', 'resources/js/autoResizeTextarea.js'])
+@vite('resources/js/postCard.js')
