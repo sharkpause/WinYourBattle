@@ -11,4 +11,4 @@
 - [X] Task 9: Add comment editing and deleting
 - [ ] Task 10: Add alerts when updating and deleting comment and all the other stuff
 - [ ] Task 11: Add spinners and disabling buttons when submitting edits and other stuff
-- [ ] Task 12: Add a "change email" form in the verify email page
+- [X] Task 12: Add a "change email" form in the verify email page
