@@ -9,7 +9,7 @@
     
     <h3>Password Reset</h3>
     <p class="text-muted mb-5">Please enter your email address and we'll send an email to direct you to a password reset form</p>
-    <form method="POST" action="{{ route('password.request') }}" id="form">
+    <form method="POST" action="{{ route('password.request') }}" class="form-with-spinner">
         @csrf
 
         <div class="form-group mb-4">
@@ -19,14 +19,13 @@
           @enderror
         </div>
 
-        <button type="submit" class="width-100 btn btn-primary button-click-animation" id="submitButton">
-          <span id="spinnerElem" class="float-start"></span>
-          <span class="text-center">Send the email</span>
+        <button type="submit" class="width-100 btn btn-primary button-click-animation submit-button mt-1">
+          <x-spinner></x-spinner>
+          <span class="text-center w-100">Send the email</span>
         </button>
-
     </form>
     </div>
   </div></div></div>
 
-  @vite(['resources/js/alert.js', 'resources/js/submitButtonUnclickable.js'])
+  @vite('resources/js/forgotPassword.js')
 </x-layout>
