@@ -24,8 +24,8 @@ class DashboardController extends Controller
 
     public function setInitialRelapseDate(Request $request) {
         $fields = $request->validate([
-            'date_of_relapse' => ['required', 'date', 'before_or_equal:now'],
-            'time_of_relapse' => ['required', 'date_format:H:i:s', 'before_or_equal:now'],
+            'date_of_relapse' => ['required', 'date'],
+            'time_of_relapse' => ['required', 'date_format:H:i:s'],
             'timezone' => ['required']
         ]);
 
@@ -48,6 +48,10 @@ class DashboardController extends Controller
             the timezone is already UTC when it is not.
         */
 
+        if($date->isFuture()) {
+            return back()->withErrors(['date_of_relapse' => 'The relapse date cannot be in the future.'])->withInput();
+        }
+
         Auth::user()->statistics()->create(['date_of_relapse' => $date, 'timezone' => $request->timezone]);
         Auth::user()->relapseTracks()->create(['relapse_date' => $date]);
 
@@ -66,7 +70,7 @@ class DashboardController extends Controller
         $user->relapseTracks()->create(['relapse_date' => $date]);
         Auth::user()->statistics()->update(['date_of_relapse' => $date]);
 
-        return response()->json([ 'success' => 'Successfully updated relapse date' ]);
+        return back()->with([ 'success' => 'Successfully updated the relapse date!' ]);
     }
 
     public function resetRelapseData(Request $request) {
