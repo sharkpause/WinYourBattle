@@ -13,3 +13,8 @@ $('#profile_image_input').on('change', function() {
         fileReader.readAsDataURL(file);
     }
 });
+
+$('#editAccountForm').on('submit', function(e) {
+    $('#editAccountButton').attr('disabled', 'disabled');
+    $(this)[0].requestSubmit();
+});

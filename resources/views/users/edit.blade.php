@@ -4,7 +4,7 @@
 
     <div class="card container border-radius-2-rem shadow">
         <div class="card-body m-3">
-            <form method="POST" action="{{ route('users.update', Auth::user()->id) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('users.update', Auth::user()->id) }}" enctype="multipart/form-data" id="editAccountForm">
                 @csrf
                 @method('PATCH')
 
@@ -33,7 +33,7 @@
                     </div>
                 </div>
     
-                <button class="btn btn-primary float-end mt-2">Edit Account</button>
+                <button class="btn btn-primary float-end mt-2" id="editAccountButton">Edit Account</button>
             </form>
         </div>
     </div>
