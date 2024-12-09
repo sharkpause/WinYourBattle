@@ -71,14 +71,16 @@
   </div>
 
     <div class="mt-4 d-none" id="commentSection-{{ $post->id }}">
-      @auth<form class="mb-4_5 commentForm" method="POST" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
+      @auth
+      <form class="mb-4_5 commentForm" method="POST" data-csrf-token="{{ csrf_token() }}" data-post-id="{{ $post->id }}">
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"
                 id="commentTextarea"
                 autocomplete="off"></textarea>
         <button type="submit" class="float-end btn btn-primary">Post comment</button>
-      </form>@endauth
+      </form>
+      @endauth
 
       @if($post->comments()->count() > 0)
       <div class="mt-5"></div>
