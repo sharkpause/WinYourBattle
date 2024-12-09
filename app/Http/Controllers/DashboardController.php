@@ -55,7 +55,7 @@ class DashboardController extends Controller
         Auth::user()->statistics()->create(['date_of_relapse' => $date, 'timezone' => $request->timezone]);
         Auth::user()->relapseTracks()->create(['relapse_date' => $date]);
 
-        return redirect('dashboard');
+        return back()->with('success', 'Successfully set the initial relapse date!');
     }
 
     public function setNewRelapse(Request $request) {
@@ -70,14 +70,14 @@ class DashboardController extends Controller
         $user->relapseTracks()->create(['relapse_date' => $date]);
         Auth::user()->statistics()->update(['date_of_relapse' => $date]);
 
-        return back()->with([ 'success' => 'Successfully updated the relapse date!' ]);
+        return back()->with('success', 'Successfully updated the relapse date!');
     }
 
     public function resetRelapseData(Request $request) {
         RelapseTrack::where('user_id', Auth::user()->id)->delete();
         Statistic::where('user_id', Auth::user()->id)->delete();
 
-        return response()->json([ 'success' => 'Successfully reseted relapse data' ]);
+        return back()->with('success', 'Successfully reseted relapse data');
     }
 
     public function userPosts(User $user) {

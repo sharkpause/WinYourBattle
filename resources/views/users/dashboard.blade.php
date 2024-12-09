@@ -4,9 +4,8 @@
 
     <div class="card container border-radius-2-rem shadow">
     @if(session('success'))
-        <x-alert msg="{{ session('success') }}" class="text-white success-alert"></x-alert>
+        <x-alert msg="{{ session('success') }}" classes="text-white success-alert"></x-alert>
     @endif
-
     <div class="card-body m-3">
         <div class="d-flex align-items-start justify-content-between">
             <div class="d-flex align-items-start">
@@ -25,7 +24,7 @@
                     <form action="" method="POST">
                         @csrf
                         @method('DELETE')
-                        
+
                         <button class="dropdown-item red-on-hover" type="submit">Delete Account</button>
                     </form>
                 </div>
@@ -82,8 +81,20 @@
             since you relapsed, keep it up!
         </p>
         
-        <button data-url="{{ route('set-new-relapse') }}" class="btn-no-hover btn-muted-blue text-white button-click-animation" id="relapseButton" data-csrf-token="{{ csrf_token() }}">I relapsed</button>
-        <button data-url="{{ route('reset-relapse-data') }}" class="btn-no-hover btn-red text-white button-click-animation" id="resetRelapseButton" data-csrf-token="{{ csrf_token() }}">Reset relapse data</button>
+        <div class="d-flex gap-1">
+            <form action="{{ route('set-new-relapse') }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <button class="btn-no-hover btn-muted-blue text-white button-click-animation">I relapsed</button>
+            </form>
+            <form action="{{ route('reset-relapse-data') }}" method="POST">
+                @csrf
+                @method('DELETE')
+
+                <button class="btn-no-hover btn-red text-white button-click-animation">Reset relapse data</button>
+            </form>
+        </div>
     @endif
     
     </div></div>
