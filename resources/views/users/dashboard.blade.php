@@ -3,6 +3,10 @@
     <x-navbarSpace></x-navbarSpace>
 
     <div class="card container border-radius-2-rem shadow">
+    @if(session('success'))
+        <x-alert msg="{{ session('success') }}" class="text-white success-alert"></x-alert>
+    @endif
+
     <div class="card-body m-3">
         <div class="d-flex align-items-start justify-content-between">
             <div class="d-flex align-items-start">
@@ -21,6 +25,7 @@
                     <form action="" method="POST">
                         @csrf
                         @method('DELETE')
+                        
                         <button class="dropdown-item red-on-hover" type="submit">Delete Account</button>
                     </form>
                 </div>
