@@ -40,6 +40,6 @@ class UserController extends Controller
             'image' => $newImage
         ]);
 
-        return redirect()->route('dashboard')->with(['success' => 'Your post was updated!']);
+        return redirect()->route('dashboard')->with(['success' => 'Your account was updated!']);
     }
 }
