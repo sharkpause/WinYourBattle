@@ -153,6 +153,8 @@ class CommentController extends Controller
         $comment->decrement('like_count');
     }
 
+    // Unlike and undisliking uses a separate function to handle the unlike and undislike because the logic is needed for the like and dislike APIs, following DRY 
+
     private function handleUndislike($comment_id) {
         $dislike = CommentDislike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->firstOrFail();
 

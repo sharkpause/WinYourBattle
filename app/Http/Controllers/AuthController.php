@@ -62,24 +62,24 @@ class AuthController extends Controller
         return redirect('/');
     }
 
-    public function verifyNotice() {
+    public function verifyNotice() { // Verify email page
         if(Auth::user()->email_verified_at !== null) return redirect('/dashboard');
         return view('auth.verify-email');
     }
 
-    public function verifyEmail(EmailVerificationRequest $request) {
+    public function verifyEmail(EmailVerificationRequest $request) { // Verifies the email
         $request->fulfill();
          
         return redirect()->route('dashboard');
     }
     
-    public function verifyHandler(Request $request) {
+    public function verifyHandler(Request $request) { // Resends verification email
         $request->user()->sendEmailVerificationNotification();
      
         return back()->with('success', 'Verification link sent!');
     }
 
-    public function verifyChangeEmail(Request $request) {
+    public function verifyChangeEmail(Request $request) { // Changes the user email
         $fields = $request->validate([
             'email' => ['required', 'email', 'max:255', 'unique:users']
         ]);
