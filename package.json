@@ -15,6 +15,7 @@
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.3",
         "chart.js": "^4.4.4",
-        "jquery": "^3.7.1"
+        "jquery": "^3.7.1",
+        "jquery-confirm": "^3.3.4"
     }
 }
