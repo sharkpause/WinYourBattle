@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 import './components/alert.js'
 
@@ -168,17 +169,30 @@ function updateTime() {
 
 setInterval(updateTime, 1000);
 
-$('#resetRelapseDataForm').on('submit', function(e) {
-    $('#resetRelapseDataButton').attr('disabled', 'disabled');
-    $(this)[0].requestSubmit();
+$('#resetRelapseDataForm').on('submit', async function(e) {
+    e.preventDefault();
+
+    const result = await Swal.fire({
+        title: 'Do you want to save the changes?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Confirm',
+        denyButtonText: 'Cancel'
+    });
+
+    if (result.isConfirmed) {
+        $('#setNewRelapseButton').attr('disabled', 'disabled');
+        $('#resetRelapseDataButton').attr('disabled', 'disabled');
+        this.submit();
+    }
 });
+
 
 $('#setNewRelapseForm').on('submit', function(e) {
     $('#setNewRelapseButton').attr('disabled', 'disabled');
-    $(this)[0].requestSubmit();
+    $('#resetRelapseDataButton').attr('disabled', 'disabled');
 });
 
 $('#setInitialRelapseForm').on('submit', function(e) {
     $('#setInitialRelapseButton').attr('disabled', 'disabled');
-    $(this)[0].requestSubmit();
 });
