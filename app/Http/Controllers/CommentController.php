@@ -31,7 +31,7 @@ class CommentController extends Controller
             return response()->json([ 'error' => 'Post does not exist'], 404);
 
         $fields = $request->validate([
-            'body' => ['required'],
+            'body' => ['required', 'string', 'max:65535'],
         ]);
         
         $comment = Comment::create([
