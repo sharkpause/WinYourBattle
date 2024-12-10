@@ -48,11 +48,13 @@ class DashboardController extends Controller
         */
 
         if($date->isFuture()) {
-            return back()->withErrors(['date_of_relapse' => 'The relapse date cannot be in the future.'])->withInput();
+            return back()->withErrors([
+                'date_of_relapse' => 'The relapse date cannot be in the future.'
+            ])->withInput();
         }
 
-        Auth::user()->statistics()->create(['date_of_relapse' => $date, 'timezone' => $request->timezone]);
-        Auth::user()->relapseTracks()->create(['relapse_date' => $date]);
+        Auth::user()->statistics()->create([ 'date_of_relapse' => $date, 'timezone' => $request->timezone ]);
+        Auth::user()->relapseTracks()->create([ 'relapse_date' => $date ]);
 
         return back()->with('success', 'Successfully set the initial relapse date!');
     }
