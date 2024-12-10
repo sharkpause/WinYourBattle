@@ -136,3 +136,27 @@ $('.commentForm').on('submit', async function(e) {
         commentTextareaElem.val(textareaValue);
     }
 });
+
+$('.delete-post-form').on('submit', async function(e) {
+    e.preventDefault();
+
+    const result = await Swal.fire({
+        title: 'Are you sure you want to delete your post?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Confirm',
+        denyButtonText: 'Cancel'
+    });
+
+    if(result.isConfirmed) {
+        const commentCard = $('#commentCard-' + $(this).attr('data-comment-id'));
+        commentCard.hide();
+
+        try {
+            this.submit();
+        } catch(err) {
+            console.log(err);
+            commentCard.show();
+        }
+    }
+});

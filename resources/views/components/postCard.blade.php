@@ -13,10 +13,10 @@
               <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
               
               <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
-                <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                <form action="{{ route('posts.destroy', $post) }}" method="POST" class="delete-post-form">
                     @csrf
                     @method('DELETE')
-                    <button class="dropdown-item red-on-hover" type="submit">Delete Post</button>
+                    <button class="dropdown-item red-on-hover delete-post-button" type="submit">Delete Post</button>
                 </form>
                 <a href="{{ route('posts.edit', $post) }}" class="dropdown-item no-underline">Edit Post</a>
               </div>

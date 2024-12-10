@@ -12,4 +12,4 @@
 - [X] Task 10: Add alerts when doing non-AJAX actions
 - [X] Task 11: Add spinners and disabling buttons when submitting edits and other stuff
 - [X] Task 12: Add a "change email" form in the verify email page
-- [ ] Task 13: Add a confirm delete pop up when deleting posts, accounts, and relapse data, and there deletions if they exist
+- [X] Task 13: Add a confirm delete pop up when deleting posts, accounts, and relapse data, and there deletions if they exist
