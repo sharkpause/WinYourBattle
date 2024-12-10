@@ -39,7 +39,7 @@ class LoggedInMail extends Mailable
     {
         return new Content(
             view: 'email.loggedin',
-            with: ['user' => $this->user]
+            with: [ 'user' => $this->user ]
         );
     }
 
