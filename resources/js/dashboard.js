@@ -44,6 +44,8 @@ function convertTime(seconds, precise) {
     return timeString;
 }
 
+let latestRelapse;
+
 (async () => {
     const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
@@ -177,6 +179,27 @@ $('#setNewRelapseForm').on('submit', function(e) {
 });
 
 $('#setInitialRelapseForm').on('submit', function(e) {
+    e.preventDefault();
+
+    $.confirm({
+        title: 'What is up?',
+        content: 'Here goes a little content',
+        type: 'green',
+        buttons: {   
+            ok: {
+                text: "ok!",
+                btnClass: 'btn-primary',
+                keys: ['enter'],
+                action: function(){
+                     console.log('the user clicked confirm');
+                }
+            },
+            cancel: function(){
+                    console.log('the user clicked cancel');
+            }
+        }
+    });
+
     $('#setInitialRelapseButton').attr('disabled', 'disabled');
     $(this)[0].requestSubmit();
 });
