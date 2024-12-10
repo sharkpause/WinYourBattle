@@ -68,8 +68,7 @@ function convertTime(seconds, precise) {
     $('#current-emoji').text(emoji);
 
     $('#timezoneInput').val(userTimezone);
-
-    let latestRelapse;
+    
     try {
         const response = await axios.get('/get-statistics');
         const responseDataLength = Object.keys(response.data).length;
@@ -137,48 +136,47 @@ function convertTime(seconds, precise) {
         relapseChartError.text('Sorry, there was an unexpected problem when getting the chart :(');
         $('#relapseChartContainer').height('400px');
     }
-    
-    function updateTime() {
-        const diffInSeconds = Math.floor(((new Date()) - new Date(latestRelapse)) / 1000);
-        
-        const days = Math.floor(diffInSeconds / (3600 * 24));
-        const hours = Math.floor((diffInSeconds % (3600 * 24)) / 3600);
-        const minutes = Math.floor((diffInSeconds % 3600) / 60);
-        const seconds = diffInSeconds % 60;
-        
-        let timeString = '';
-
-        if(days > 0) {
-            timeString += days + ' day' + (days > 1 ? 's' : '') + ', ';
-        }
-        if(hours > 0) {
-            timeString += hours + ' hour' + (hours > 1 ? 's' : '') + ', ';
-        }
-        if(minutes > 0) {
-            timeString += minutes + ' minute' + (minutes > 1 ? 's' : '') + ', ';
-        }
-        if(seconds > 0) {
-            timeString += seconds + ' second' + (seconds > 1 ? 's' : '');
-        }
-
-        $('#relapseTimeText').text(timeString);
-    }
-    
-    setInterval(updateTime, 1000);
-
-    $('#resetRelapseDataForm').on('submit', function(e) {
-        $('#resetRelapseDataButton').attr('disabled', 'disabled');
-        $(this)[0].requestSubmit();
-    });
-
-    $('#setNewRelapseForm').on('submit', function(e) {
-        $('#setNewRelapseButton').attr('disabled', 'disabled');
-        $(this)[0].requestSubmit();
-    });
-
-    $('#setInitialRelapseForm').on('submit', function(e) {
-        e.preventDefault();
-        
-        alert('a');
-    });
 })();
+
+function updateTime() {
+    const diffInSeconds = Math.floor(((new Date()) - new Date(latestRelapse)) / 1000);
+    
+    const days = Math.floor(diffInSeconds / (3600 * 24));
+    const hours = Math.floor((diffInSeconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((diffInSeconds % 3600) / 60);
+    const seconds = diffInSeconds % 60;
+    
+    let timeString = '';
+
+    if(days > 0) {
+        timeString += days + ' day' + (days > 1 ? 's' : '') + ', ';
+    }
+    if(hours > 0) {
+        timeString += hours + ' hour' + (hours > 1 ? 's' : '') + ', ';
+    }
+    if(minutes > 0) {
+        timeString += minutes + ' minute' + (minutes > 1 ? 's' : '') + ', ';
+    }
+    if(seconds > 0) {
+        timeString += seconds + ' second' + (seconds > 1 ? 's' : '');
+    }
+
+    $('#relapseTimeText').text(timeString);
+}
+
+setInterval(updateTime, 1000);
+
+$('#resetRelapseDataForm').on('submit', function(e) {
+    $('#resetRelapseDataButton').attr('disabled', 'disabled');
+    $(this)[0].requestSubmit();
+});
+
+$('#setNewRelapseForm').on('submit', function(e) {
+    $('#setNewRelapseButton').attr('disabled', 'disabled');
+    $(this)[0].requestSubmit();
+});
+
+$('#setInitialRelapseForm').on('submit', function(e) {
+    $('#setInitialRelapseButton').attr('disabled', 'disabled');
+    $(this)[0].requestSubmit();
+});
