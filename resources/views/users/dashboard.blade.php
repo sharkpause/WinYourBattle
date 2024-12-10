@@ -21,11 +21,11 @@
                 <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
                 <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
                     <a href="{{ route('users.edit', Auth::user()->id) }}" class="dropdown-item no-underline">Edit Account Info</a>
-                    <form action="" method="POST">
+                    <form action="{{ route('users.delete', Auth::id()) }}" method="POST" id="delete-account-form">
                         @csrf
                         @method('DELETE')
 
-                        <button class="dropdown-item red-on-hover" type="submit">Delete Account</button>
+                        <button class="dropdown-item red-on-hover" type="submit" id="delete-account-button">Delete Account</button>
                     </form>
                 </div>
             </div>

@@ -43,9 +43,9 @@ class UserPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, User $model): bool
+    public function delete(User $authUser, User $user, int $id): bool
     {
-        //
+        return $authUser->id === $user->id && $user->id == $id;
     }
 
     /**

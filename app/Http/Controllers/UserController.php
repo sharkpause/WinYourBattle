@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function edit(User $user, $id) {
-        Gate::authorize('update', [User::findOrFail($id), $id]);
+    public function edit(User $user, $user_id) {
+        Gate::authorize('update', [User::findOrFail($user_id), $user_id]);
         
         return view('users.edit', ['user' => $user]);
     }
 
-    public function update(Request $request, $id) {
-        $user = User::findOrFail($id);
-        Gate::authorize('update', [$user, $id]);
+    public function update(Request $request, $user_id) {
+        $user = User::findOrFail($user_id);
+        Gate::authorize('update', [$user, $user_id]);
 
         $request->validate([
             'bio' => ['nullable', 'max:255'],
@@ -40,6 +40,15 @@ class UserController extends Controller
             'image' => $newImage
         ]);
 
-        return redirect()->route('dashboard')->with(['success' => 'Your account was updated!']);
+        return redirect()->route('dashboard')->with('success', 'Your account was successfully updated!');
+    }
+
+    public function delete(Request $request, $user_id) {
+        $user = User::findOrFail($user_id);
+        Gate::authorize('delete', [$user, $user_id]);
+
+        $user->delete();
+        
+        return redirect()->route('login')->with('success', 'Your account was successfully deleted!');
     }
 }

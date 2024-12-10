@@ -1,7 +1,7 @@
 <x-layout>
   <div class="container">
-    @if(session('status'))
-        <x-alert msg="{{ session('status') }}" classes="alert-elem success-alert container text-white"></x-alert>
+    @if(session('success'))
+        <x-alert msg="{{ session('success') }}" classes="alert-elem success-alert container text-white"></x-alert>
     @endif
     
     <div class="d-flex flex-column min-vh-80 justify-content-center align-items-center"><div class="card col-4 border-radius-2-rem shadow">

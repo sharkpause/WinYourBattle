@@ -173,7 +173,7 @@ $('#resetRelapseDataForm').on('submit', async function(e) {
     e.preventDefault();
 
     const result = await Swal.fire({
-        title: 'Do you want to save the changes?',
+        title: 'Are you sure you want to reset all relapse data?',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Confirm',
@@ -195,4 +195,22 @@ $('#setNewRelapseForm').on('submit', function(e) {
 
 $('#setInitialRelapseForm').on('submit', function(e) {
     $('#setInitialRelapseButton').attr('disabled', 'disabled');
+});
+
+$('#delete-account-form').on('submit', async function(e) {
+    e.preventDefault();
+
+    const result = await Swal.fire({
+        title: 'Are you sure you want to delete your account?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Confirm',
+        denyButtonText: 'Cancel'
+    });
+
+    if(result.isConfirmed) {
+        $('#setNewRelapseButton').attr('disabled', 'disabled');
+        $('#resetRelapseDataButton').attr('disabled', 'disabled');
+        this.submit();
+    }
 });
