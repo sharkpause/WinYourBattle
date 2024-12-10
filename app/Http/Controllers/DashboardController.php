@@ -28,7 +28,7 @@ class DashboardController extends Controller
             'timezone' => ['required']
         ]);
 
-        $exists = Statistic::where('user_id', Auth::user()->id)->exists();
+        $exists = Statistic::where('user_id', Auth::id())->exists();
         if($exists) {
             return back()->withErrors([
                 'statistic_failed' => "Can't set a new relapse date, use new-relapse API instead."
@@ -76,22 +76,22 @@ class DashboardController extends Controller
     }
 
     public function resetRelapseData(Request $request) {
-        RelapseTrack::where('user_id', Auth::user()->id)->delete();
-        Statistic::where('user_id', Auth::user()->id)->delete();
+        RelapseTrack::where('user_id', Auth::id())->delete();
+        Statistic::where('user_id', Auth::id())->delete();
 
-        return back()->with('success', 'Successfully reseted relapse data');
+        return back()->with('success', 'Successfully reset relapse data');
     }
 
     public function userPosts(User $user) {
         $userPosts = $user->posts()->latest()->paginate(6);
 
-        return view('users.posts', ['posts' => $userPosts, 'username' => $user->username]);
+        return view('users.posts', [ 'posts' => $userPosts, 'username' => $user->username ]);
     }
 
     public function getStatistics() {
         $data = Auth::user()->relapseTracks()->latest()->take(8)->get()->reverse();
 
-        $data->each(function ($item) {
+        $data->each(function($item) {
             $item->relapse_date = Carbon::parse($item->relapse_date)->timezone(Auth::user()->statistics()->value('timezone'));
         });
 
