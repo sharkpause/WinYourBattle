@@ -13,7 +13,7 @@ class UserController extends Controller
     public function edit(User $user, $user_id) {
         Gate::authorize('update', [User::findOrFail($user_id), $user_id]);
         
-        return view('users.edit', ['user' => $user]);
+        return view('users.edit', [ 'user' => $user ]);
     }
 
     public function update(Request $request, $user_id) {
