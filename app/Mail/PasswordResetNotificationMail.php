@@ -39,7 +39,7 @@ class PasswordResetNotificationMail extends Mailable
     {
         return new Content(
             view: 'email.password-reset-notification',
-            with: ['user' => $this->user]
+            with: [ 'user' => $this->user ]
         );
     }
 
