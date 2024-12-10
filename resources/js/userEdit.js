@@ -16,5 +16,4 @@ $('#profile_image_input').on('change', function() {
 
 $('#editAccountForm').on('submit', function(e) {
     $('#editAccountButton').attr('disabled', 'disabled');
-    $(this)[0].requestSubmit();
 });
