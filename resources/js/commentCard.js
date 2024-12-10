@@ -92,15 +92,25 @@ $('.commentDislikeButton').on('click', async function(e) {
 $(document).on('click', '.deleteCommentButton', async function(e) {
     e.preventDefault();
 
-    const commentCard = $('#commentCard-' + $(this).attr('data-comment-id'));
-    commentCard.hide();
+    const result = await Swal.fire({
+        title: 'Are you sure you want to delete your comment?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Confirm',
+        denyButtonText: 'Cancel'
+    });
 
-    try {
-        await axios.delete($(this).attr('data-url'), { _token: $(this).data('csrf-token') });
-        commentCard.remove();
-    } catch(err) {
-        console.log(err);
-        commentCard.show();
+    if(result.isConfirmed) {
+        const commentCard = $('#commentCard-' + $(this).attr('data-comment-id'));
+        commentCard.hide();
+
+        try {
+            await axios.delete($(this).attr('data-url'), { _token: $(this).data('csrf-token') });
+            commentCard.remove();
+        } catch(err) {
+            console.log(err);
+            commentCard.show();
+        }
     }
 });
 
