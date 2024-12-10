@@ -63,13 +63,14 @@ class DashboardController extends Controller
         $user = Auth::user();
         $lastRelapse = $user->relapseTracks()->latest('relapse_date')->first();
         $streakTime = abs(Carbon::now()->diffInSeconds($lastRelapse->relapse_date));
+        // abs is needded because this expression returns the difference (now - last relapse date) so ensure a positive value
         
-        $lastRelapse->update(['streak_time' => $streakTime]);
+        $lastRelapse->update([ 'streak_time' => $streakTime ]);
 
         $date = now()->format('Y-m-d H:i:s');
     
-        $user->relapseTracks()->create(['relapse_date' => $date]);
-        Auth::user()->statistics()->update(['date_of_relapse' => $date]);
+        $user->relapseTracks()->create([ 'relapse_date' => $date ]);
+        Auth::user()->statistics()->update([ 'date_of_relapse' => $date ]);
 
         return back()->with('success', 'Successfully updated the relapse date!');
     }
