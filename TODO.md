@@ -7,7 +7,7 @@
 - [X] Task 5: Change the comment index API to return blade views instead of comment objects
 - [X] Task 6: Fix the index API to return according to post id, and move it to the show API instead
 - [X] Task 7: Fix comment pagination
-- [ ] Task 8: Refactor and polish the entire codebase
+- [ ] Task 8: Refactor and polish the entire codebase // So far in app.css (I'm doing this from top to bottom in vscode view)
 - [X] Task 9: Add comment editing and deleting
 - [X] Task 10: Add alerts when doing non-AJAX actions
 - [X] Task 11: Add spinners and disabling buttons when submitting edits and other stuff
