@@ -107,9 +107,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($comment_id);
         $comment->increment('like_count');
 
-        return response()->json([
-            'like_count' => $comment->like_count
-        ]);
+        return response()->json([ 'like_count' => $comment->like_count ]);
     }
 
     public function dislike(Request $request, $post_id, $comment_id) {
@@ -127,9 +125,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($comment_id);
         $comment->increment('dislike_count');
 
-        return response()->json([
-            'dislike_count' => $comment->dislike_count
-        ]);
+        return response()->json([ 'dislike_count' => $comment->dislike_count ]);
     }
 
     public function unlike(Request $request, $post_id, $comment_id) {
@@ -137,9 +133,7 @@ class CommentController extends Controller
 
         $this->handleUnlike($comment_id);
         
-        return response()->json([
-            'like_count' => Comment::findOrFail($comment_id)->like_count
-        ]);
+        return response()->json([ 'like_count' => Comment::findOrFail($comment_id)->like_count ]);
     }
 
     public function undislike(Request $request, $post_id, $comment_id) {
@@ -147,9 +141,7 @@ class CommentController extends Controller
 
         $this->handleUndislike($comment_id);
         
-        return response()->json([
-            'dislike_count' => Comment::findOrFail($comment_id)->dislike_count
-        ]);
+        return response()->json([ 'dislike_count' => Comment::findOrFail($comment_id)->dislike_count ]);
     }
 
     private function handleUnlike($comment_id) {
