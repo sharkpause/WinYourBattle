@@ -10,6 +10,6 @@
 - [ ] Task 8: Refactor and polish the entire codebase
 - [X] Task 9: Add comment editing and deleting
 - [X] Task 10: Add alerts when doing non-AJAX actions
-- [ ] Task 11: Add spinners and disabling buttons when submitting edits and other stuff
+- [X] Task 11: Add spinners and disabling buttons when submitting edits and other stuff
 - [X] Task 12: Add a "change email" form in the verify email page
 - [ ] Task 13: Add a confirm delete pop up when deleting posts, accounts, and relapse tracks
