@@ -13,3 +13,4 @@
 - [X] Task 11: Add spinners and disabling buttons when submitting edits and other stuff
 - [X] Task 12: Add a "change email" form in the verify email page
 - [X] Task 13: Add a confirm delete pop up when deleting posts, accounts, and relapse data, and there deletions if they exist
+- [ ] Task 14: Modify the quotes and fill it with quotes that actually makes sense
