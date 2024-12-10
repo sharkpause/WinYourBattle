@@ -179,8 +179,6 @@ $('#setNewRelapseForm').on('submit', function(e) {
 });
 
 $('#setInitialRelapseForm').on('submit', function(e) {
-    e.preventDefault();
-
     $('#setInitialRelapseButton').attr('disabled', 'disabled');
     $(this)[0].requestSubmit();
 });
