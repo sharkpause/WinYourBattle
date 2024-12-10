@@ -28,7 +28,7 @@ class PostController extends Controller implements HasMiddleware
     {
         $posts = Post::latest()->paginate(10);
 
-        return view('posts.index', ['posts' => $posts]);
+        return view('posts.index', [ 'posts' => $posts ]);
     }
 
     /**
@@ -63,7 +63,7 @@ class PostController extends Controller implements HasMiddleware
             'dislike_count' => 0
         ]);
 
-        return redirect()->route('posts.index')->with(['success' => 'Your post was posted!']);
+        return redirect()->route('posts.index')->with([ 'success' => 'Your post was posted!' ]);
     }
 
     /**
@@ -71,7 +71,7 @@ class PostController extends Controller implements HasMiddleware
      */
     public function show(Post $post)
     {
-        return view('posts.show', ['post' => $post]);
+        return view('posts.show', [ 'post' => $post ]);
     }
 
     /**
@@ -81,7 +81,7 @@ class PostController extends Controller implements HasMiddleware
     {
         Gate::authorize('modify', $post);
 
-        return view('posts.edit', ['post' => $post]);
+        return view('posts.edit', [ 'post' => $post ]);
     }
 
     /**
@@ -111,7 +111,7 @@ class PostController extends Controller implements HasMiddleware
             'image' => $path,
         ]);
 
-        return redirect()->route('posts.index')->with(['success' => 'Your post was updated!']);
+        return redirect()->route('posts.index')->with([ 'success' => 'Your post was updated!' ]);
     }
 
     /**
@@ -148,7 +148,7 @@ class PostController extends Controller implements HasMiddleware
 
         return response()->json([
             'like_count' => $post->like_count
-        ]);
+        ], 200);
     }
 
     public function unlike(Request $request, $post_id) {
@@ -158,7 +158,7 @@ class PostController extends Controller implements HasMiddleware
         
         return response()->json([
             'like_count' => Post::findOrFail($post_id)->like_count
-        ]);
+        ], 200);
     }
 
     public function dislike(Request $request, $post_id) {
@@ -181,7 +181,7 @@ class PostController extends Controller implements HasMiddleware
 
         return response()->json([
             'dislike_count' => $post->dislike_count
-        ]);
+        ], 200);
     }
 
     public function undislike(Request $request, $post_id) {
@@ -191,22 +191,22 @@ class PostController extends Controller implements HasMiddleware
         
         return response()->json([
             'dislike_count' => Post::findOrFail($post_id)->dislike_count
-        ]);
+        ], 200);
     }
 
     private function validateUserAndPost($userID, $postID) {
         if(Validator::make(
-            ['user_id' => $userID, 'post_id' => $postID],
+            [ 'user_id' => $userID, 'post_id' => $postID ],
             [
                 'user_id' => ['required', 'integer', 'exists:users,id'],
                 'post_id' => ['required', 'integer', 'exists:posts,id'],
             ]
         )->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
+            return response()->json([ 'errors' => $validator->errors() ], 422);
         }
         
         if(!(User::where('id', $userID)->exists() && Post::where('id', $postID)->exists())) {
-            return response()->json(['error' => 'Invalid user or post'], 404);
+            return response()->json([ 'error' => 'Invalid user or post' ], 404);
         }
 
         return true;
