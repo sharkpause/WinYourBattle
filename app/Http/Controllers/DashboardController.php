@@ -16,10 +16,9 @@ class DashboardController extends Controller
 {
     public function index(Request $request) {
         $posts = Auth::user()->posts()->latest()->paginate(6);
-        $statistics = Auth::user()->statistics;
         $quote = (Quote::inRandomOrder()->take(1)->get())[0];
         
-        return view('users.dashboard', ['posts' => $posts, 'statistics' => $statistics, 'quote' => $quote]);
+        return view('users.dashboard', ['posts' => $posts, 'quote' => $quote]);
     }
 
     public function setInitialRelapseDate(Request $request) {

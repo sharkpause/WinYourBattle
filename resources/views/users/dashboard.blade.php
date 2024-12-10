@@ -47,7 +47,7 @@
         <span class="text-muted">- {{ $quote->person }}</span>
     </span>
 
-    @if($statistics === null || $statistics->date_of_relapse === null)
+    @if(Auth::user()->statistics === null || Auth::user()->statistics->date_of_relapse === null)
         <p class="mt-3">You haven't set a relapse date yet</p>
     
         <form method="POST" action="{{ route('set-initial-relapse-date') }}" class="form-inline" id="setInitialRelapseForm">
