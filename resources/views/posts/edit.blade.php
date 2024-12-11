@@ -21,12 +21,12 @@
 
             @if ($post->image !== null)
               <div class="mb-3">
-                <img class="mw-30" src="{{ asset('storage/' . $post->image) }}" id="post_image_preview">
+                <img class="mw-30" src="{{ asset('storage/' . $post->image) }}" id="post-image-preview">
               </div>
             @endif
 
-            <input type="file" name="image" class="hidden" id="post_image_input">
-            <label for="post_image_input" class="pointer-on-hover post-image-upload-button button-click-animation">
+            <input type="file" name="image" class="hidden" id="post-image-input">
+            <label for="post-image-input" class="pointer-on-hover post-image-upload-button button-click-animation">
                 <i class="fas fa-image"></i>
             </label>
             @error('image')

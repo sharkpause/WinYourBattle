@@ -12,7 +12,7 @@
             
             <div class="d-inline form-group">
                 <div class="d-flex align-items-center gap-1">
-                    <input type="file" name="image" class="hidden" id="post_image">
+                    <input type="file" name="image" class="hidden" id="post-image">
                     <label for="post_image" class="pointer-on-hover post-image-upload-button button-click-animation">
                         <i class="fas fa-image"></i>
                     </label>

@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 import './components/autoResizeTextarea.js';
 
-$('#post_image').on('change', function () {
+$('#post-image').on('change', function () {
     const files = this.files;
 
     if (files && files[0]) {
