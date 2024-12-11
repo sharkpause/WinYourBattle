@@ -11,7 +11,7 @@
 <body class="bg-gray">
     <header class="mb-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-dracula px-5 fixed-top">
-            <div class="navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-collapse" id="navbar-supported-content">
                 <ul class="navbar-nav ml-auto">
                   <li class="nav-item active">
                     <a class="nav-link text-white button-click-animation" href="{{ route('posts.index') }}">Home</a>
@@ -22,11 +22,11 @@
             <ul style="list-style-type: none" class="navbar-nav py-2">
                 @auth
                 <li class="nav-item dropdown">
-                <a href="#" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <a href="#" type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-45px button-click-animation">
                 </a>
                 
-                <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
+                <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
                      <p class="dropdown-header">{{ auth()->user()->username }}</p> 
                      <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                      <form action="{{ route('logout') }}" method="POST">

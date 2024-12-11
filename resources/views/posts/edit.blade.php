@@ -37,5 +37,6 @@
         </form>
     </div></div></div>
 
-    @vite('resources/js/postEdit.js')
 </x-layout>
+
+@vite('resources/js/postEdit.js')
