@@ -1,9 +1,12 @@
 import $ from 'jquery';
 import Chart from 'chart.js/auto';
 import axios from 'axios';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 import './components/alert.js'
+
+Chart.register(zoomPlugin);
 
 function convertTime(seconds, precise) {
     let timeSeconds = seconds;
@@ -97,17 +100,12 @@ $('#timezone-input').val(userTimezone);
                 spanGaps: true
             }]
         };
-        
-        new Chart($('#relapse-chart')[0].getContext('2d'), {
+
+        const chartConfig = {
             type: 'line', 
             data: data,
             options: {
                 responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
                 scales: {
                     y: {
                         ticks: {
@@ -115,7 +113,13 @@ $('#timezone-input').val(userTimezone);
                                 return convertTime(value, false);
                             }
                         }
-                    }
+                    },
+                    x: {
+                        type: 'category',
+                        ticks: {
+                            maxTicksLimit: 8,
+                        },
+                    },
                 },
                 plugins: {
                     tooltip: {
@@ -124,10 +128,27 @@ $('#timezone-input').val(userTimezone);
                                 return convertTime(tooltipItem.raw, true);
                             }
                         }
-                    }
+                    },
+                    zoom: {
+                        pan: {
+                            enabled: true,
+                            mode: 'x', // Allow panning on the x-axis
+                        },
+                        zoom: {
+                            wheel: {
+                                enabled: true, // Enable zooming with the mouse wheel
+                            },
+                            pinch: {
+                                enabled: true, // Enable zooming with touch gestures
+                            },
+                            mode: 'x', // Allow zooming on the x-axis
+                        },
+                    },
                 }
             }
-        });
+        };
+        
+        const chart = new Chart($('#relapse-chart')[0].getContext('2d'), chartConfig);
     } catch(err) {
         console.log(err);
         

@@ -88,13 +88,18 @@ class DashboardController extends Controller
         return view('users.posts', [ 'posts' => $userPosts, 'username' => $user->username ]);
     }
 
-    public function getStatistics() {
-        $data = Auth::user()->relapseTracks()->latest()->take(8)->get()->reverse();
+    public function getStatistics(Request $request) {
+        $period = $request->query('period', 1);
+        $timezone = Auth::user()->statistics()->value('timezone');
 
-        $data->each(function($item) {
-            $item->relapse_date = Carbon::parse($item->relapse_date)->timezone(Auth::user()->statistics()->value('timezone'));
-        });
+        $relapseTracks = Auth::user()->relapseTracks()
+            ->orderBy('relapse_date', 'desc')
+            ->get()
+            ->map(function ($item) use ($timezone) {
+                $item->relapse_date = Carbon::parse($item->relapse_date)->timezone($timezone);
+                return $item;
+            });
 
-        return response()->json($data);
+        return response()->json($relapseTracks);
     }
 }
