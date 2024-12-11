@@ -100,7 +100,7 @@ $('#timezoneInput').val(userTimezone);
             }]
         };
         
-        const chart = new Chart(ctx, {
+        new Chart(ctx, {
             type: 'line', 
             data: data,
             options: {
