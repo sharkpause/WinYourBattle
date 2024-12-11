@@ -153,6 +153,8 @@ class PostController extends Controller implements HasMiddleware
 
     public function unlike(Request $request, $post_id) {
         $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        if(!PostLike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists())
+            return response()->json([ 'error' => 'You cannot unlike a post you already did not like' ]);
 
         $this->handleUnlike($post_id);
         
@@ -186,6 +188,8 @@ class PostController extends Controller implements HasMiddleware
 
     public function undislike(Request $request, $post_id) {
         $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        if(!PostDislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists())
+            return response()->json([ 'error' => 'You cannot undislike a post you already did not dislike' ]);
 
         $this->handleUndislike($post_id);
         
