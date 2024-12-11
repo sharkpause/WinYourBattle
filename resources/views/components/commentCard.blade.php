@@ -9,18 +9,19 @@
             @auth
             @if(Auth::user()->id === $comment->user->id)
               <div class="float-end">
-                  <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
+                  <i type="button" id="navbarDropdown" data-bs-toggle="dropdown"
+                     aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
 
                   <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
                     <a
                         data-url="{{ route('comments.destroy', [$comment->post->id, $comment->id]) }}"
-                        class="dropdown-item red-on-hover deleteCommentButton pointer-on-hover"
+                        class="dropdown-item red-on-hover delete-comment-button pointer-on-hover"
                         data-comment-id="{{ $comment->id }}"
                         data-csrf-token="{{ csrf_token() }}">Delete Comment</a>
                     <a
                         data-url="{{ route('comments.update', [$comment->post->id, $comment->id]) }}"
                         data-comment-id="{{ $comment->id }}"
-                        class="dropdown-item no-underline editCommentButton pointer-on-hover"
+                        class="dropdown-item no-underline edit-comment-button pointer-on-hover"
                         data-csrf-token="{{ csrf_token() }}">Edit Comment</a>
                   </div>
               </div>
@@ -36,7 +37,7 @@
             
             @auth
             <div class="mt-2">
-                <button class="no-styling button-click-animation commentLikeButton
+                <button class="no-styling button-click-animation comment-like-button
                   @if($comment->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
                   data-comment-id="{{ $comment->id }}"
                   data-csrf-token="{{ csrf_token() }}"
@@ -46,11 +47,11 @@
 
                   <i class="fa-solid fa-thumbs-up me-1"></i>
                 </button>
-                <span id="commentLikeCount-{{ $comment->id }}" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
+                <span id="comment-like-count-{{ $comment->id }}" class="me-5">@if($comment->like_count <= 0) 0 @else {{ $comment->like_count }} @endif</span>
                 <!-- The 0 is there on both like and dislike count because if
                     $comment->like_count of dislike_count is 0, it won't make anything appear on the front end -->
             
-                <button class="no-styling button-click-animation commentDislikeButton
+                <button class="no-styling button-click-animation comment-dislike-button
                 @if($comment->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
                 data-comment-id="{{ $comment->id }}"
                 data-csrf-token="{{ csrf_token() }}"
@@ -59,7 +60,7 @@
                 data-undislike-url="{{ route('comments.undislike', [$comment->post->id, $comment->id]) }}">
 
                 <i class="fa-solid fa-thumbs-down me-1"></i></button>
-                <span id="commentDislikeCount-{{ $comment->id }}">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>
+                <span id="comment-dislike-count-{{ $comment->id }}">@if($comment->dislike_count <= 0) 0 @else {{ $comment->dislike_count }} @endif</span>
             </div>
             @endauth
         </div>

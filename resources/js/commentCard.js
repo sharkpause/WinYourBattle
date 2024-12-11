@@ -3,13 +3,13 @@ import axios from 'axios';
 
 import './components/autoResizeTextarea.js';
 
-$('.commentLikeButton').on('click', async function(e) {
+$('.comment-like-button').on('click', async function(e) {
     e.preventDefault();
     
     const commentID = $(this).attr('data-comment-id');
-    const commentLikeCountElem = $('#commentLikeCount-' + commentID);
-    const commentDislikeCountElem = $('#commentDislikeCount-' + commentID);
-    const commentDislikeButton = $(`.commentDislikeButton[data-comment-id="${commentID}"]`);
+    const commentLikeCountElem = $('#comment-like-count-' + commentID);
+    const commentDislikeCountElem = $('#comment-dislike-count-' + commentID);
+    const commentDislikeButton = $(`.comment-dislike-button[data-comment-id="${commentID}"]`);
 
     if(commentDislikeButton.attr('data-disliked').trim() === 'true') {
         commentDislikeCountElem.text(Number(commentDislikeCountElem.text()) - 1);
@@ -46,13 +46,13 @@ $('.commentLikeButton').on('click', async function(e) {
     }
 });
 
-$('.commentDislikeButton').on('click', async function(e) {
+$('.comment-dislike-button').on('click', async function(e) {
     e.preventDefault();
     
     const commentID = $(this).attr('data-comment-id');
-    const commentDislikeCountElem = $('#commentDislikeCount-' + commentID);
-    const commentLikeCountElem = $('#commentLikeCount-' + commentID);
-    const commentLikeButton = $(`.commentLikeButton[data-comment-id="${commentID}"]`);
+    const commentDislikeCountElem = $('#comment-dislike-count-' + commentID);
+    const commentLikeCountElem = $('#comment-like-count-' + commentID);
+    const commentLikeButton = $(`.comment-like-button[data-comment-id="${commentID}"]`);
 
     if(commentLikeButton.attr('data-liked').trim() === 'true') {
         commentLikeCountElem.text(Number(commentLikeCountElem.text()) - 1);
@@ -89,7 +89,7 @@ $('.commentDislikeButton').on('click', async function(e) {
     }
 });
 
-$(document).on('click', '.deleteCommentButton', async function(e) {
+$(document).on('click', '.delete-comment-button', async function(e) {
     e.preventDefault();
 
     const result = await Swal.fire({
@@ -101,7 +101,7 @@ $(document).on('click', '.deleteCommentButton', async function(e) {
     });
 
     if(result.isConfirmed) {
-        const commentCard = $('#commentCard-' + $(this).attr('data-comment-id'));
+        const commentCard = $('#comment-card-' + $(this).attr('data-comment-id'));
         commentCard.hide();
 
         try {
@@ -114,7 +114,7 @@ $(document).on('click', '.deleteCommentButton', async function(e) {
     }
 });
 
-$(document).on('click', '.editCommentButton', async function(e) {
+$(document).on('click', '.edit-comment-button', async function(e) {
     e.preventDefault();
 
     const commentID = $(this).attr('data-comment-id');
