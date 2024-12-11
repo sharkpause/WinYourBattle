@@ -27,7 +27,7 @@
                 </a>
                 
                 <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
-                     <p class="dropdown-header">{{ auth()->user()->username }}</p> 
+                     <p class="dropdown-header">{{ Auth::user()->username }}</p> 
                      <a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a>
                      <form action="{{ route('logout') }}" method="POST">
                          @csrf

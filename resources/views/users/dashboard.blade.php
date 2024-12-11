@@ -39,7 +39,7 @@
 
     <span class="col-6">
         <span id="current-time" class="h1"></span>
-        <span class="h1">{{ auth()->user()->username }}</span>
+        <span class="h1">{{ Auth::user()->username }}</span>
         <span class="h1 ms-2" id="current-emoji"></span>
     </span>
 

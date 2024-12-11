@@ -8,7 +8,7 @@
     <div class="flex-grow-1 ms-3">
         <span class="h5 text-break mw-97">{{ $post->title }} </span>
         @auth
-        @if(auth()->user()->id === $post->user->id)
+        @if(Auth::user()->id === $post->user->id)
           <div class="float-end">
               <i type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
               
