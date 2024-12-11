@@ -119,7 +119,7 @@ class PostController extends Controller implements HasMiddleware
      */
     public function destroy(Post $post)
     {
-        if(!(Auth::user()->id === $post->user_id))
+        if(!(Auth::id() === $post->user_id))
             return back()->withErrors([ 'error' => 'You are not authorized to delete this post' ]);
 
         if($post->image) {
@@ -132,14 +132,14 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function like(Request $request, $post_id) {
-        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        $validatorResponse = $this->validateUserAndPost(Auth::id(), $post_id);
         
-        if(PostDislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
+        if(PostDislike::where('user_id', Auth::id())->where('post_id', $post_id)->exists()) {
             $this->handleUndislike($post_id);
         }
 
         PostLike::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'post_id' => $post_id,
         ]);
 
@@ -152,8 +152,8 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function unlike(Request $request, $post_id) {
-        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
-        if(!PostLike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists())
+        $validatorResponse = $this->validateUserAndPost(Auth::id(), $post_id);
+        if(!PostLike::where('user_id', Auth::id())->where('post_id', $post_id)->exists())
             return response()->json([ 'error' => 'You cannot unlike a post you already did not like' ]);
 
         $this->handleUnlike($post_id);
@@ -164,17 +164,17 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function dislike(Request $request, $post_id) {
-        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
+        $validatorResponse = $this->validateUserAndPost(Auth::id(), $post_id);
 
-        if(!$this->validateUserAndPost(Auth::user()->id, $post_id))
+        if(!$this->validateUserAndPost(Auth::id(), $post_id))
             return response()->json([ 'error' => "User or post doesn't exist" ], 404);
 
-        if(PostLike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists()) {
+        if(PostLike::where('user_id', Auth::id())->where('post_id', $post_id)->exists()) {
             $this->handleUnlike($post_id);
         }
 
         PostDislike::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'post_id' => $post_id,
         ]);
 
@@ -187,8 +187,8 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function undislike(Request $request, $post_id) {
-        $validatorResponse = $this->validateUserAndPost(Auth::user()->id, $post_id);
-        if(!PostDislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->exists())
+        $validatorResponse = $this->validateUserAndPost(Auth::id(), $post_id);
+        if(!PostDislike::where('user_id', Auth::id())->where('post_id', $post_id)->exists())
             return response()->json([ 'error' => 'You cannot undislike a post you already did not dislike' ]);
 
         $this->handleUndislike($post_id);
@@ -217,7 +217,7 @@ class PostController extends Controller implements HasMiddleware
     }
 
     private function handleUndislike($post_id) {
-        $dislike = PostDislike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
+        $dislike = PostDislike::where('user_id', Auth::id())->where('post_id', $post_id)->firstOrFail();
 
         $dislike->delete();
         
@@ -226,7 +226,7 @@ class PostController extends Controller implements HasMiddleware
     }
 
     private function handleUnlike($post_id) {
-        $like = PostLike::where('user_id', Auth::user()->id)->where('post_id', $post_id)->firstOrFail();
+        $like = PostLike::where('user_id', Auth::id())->where('post_id', $post_id)->firstOrFail();
 
         $like->delete();
         

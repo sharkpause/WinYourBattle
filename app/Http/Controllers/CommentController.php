@@ -64,7 +64,7 @@ class CommentController extends Controller
     public function update(Request $request, Comment $comment, $post_id, $comment_id)
     {
         $selectedComment = Comment::findOrFail($comment_id);
-        if(!(Auth::user()->id == $selectedComment->user_id))
+        if(!(Auth::id() == $selectedComment->user_id))
             return response()->json(['error' => 'You are not allowed to edit this post'], 403);
 
         $request->validate([
@@ -84,7 +84,7 @@ class CommentController extends Controller
     public function destroy(Comment $comment, $post_id, $comment_id)
     {
         $selectedComment = Comment::findOrFail($comment_id);
-        if(!(Auth::user()->id == $selectedComment->user_id))
+        if(!(Auth::id() == $selectedComment->user_id))
             return response()->json(['error' => 'You are not allowed to delete this post'], 403);
 
         $selectedComment->delete();
@@ -93,14 +93,14 @@ class CommentController extends Controller
     }
 
     public function like(Request $request, $post_id, $comment_id) {
-        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+        $validatorResponse = $this->validateUserAndComment(Auth::id(), $comment_id);
         
-        if(CommentDislike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->exists()) {
+        if(CommentDislike::where('user_id', Auth::id())->where('comment_id', $comment_id)->exists()) {
             $this->handleUndislike($comment_id);
         }
 
         CommentLike::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'comment_id' => $comment_id,
         ]);
 
@@ -111,14 +111,14 @@ class CommentController extends Controller
     }
 
     public function dislike(Request $request, $post_id, $comment_id) {
-        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+        $validatorResponse = $this->validateUserAndComment(Auth::id(), $comment_id);
         
-        if(CommentLike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->exists()) {
+        if(CommentLike::where('user_id', Auth::id())->where('comment_id', $comment_id)->exists()) {
             $this->handleUnlike($comment_id);
         }
 
         CommentDislike::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'comment_id' => $comment_id,
         ]);
 
@@ -129,7 +129,7 @@ class CommentController extends Controller
     }
 
     public function unlike(Request $request, $post_id, $comment_id) {
-        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+        $validatorResponse = $this->validateUserAndComment(Auth::id(), $comment_id);
 
         $this->handleUnlike($comment_id);
         
@@ -137,7 +137,7 @@ class CommentController extends Controller
     }
 
     public function undislike(Request $request, $post_id, $comment_id) {
-        $validatorResponse = $this->validateUserAndComment(Auth::user()->id, $comment_id);
+        $validatorResponse = $this->validateUserAndComment(Auth::id(), $comment_id);
 
         $this->handleUndislike($comment_id);
         
@@ -145,7 +145,7 @@ class CommentController extends Controller
     }
 
     private function handleUnlike($comment_id) {
-        $like = CommentLike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->firstOrFail();
+        $like = CommentLike::where('user_id', Auth::id())->where('comment_id', $comment_id)->firstOrFail();
 
         $like->delete();
         
@@ -156,7 +156,7 @@ class CommentController extends Controller
     // Unlike and undisliking uses a separate function to handle the unlike and undislike because the logic is needed for the like and dislike APIs, following DRY 
 
     private function handleUndislike($comment_id) {
-        $dislike = CommentDislike::where('user_id', Auth::user()->id)->where('comment_id', $comment_id)->firstOrFail();
+        $dislike = CommentDislike::where('user_id', Auth::id())->where('comment_id', $comment_id)->firstOrFail();
 
         $dislike->delete();
         

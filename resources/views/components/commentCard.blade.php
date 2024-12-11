@@ -7,7 +7,7 @@
         </div>
         <div class="flex-grow-1 ms-3">
             @auth
-            @if(Auth::user()->id === $comment->user->id)
+            @if(Auth::id() === $comment->user->id)
               <div class="float-end">
                   <i type="button" id="navbar-dropdown" data-bs-toggle="dropdown"
                      aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
