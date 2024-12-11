@@ -27,7 +27,7 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/reset-password/{token}', [ResetPasswordController::class, 'passwordReset'])->name('password.reset');
 });
 
-Route::get('/{user}/posts', [DashboardController::class, 'userPosts'])->name('posts.user');
+Route::get('/{user_id}/posts', [DashboardController::class, 'userPosts'])->name('posts.user');
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); 
@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
     Route::put('/email/verify', [AuthController::class, 'verifyChangeEmail'])->name('verification.change-email');
-    Route::get('/email/verify/{id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
+    Route::get('/email/verify/{user_id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
     Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:5,1')->name('verification.send');
 
     Route::get('/{user_id}/edit', [UserController::class, 'edit'])->name('users.edit');
