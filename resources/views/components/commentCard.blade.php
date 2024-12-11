@@ -1,6 +1,6 @@
 @props(['comment', 'full' => false])
 
-<div class="mt-4 p-3 border-radius-1-rem shadow-sm" id="commentCard-{{ $comment->id }}">
+<div class="mt-4 p-3 border-radius-1-rem shadow-sm" id="comment-card-{{ $comment->id }}">
     <div class="d-flex">
         <div class="flex-shrink-0">
             <img src="{{ asset('storage/' .  $comment->user->image) }}" class="hw-40px rounded-circle">
@@ -9,10 +9,10 @@
             @auth
             @if(Auth::user()->id === $comment->user->id)
               <div class="float-end">
-                  <i type="button" id="navbarDropdown" data-bs-toggle="dropdown"
+                  <i type="button" id="navbar-dropdown" data-bs-toggle="dropdown"
                      aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
 
-                  <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
+                  <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
                     <a
                         data-url="{{ route('comments.destroy', [$comment->post->id, $comment->id]) }}"
                         class="dropdown-item red-on-hover delete-comment-button pointer-on-hover"
