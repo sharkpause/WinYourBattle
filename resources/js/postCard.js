@@ -153,7 +153,8 @@ $('.delete-post-form').on('submit', async function(e) {
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Confirm',
-        denyButtonText: 'Cancel'
+        denyButtonText: 'Cancel',
+        animation: false
     });
 
     if(result.isConfirmed) {
