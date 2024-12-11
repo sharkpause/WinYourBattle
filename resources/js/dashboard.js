@@ -200,17 +200,27 @@ $('#setInitialRelapseForm').on('submit', function(e) {
 $('#delete-account-form').on('submit', async function(e) {
     e.preventDefault();
 
-    const result = await Swal.fire({
+    const customAlert = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            cancelButton: 'btn btn-danger',
+            popup: 'border-radius-1-rem'
+        }
+    })
+
+    const result = await customAlert.fire({
         title: 'Are you sure you want to delete your account?',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Confirm',
-        denyButtonText: 'Cancel'
+        denyButtonText: 'Cancel',
+        animation: false
     });
 
     if(result.isConfirmed) {
         $('#setNewRelapseButton').attr('disabled', 'disabled');
         $('#resetRelapseDataButton').attr('disabled', 'disabled');
+        
         this.submit();
     }
 });
