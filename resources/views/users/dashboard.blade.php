@@ -112,7 +112,8 @@
             The chart shows the date and time of a relapse
             (the date and time when you click the "I relapse" button or
             when you set an initial relapse date and time) and how long
-            the streak lasted until the next relapse (the next date and time if you click the "I relapse" button)
+            the streak lasted until the next relapse (the next date and time if you click the "I relapse" button).
+            The datetime format is: YYYY-MM-DD HH:mm:ss
         </p>
     </div>
 
