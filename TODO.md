@@ -14,4 +14,4 @@
 - [X] Task 12: Add a "change email" form in the verify email page
 - [X] Task 13: Add a confirm delete pop up when deleting posts, accounts, and relapse data, and there deletions if they exist
 - [ ] Task 14: Modify the quotes and fill it with quotes that actually makes sense
-- [ ] Task 15: Add a feature to plot the chart over a choice of period of time
+- [X] Task 15: Add a feature to plot the chart over a choice of period of time

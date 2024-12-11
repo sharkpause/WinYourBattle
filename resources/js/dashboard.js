@@ -132,7 +132,7 @@ $('#timezone-input').val(userTimezone);
                     zoom: {
                         pan: {
                             enabled: true,
-                            mode: 'x', // Allow panning on the x-axis
+                            mode: 'xy', // Allow panning on the x-axis
                         },
                         zoom: {
                             wheel: {
@@ -149,6 +149,10 @@ $('#timezone-input').val(userTimezone);
         };
         
         const chart = new Chart($('#relapse-chart')[0].getContext('2d'), chartConfig);
+
+        $('#reset-chart-view-button').on('click', () => {
+            chart.resetZoom();
+        });
     } catch(err) {
         console.log(err);
         
