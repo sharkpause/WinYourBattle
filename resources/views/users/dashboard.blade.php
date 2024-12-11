@@ -105,7 +105,7 @@
             <div class="card-body" id="relapse-chart-container">
                 <div class="d-flex"><span id="relapse-chart-error" class="my-auto"></span></div>
                 <canvas id="relapse-chart"></canvas>
-                <button class="btn btn-primary mt-3" id="reset-chart-view-button">Reset view</button>
+                <button class="btn btn-primary mt-3 float-end" id="reset-chart-view-button">Reset view</button>
             </div>
         </div>
         <p class="text-muted fs-6 container">
