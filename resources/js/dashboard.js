@@ -162,7 +162,6 @@ function updateTime() {
 
     $('#relapseTimeText').text(timeString);
 }
-
 setInterval(updateTime, 1000);
 
 $('#resetRelapseDataForm').on('submit', async function(e) {
