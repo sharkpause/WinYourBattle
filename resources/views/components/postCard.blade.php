@@ -49,7 +49,7 @@
             data-csrf-token="{{ csrf_token() }}"
             data-liked="@if($post->likes()->where('user_id', Auth::id())->exists()) true @else false @endif"
             data-like-url="{{ route('posts.like', $post->id) }}"
-            data-unlike-url="{{ route('posts.like', $post->id) }}">
+            data-unlike-url="{{ route('posts.unlike', $post->id) }}">
             
             <i class="fa-solid fa-thumbs-up me-1"></i>
           </button>
@@ -59,7 +59,9 @@
           @if($post->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
           data-post-id="{{ $post->id }}"
           data-csrf-token="{{ csrf_token() }}"
-          data-disliked="@if($post->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif">
+          data-disliked="@if($post->dislikes()->where('user_id', Auth::id())->exists()) true @else false @endif"
+          data-dislike-url="{{ route('posts.dislike', $post->id) }}"
+          data-undislike-url="{{ route('posts.undislike', $post->id) }}">
           
           <i class="fa-solid fa-thumbs-down me-1"></i></button>
           <span id="postDislikeCount-{{ $post->id }}">{{ $post->dislike_count }}</span>
@@ -68,7 +70,7 @@
           <button class="float-end no-styling me-5 button-click-animation commentSectionButton"
                 data-opened="false" data-post-id="{{ $post->id }}"
                 data-opened-first-time="false"
-                data-url="{{ route('comments.show') }}">
+                data-url="{{ route('comments.show', $post->id) }}">
             <i class="fa fa-comment" id="commentSectionButtonIcon"></i>
           </button>
         </div>
@@ -80,7 +82,7 @@
       <form class="mb-4_5 commentForm" method="POST"
             data-csrf-token="{{ csrf_token() }}"
             data-post-id="{{ $post->id }}"
-            data-url="{{ route('comments.store') }}">
+            data-url="{{ route('comments.store', $post->id) }}">
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"

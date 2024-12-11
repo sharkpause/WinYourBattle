@@ -60,7 +60,7 @@ $('.postDislikeButton').on('click', async function(e) {
         $(this).addClass('text-danger');
 
         try {
-            await axios.post('/posts/' + postID + '/dislike', { _token: $(this).data('csrf-token') });
+            await axios.post($(this).attr('data-dislike-url'), { _token: $(this).data('csrf-token') });
         } catch(err) {
             console.log(err);
         }
@@ -70,7 +70,7 @@ $('.postDislikeButton').on('click', async function(e) {
         $(this).removeClass('text-danger');
         
         try {
-            await axios.post('/posts/' + postID + '/undislike', { _token: $(this).data('csrf-token') });
+            await axios.post($(this).attr('data-undislike-url'), { _token: $(this).data('csrf-token') });
         } catch(err) {
             console.log(err);
         }
