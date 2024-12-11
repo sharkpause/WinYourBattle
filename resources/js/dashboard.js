@@ -87,8 +87,6 @@ $('#timezoneInput').val(userTimezone);
             dataset.push(response.data[i].streak_time);
         }
 
-        const ctx = $('#relapseChart')[0].getContext('2d');
-
         const data = {
             labels: labels, 
             datasets: [{
@@ -100,7 +98,7 @@ $('#timezoneInput').val(userTimezone);
             }]
         };
         
-        new Chart(ctx, {
+        new Chart($('#relapseChart')[0].getContext('2d'), {
             type: 'line', 
             data: data,
             options: {
