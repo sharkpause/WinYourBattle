@@ -20,14 +20,16 @@
                         <p class="ms-1 text-danger">{{ $message }}</p>
                     @enderror
 
-                    <input type="text" class="form-control mb-1 mt-1 @error('title') error-border @enderror" name="title" placeholder="Title goes here..." autocomplete="off">
+                    <input type="text" class="form-control mb-1 mt-1 @error('title') error-border @enderror"
+                           name="title" placeholder="Title goes here..." autocomplete="off">
                     @error('title')
                         <p class="ms-1 text-danger">{{ $message }}</p>
                     @enderror
                 </div>
             </div>
 
-            <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror" name="body" placeholder="And whatever you are thinking goes here!"></textarea>
+            <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
+                      name="body" placeholder="And whatever you are thinking goes here!"></textarea>
             @error('body')
                 <p class="ms-1 text-danger">{{ $message }}</p>
             @enderror
@@ -36,6 +38,6 @@
         </form>
     </div></div></div>
 
-    @vite('resources/js/create.js')
-
 </x-layout>
+
+@vite('resources/js/postCreate.js')
