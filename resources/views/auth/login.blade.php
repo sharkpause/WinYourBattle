@@ -49,5 +49,6 @@
     </div>
   </div></div></div>
 
-  @vite(['resources/js/login.js'])
 </x-layout>
+
+@vite(['resources/js/login.js'])
