@@ -7,28 +7,36 @@
               @csrf
       
               <div class="form-group mb-4">
-                <input type="text" name="username" class="form-control ps-0 underline-form @error('username') error-underline @enderror"placeholder="Username">
+                <input type="text" name="username"
+                       class="form-control ps-0 underline-form @error('username') error-underline @enderror"
+                       placeholder="Username">
                 @error('username')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
               </div>
       
               <div class="form-group mb-4">
-                <input type="text" name="email" class="form-control ps-0 underline-form @error('email') error-underline @enderrorr @enderror" placeholder="exampleemail@example.com">
+                <input type="text" name="email" 
+                       class="form-control ps-0 underline-form @error('email') error-underline @enderrorr @enderror"
+                       placeholder="exampleemail@example.com">
                 @error('email')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
               </div>
       
               <div class="form-group mb-4">
-                <input type="password" name="password" class="form-control ps-0 underline-form @error('password') error-underline @enderror" placeholder="Password">
+                <input type="password" name="password"
+                       class="form-control ps-0 underline-form @error('password') error-underline @enderror"
+                       placeholder="Password">
                 @error('password')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
               </div>
 
               <div class="form-group mb-5">
-                <input type="password" name="password_confirmation" class="form-control ps-0 underline-form @error('password') error-underline @enderror" placeholder="Confirm Password">
+                <input type="password" name="password_confirmation"
+                       class="form-control ps-0 underline-form @error('password') error-underline @enderror"
+                       placeholder="Confirm Password">
                 @error('password') @enderror
               </div>
 
@@ -42,6 +50,6 @@
         </div>
   </div></div></div>
 
-  @vite('resources/js/register.js')
-
 </x-layout>
+
+@vite('resources/js/register.js')
