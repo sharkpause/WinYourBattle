@@ -4,4 +4,4 @@
     @include('components.commentCard', ['comment' => $comment])
 @endforeach
 
-<div id="commentPaginator-{{ $post_id }}"></div>
+<div id="comment-paginator-{{ $post_id }}"></div>

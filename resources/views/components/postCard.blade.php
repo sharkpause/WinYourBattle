@@ -10,9 +10,9 @@
         @auth
         @if(auth()->user()->id === $post->user->id)
           <div class="float-end">
-              <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
+              <i type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
               
-              <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
                 <form action="{{ route('posts.destroy', $post) }}" method="POST" class="delete-post-form">
                     @csrf
                     @method('DELETE')
@@ -43,7 +43,7 @@
         
         <div class="mt-3">
           @auth
-          <button class="no-styling button-click-animation postLikeButton
+          <button class="no-styling button-click-animation post-like-button
             @if($post->likes()->where('user_id', Auth::id())->exists()) text-primary @endif"
             data-post-id="{{ $post->id }}"
             data-csrf-token="{{ csrf_token() }}"
@@ -53,9 +53,9 @@
             
             <i class="fa-solid fa-thumbs-up me-1"></i>
           </button>
-          <span id="postLikeCount-{{ $post->id }}" class="me-5">{{ $post->like_count }}</span>
+          <span id="post-like-count-{{ $post->id }}" class="me-5">{{ $post->like_count }}</span>
         
-          <button class="no-styling button-click-animation postDislikeButton
+          <button class="no-styling button-click-animation post-dislike-button
           @if($post->dislikes()->where('user_id', Auth::id())->exists()) text-danger @endif"
           data-post-id="{{ $post->id }}"
           data-csrf-token="{{ csrf_token() }}"
@@ -64,29 +64,29 @@
           data-undislike-url="{{ route('posts.undislike', $post->id) }}">
           
           <i class="fa-solid fa-thumbs-down me-1"></i></button>
-          <span id="postDislikeCount-{{ $post->id }}">{{ $post->dislike_count }}</span>
+          <span id="post-dislike-count-{{ $post->id }}">{{ $post->dislike_count }}</span>
           @endauth
         
-          <button class="float-end no-styling me-5 button-click-animation commentSectionButton"
+          <button class="float-end no-styling me-5 button-click-animation comment-section-button"
                 data-opened="false" data-post-id="{{ $post->id }}"
                 data-opened-first-time="false"
                 data-url="{{ route('comments.show', $post->id) }}">
-            <i class="fa fa-comment" id="commentSectionButtonIcon"></i>
+            <i class="fa fa-comment" id="comment-section-button-icon"></i>
           </button>
         </div>
       </div>
   </div>
 
-    <div class="mt-4 d-none" id="commentSection-{{ $post->id }}">
+    <div class="mt-4 d-none" id="comment-section-{{ $post->id }}">
       @auth
-      <form class="mb-4_5 commentForm" method="POST"
+      <form class="mb-4_5 comment-form" method="POST"
             data-csrf-token="{{ csrf_token() }}"
             data-post-id="{{ $post->id }}"
             data-url="{{ route('comments.store', $post->id) }}">
         <textarea class="form-control mb-1 keep-whitespace @error('body') error-border @enderror"
                 name="body"
                 placeholder="What do you think about this post?"
-                id="commentTextarea"
+                id="comment-textarea"
                 autocomplete="off"></textarea>
         <button type="submit" class="float-end btn btn-primary">Post comment</button>
       </form>
@@ -95,7 +95,7 @@
       @if($post->comments()->count() > 0)
       <div class="mt-5"></div>
       @endif
-      <div id="commentCards-{{ $post->id }}"></div>
+      <div id="comment-cards-{{ $post->id }}"></div>
   </div>
 </div>
 
