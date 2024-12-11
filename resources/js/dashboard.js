@@ -67,7 +67,7 @@ if(time >= 21) {
 
 $('#current-time').text(phrase);
 $('#current-emoji').text(emoji);
-$('#timezoneInput').val(userTimezone);
+$('#timezone-input').val(userTimezone);
 
 (async () => {
     try {
