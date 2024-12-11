@@ -23,7 +23,7 @@ $('.postLikeButton').on('click', async function(e) {
         $(this).addClass('text-primary');
 
         try {
-            await axios.post('/posts/' + postID + '/like', { _token: $(this).data('csrf-token') });
+            await axios.post($(this).attr('data-like-url'), { _token: $(this).data('csrf-token') });
         } catch(err) {
             console.log(err);
         }
@@ -33,7 +33,7 @@ $('.postLikeButton').on('click', async function(e) {
         $(this).removeClass('text-primary');
         
         try {
-            await axios.post('/posts/' + postID + '/unlike', { _token: $(this).data('csrf-token') });
+            await axios.post($(this).attr('data-unlike-url'), { _token: $(this).data('csrf-token') });
         } catch(err) {
             console.log(err);
         }
@@ -89,7 +89,7 @@ $('.commentSectionButton').on('click', async function(e) {
         $('#commentSection-' + postID).removeClass('d-none');
 
         if($(this).attr('data-opened-first-time') === "false") {
-            const response = await axios.get('/posts/' + postID + '/comments');
+            const response = await axios.get($(this).attr('data-url'));
             $('#commentCards-' + postID).html(response.data.html);
             $('#commentPaginator-' + postID).html(response.data.paginator);
 
@@ -123,7 +123,7 @@ $('.commentForm').on('submit', async function(e) {
     commentTextareaElem.val('');
 
     try {
-        const response = await axios.post('/posts/' + $(this).attr('data-post-id') + '/comments',
+        const response = await axios.post($(this).attr('data-url'),
         {
             _token: $(this).attr('data-csrf-token'),
             body: textareaValue,
