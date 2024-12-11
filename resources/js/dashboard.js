@@ -74,7 +74,7 @@ $('#timezoneInput').val(userTimezone);
         const response = await axios.get('/get-statistics');
         const responseDataLength = Object.keys(response.data).length;
 
-        if(responseDataLength <= 0) return $('#chartContainer').empty();
+        if(responseDataLength <= 0) return $('#chart-container').empty();
 
         latestRelapse = response.data[0].relapse_date;
 
@@ -98,7 +98,7 @@ $('#timezoneInput').val(userTimezone);
             }]
         };
         
-        new Chart($('#relapseChart')[0].getContext('2d'), {
+        new Chart($('#relapse-chart')[0].getContext('2d'), {
             type: 'line', 
             data: data,
             options: {
@@ -131,9 +131,9 @@ $('#timezoneInput').val(userTimezone);
     } catch(err) {
         console.log(err);
         
-        const relapseChartError = $('#relapseChartError');
+        const relapseChartError = $('#relapse-chart-error');
         relapseChartError.text('Sorry, there was an unexpected problem when getting the chart :(');
-        $('#relapseChartContainer').height('400px');
+        $('#relapse-chart-container').height('400px');
     }
 })();
 
@@ -160,11 +160,11 @@ function updateTime() {
         timeString += seconds + ' second' + (seconds > 1 ? 's' : '');
     }
 
-    $('#relapseTimeText').text(timeString);
+    $('#relapse-time-text').text(timeString);
 }
 setInterval(updateTime, 1000);
 
-$('#resetRelapseDataForm').on('submit', async function(e) {
+$('#reset-relapse-data-form').on('submit', async function(e) {
     e.preventDefault();
 
     const result = await Swal.fire({
@@ -176,20 +176,20 @@ $('#resetRelapseDataForm').on('submit', async function(e) {
     });
 
     if (result.isConfirmed) {
-        $('#setNewRelapseButton').attr('disabled', 'disabled');
-        $('#resetRelapseDataButton').attr('disabled', 'disabled');
+        $('#set-new-relapse-button').attr('disabled', 'disabled');
+        $('#reset-relapse-data-button').attr('disabled', 'disabled');
         this.submit();
     }
 });
 
 
-$('#setNewRelapseForm').on('submit', function(e) {
-    $('#setNewRelapseButton').attr('disabled', 'disabled');
-    $('#resetRelapseDataButton').attr('disabled', 'disabled');
+$('#set-new-relapse-form').on('submit', function(e) {
+    $('#set-new-relapse-button').attr('disabled', 'disabled');
+    $('#reset-relapse-data-button').attr('disabled', 'disabled');
 });
 
-$('#setInitialRelapseForm').on('submit', function(e) {
-    $('#setInitialRelapseButton').attr('disabled', 'disabled');
+$('#set-nitial-relapse-form').on('submit', function(e) {
+    $('#set-initial-relapse-button').attr('disabled', 'disabled');
 });
 
 $('#delete-account-form').on('submit', async function(e) {
@@ -213,8 +213,8 @@ $('#delete-account-form').on('submit', async function(e) {
     });
 
     if(result.isConfirmed) {
-        $('#setNewRelapseButton').attr('disabled', 'disabled');
-        $('#resetRelapseDataButton').attr('disabled', 'disabled');
+        $('#set-new-relapse-button').attr('disabled', 'disabled');
+        $('#reset-relapse-data-button').attr('disabled', 'disabled');
         
         this.submit();
     }

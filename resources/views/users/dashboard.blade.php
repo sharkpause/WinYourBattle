@@ -18,8 +18,9 @@
             </div>
                 
             <div>
-                <i type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
-                <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbarDropdown">
+                <i type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false"
+                   class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
+                <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
                     <a href="{{ route('users.edit', Auth::user()->id) }}" class="dropdown-item no-underline">Edit Account Info</a>
                     <form action="{{ route('users.delete', Auth::id()) }}" method="POST" id="delete-account-form">
                         @csrf
@@ -50,17 +51,17 @@
     @if(Auth::user()->statistics === null || Auth::user()->statistics->date_of_relapse === null)
         <p class="mt-3">You haven't set a relapse date yet</p>
     
-        <form method="POST" action="{{ route('set-initial-relapse-date') }}" class="form-inline" id="setInitialRelapseForm">
+        <form method="POST" action="{{ route('set-initial-relapse-date') }}" class="form-inline" id="set-initial-relapse-form">
             @csrf
             @method('PUT')
 
             <div class="form-group col-5">
             <div class="input-group">
-                <input type="hidden" id="timezoneInput" name="timezone">
+                <input type="hidden" id="timezone-input" name="timezone">
                 <input name="date_of_relapse" type="date" class="form-control">
                 <input name="time_of_relapse" type="time" class="form-control" step="1">
                 <div class="input-group-append">
-                    <button class="btn btn-primary set-relapse-button" type="submit" id="setInitialRelapseButton">Set relapse date</button>
+                    <button class="btn btn-primary set-relapse-button" type="submit" id="set-initial-relapse-button">Set relapse date</button>
                 </div>
                 @error('statistic_failed')
                     <p class="ms-1 text-danger">{{ $message }}</p>
@@ -77,33 +78,33 @@
         @enderror
     @else
         <p class="mt-4 col-5">It has been
-            <span class="text-green" id="relapseTimeText"></span>
+            <span class="text-green" id="relapse-time-text"></span>
             since you relapsed, keep it up!
         </p>
         
         <div class="d-flex gap-1">
-            <form action="{{ route('set-new-relapse') }}" method="POST" id="setNewRelapseForm">
+            <form action="{{ route('set-new-relapse') }}" method="POST" id="set-new-relapse-form">
                 @csrf
                 @method('PUT')
 
-                <button class="btn-no-hover btn-muted-blue text-white button-click-animation" id="setNewRelapseButton">I relapsed</button>
+                <button class="btn-no-hover btn-muted-blue text-white button-click-animation" id="set-new-relapse-button">I relapsed</button>
             </form>
-            <form action="{{ route('reset-relapse-data') }}" method="POST" id="resetRelapseDataForm">
+            <form action="{{ route('reset-relapse-data') }}" method="POST" id="reset-relapse-data-form">
                 @csrf
                 @method('DELETE')
 
-                <button class="btn-no-hover btn-red text-white button-click-animation" id="resetRelapseDataButton">Reset relapse data</button>
+                <button class="btn-no-hover btn-red text-white button-click-animation" id="reset-relapse-data-bbutton">Reset relapse data</button>
             </form>
         </div>
     @endif
     
     </div></div>
 
-    <div id="chartContainer">
+    <div id="chart-container">
         <div class="container card mt-5 border-radius-2-rem shadow">
-            <div class="card-body" id="relapseChartContainer">
-                <div class="d-flex"><span id="relapseChartError" class="my-auto"></span></div>
-                <canvas id="relapseChart"></canvas>
+            <div class="card-body" id="relapse-chart-container">
+                <div class="d-flex"><span id="relapse-chart-error" class="my-auto"></span></div>
+                <canvas id="relapse-chart"></canvas>
             </div>
         </div>
         <p class="text-muted fs-6 container">
