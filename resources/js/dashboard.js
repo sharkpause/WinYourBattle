@@ -253,8 +253,8 @@ $(document).on('click', '.auto-jsCalendar table td', function(e) {
 });
 
 $('#mood-face').on('click', async function(e) {
-    let userMoodIcon;
-    let userMoodText;
+    let userMoodIcon = 'fa-face-meh-blank';
+    let userMoodText = 'Not set yet, click the face to set a mood for today!';
 
     const customAlert = Swal.mixin({
         customClass: {
