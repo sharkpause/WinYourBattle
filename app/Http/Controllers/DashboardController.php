@@ -126,7 +126,9 @@ class DashboardController extends Controller
         return response()->json([ 'success' => 'Successfully set mood' ]);
     }
 
-    public function getMood(Request $request, $date) {
+    public function getMood(Request $request) {
+        $date = $request->query('date');
+        
         return response()->json([ 'mood' => DailyLog::where('date', $date)->mood ?? null ]);
     }
 }
