@@ -253,8 +253,7 @@ $(document).on('click', '.auto-jsCalendar table td', function(e) {
 });
 
 $('#mood-face').on('click', async function(e) {
-    let userMoodIcon = 'fa-face-meh-blank';
-    let userMoodText = 'Not set yet, click the face to set a mood for today!';
+    let userMoodSet = false;
 
     const customAlert = Swal.mixin({
         customClass: {
@@ -262,20 +261,20 @@ $('#mood-face').on('click', async function(e) {
         }
     })
 
-    await customAlert.fire({
+    const result = await customAlert.fire({
         title: 'How do you feel today?',
         input: 'radio',
         inputOptions: {
-            '0': '<i data-text="Sad" data-mood="fa-sad-cry" class="pointer-on-hover mood-icon center-icon fa fa-sad-cry"></i> Sad',
-            '1': '<i data-text="Angry" data-mood="fa-angry" class="pointer-on-hover mood-icon center-icon fa fa-angry"></i> Angry',
-            '2': '<i data-text="Lonely" data-mood="fa-sad-tear" class="pointer-on-hover mood-icon center-icon fa fa-sad-tear"></i> Lonely',
-            '3': '<i data-text="Stressed" data-mood="fa-tired" class="pointer-on-hover mood-icon center-icon fa fa-tired"></i> Stressed',
-            '4': '<i data-text="Regret" data-mood="fa-frown" class="pointer-on-hover mood-icon center-icon fa fa-frown"></i> Regret',
-            '5': '<i data-text="Excited" data-mood="fa-grin-squint" class="pointer-on-hover mood-icon center-icon fa fa-grin-squint"></i> Excited',
-            '6': '<i data-text="Content" data-mood="fa-smile" class="pointer-on-hover mood-icon center-icon fa fa-smile"></i> Content',
-            '7': '<i data-text="Grateful" data-mood="fa-heart" class="pointer-on-hover mood-icon center-icon fa fa-heart"></i> Grateful',
-            '8': '<i data-text="Happy" data-mood="fa-grin-beam" class="pointer-on-hover mood-icon center-icon fa fa-grin-beam"></i> Happy',
-            '9': '<i data-text="Indifferent" data-mood="fa-meh" class="pointer-on-hover mood-icon center-icon fa fa-meh"></i> Indifferent',
+            '0': '<i data-mood-index="0" data-text="Sad" data-mood="fa-sad-cry" class="pointer-on-hover mood-icon center-icon fa fa-sad-cry"></i> Sad',
+            '1': '<i data-mood-index="1" data-text="Angry" data-mood="fa-angry" class="pointer-on-hover mood-icon center-icon fa fa-angry"></i> Angry',
+            '2': '<i data-mood-index="2" data-text="Lonely" data-mood="fa-sad-tear" class="pointer-on-hover mood-icon center-icon fa fa-sad-tear"></i> Lonely',
+            '3': '<i data-mood-index="3" data-text="Stressed" data-mood="fa-tired" class="pointer-on-hover mood-icon center-icon fa fa-tired"></i> Stressed',
+            '4': '<i data-mood-index="4" data-text="Regret" data-mood="fa-frown" class="pointer-on-hover mood-icon center-icon fa fa-frown"></i> Regret',
+            '5': '<i data-mood-index="5" data-text="Excited" data-mood="fa-grin-squint" class="pointer-on-hover mood-icon center-icon fa fa-grin-squint"></i> Excited',
+            '6': '<i data-mood-index="6" data-text="Content" data-mood="fa-smile" class="pointer-on-hover mood-icon center-icon fa fa-smile"></i> Content',
+            '7': '<i data-mood-index="7" data-text="Grateful" data-mood="fa-heart" class="pointer-on-hover mood-icon center-icon fa fa-heart"></i> Grateful',
+            '8': '<i data-mood-index="8" data-text="Happy" data-mood="fa-grin-beam" class="pointer-on-hover mood-icon center-icon fa fa-grin-beam"></i> Happy',
+            '9': '<i data-mood-index="9" data-text="Indifferent" data-mood="fa-meh" class="pointer-on-hover mood-icon center-icon fa fa-meh"></i> Indifferent',
         },
         animation: false,
         showConfirmButton: false,
@@ -285,15 +284,25 @@ $('#mood-face').on('click', async function(e) {
                 $(radioButtons[i]).hide();
             }
             $('.mood-icon').on('click', function(e) {
-                userMoodIcon = $(this).attr('data-mood');
-                userMoodText = $(this).attr('data-text');
-                Swal.close();
+                userMoodSet = true;
+                Swal.close({
+                    moodIcon: $(this).attr('data-mood'),
+                    moodText: $(this).attr('data-text'),
+                    moodIndex: $(this).attr('data-mood-index')
+                });
             });
         }
     });
 
-    $('#mood-face').removeClass().addClass(`fa-regular ${userMoodIcon} mt-5 font-size-100px pointer-on-hover`);
-    $('#mood-text').text(userMoodText);
+    $('#mood-face').removeClass().addClass(`fa-regular ${result.moodIcon} mt-5 font-size-100px pointer-on-hover`);
+    $('#mood-text').text(result.moodText);
+
+    if(userMoodSet === true)
+        try {
+            await axios.post($(this).attr('data-url'), { _token: $(this).attr('data-csrf-token'), mood: result.moodIndex });
+        } catch(err) {
+            console.log(err);
+        }
 });
 
 $('#start-writing-entry-button').on('click', function(e) {
