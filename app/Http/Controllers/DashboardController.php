@@ -108,10 +108,11 @@ class DashboardController extends Controller
             'mood' => ['required', 'nullable', 'integer', 'between:-128,127']
         ]);
 
-        Auth::user()->daily_logs()->create([
-            'date' => now()->format('Y-m-d'),
-            'mood' => $request->mood,
-            'journal' => ''
+        $todayDate = now()->format('Y-m-d');
+
+        DailyLog::updateOrCreate([
+            [ 'date' => now()->format('Y-m-d') ],
+            [ 'mood' => $request->mood, 'journal' => '' ]
         ]);
 
         return response()->json([ 'success' => 'Successfully set mood' ]);
