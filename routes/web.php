@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
     Route::post('/set-mood', [DashboardController::class, 'setMood'])->name('set-mood');
+    Route::get('/get-mood', [DashboardController::class, 'getMood'])->name('get-mood');
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
     Route::put('/email/verify', [AuthController::class, 'verifyChangeEmail'])->name('verification.change-email');
