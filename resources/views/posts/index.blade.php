@@ -31,5 +31,5 @@
 
     <x-paginator :items="$posts"></x-paginator>
 
-    @vite('resources/js/index.js')
 </x-layout>
+
