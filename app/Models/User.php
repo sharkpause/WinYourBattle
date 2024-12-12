@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Comment;
+use App\Models\DailyLog;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -74,5 +75,10 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function likedPosts()
     {
         return $this->belongsToMany(Post::class, 'likes');
+    }
+
+    public function daily_logs() : HasMany
+    {
+        return $this->belongsToMany(DailyLog::class);
     }
 }
