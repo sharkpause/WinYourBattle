@@ -74,11 +74,11 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
 
     public function likedPosts()
     {
-        return $this->belongsToMany(Post::class, 'likes');
+        return $this->hasMany(Post::class, 'likes');
     }
 
     public function daily_logs() : HasMany
     {
-        return $this->belongsToMany(DailyLog::class);
+        return $this->hasMany(DailyLog::class);
     }
 }
