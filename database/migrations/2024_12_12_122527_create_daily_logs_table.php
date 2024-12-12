@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignID('user_id')->constrained()->onDelete('cascade');
             $table->date('date');
             $table->tinyInteger('mood')->nullable();
-            $table->text('journal')->nullable();
+            $table->text('journal')->nullable()->default('');
             $table->timestamps();
         });
     }
