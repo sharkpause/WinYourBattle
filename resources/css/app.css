@@ -184,6 +184,14 @@ select.form-control:focus {
     max-height: 260px;
 }
 
+.height-260px {
+    height: 260px;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
+}
+
 .mw-97 {
     max-width: 97% !important;
 }

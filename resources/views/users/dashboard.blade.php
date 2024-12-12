@@ -125,17 +125,23 @@
             
             <div class="col-md-2 my-3 me-1 border-radius-1-rem shadow d-flex flex-column align-items-center max-width-10-percent">
                 <p class="text-center mt-3 h3 text-muted">Mood</p>
-                <i class="fa-regular fa-face-meh-blank mt-5 font-size-100px pointer-on-hover"></i>
+                <i class="fa-regular fa-face-meh-blank mt-5 font-size-100px pointer-on-hover" id="mood-face"></i>
                 <p class="text-center mt-3 text-wrap">
                     Not set yet, click the face to set a mood for today!
                 </p>
             </div>
             
             <div class="col my-3 mx-3 d-flex flex-column border-radius-1-rem shadow">
-                <p class="text-center mt-2 h3 text-muted">Journal</p>
-                <div class="text-wrap overflow-auto max-height-260px break-word mt-2">
+                <div class="mt-3">
+                    <span class="h3 text-muted">Journal</span>
+                    <button class="btn btn-primary float-end" id="start-writing-entry-button">Start writing an entry</button>
+                </div>
+                <div class="text-wrap overflow-auto max-height-260px break-word mt-2" id="journal-entry-text">
                     No journal today!
                 </div>
+                <textarea class="text-wrap overflow-auto max-height-260px break-word mt-2 hidden height-260px overflow-y-scroll" id="journal-entry-textarea">
+                    No journal today!
+                </textarea>
             </div>
         </div>
     </div>

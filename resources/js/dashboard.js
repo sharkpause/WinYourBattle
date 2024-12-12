@@ -251,3 +251,19 @@ $(document).on('click', '.auto-jsCalendar table td', function(e) {
     alert('a');
     console.log('a');
 });
+
+$('#mood-face').on('click', function(e) {
+    alert('Mood face clicked');
+});
+
+$('#start-writing-entry-button').on('click', function(e) {
+    if ($(this).text() === 'Start writing an entry') {
+        $('#journal-entry-textarea').removeClass('hidden').height(260);
+        $('#journal-entry-text').addClass('hidden');
+        $(this).text('Cancel');s
+    } else if ($(this).text() === 'Cancel') {
+        $('#journal-entry-textarea').addClass('hidden').removeClass('max-height-260px');
+        $('#journal-entry-text').removeClass('hidden');
+        $(this).text('Start writing an entry');
+    }
+});
