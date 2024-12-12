@@ -259,11 +259,17 @@ $('#mood-face').on('click', function(e) {
 $('#start-writing-entry-button').on('click', function(e) {
     if ($(this).text() === 'Start writing an entry') {
         $('#journal-entry-textarea').removeClass('hidden').height(260);
+        $('#submit-entry-button').removeClass('hidden');
         $('#journal-entry-text').addClass('hidden');
         $(this).text('Cancel');s
     } else if ($(this).text() === 'Cancel') {
         $('#journal-entry-textarea').addClass('hidden').removeClass('max-height-260px');
         $('#journal-entry-text').removeClass('hidden');
+        $('#submit-entry-button').addClass('hidden');
         $(this).text('Start writing an entry');
     }
+});
+
+$('#submit-entry-button').on('click', function(e) {
+    alert('submit');
 });

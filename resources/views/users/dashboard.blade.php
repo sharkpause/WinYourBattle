@@ -135,13 +135,14 @@
                 <div class="mt-3">
                     <span class="h3 text-muted">Journal</span>
                     <button class="btn btn-primary float-end" id="start-writing-entry-button">Start writing an entry</button>
+                    <button class="btn btn-primary float-end me-1 hidden" id="submit-entry-button">Submit entry</button>
                 </div>
                 <div class="text-wrap overflow-auto max-height-260px break-word mt-2" id="journal-entry-text">
-                    No journal today!
+                    No entry today!
                 </div>
-                <textarea class="text-wrap overflow-auto max-height-260px break-word mt-2 hidden height-260px overflow-y-scroll" id="journal-entry-textarea">
-                    No journal today!
-                </textarea>
+                <textarea
+                    class="text-wrap overflow-auto max-height-260px break-word mt-2 hidden height-260px overflow-y-scroll keep-whitespace"
+                    id="journal-entry-textarea">No entry today!</textarea>
             </div>
         </div>
     </div>
