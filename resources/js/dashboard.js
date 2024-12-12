@@ -161,7 +161,43 @@ $('#timezone-input').val(userTimezone);
         relapseChartError.text('Sorry, there was an unexpected problem when getting the chart :(');
         $('#relapse-chart-container').height('400px');
     }
+
+    try {
+        const moodIndex = (await axios.get(`/get-mood?date=${(new Date()).toISOString().split('T')[0]}`)).data.mood;
+        if(moodIndex !== null) {
+            $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
+            $('#mood-text').text(moodMapText[moodIndex]);
+        }
+    } catch(err) {
+        console.log(err);
+    }
 })();
+
+const moodMapIcon = {
+    0: 'fa-sad-cry',
+    1: 'fa-angry',
+    2: 'fa-sad-tear',
+    3: 'fa-tired',
+    4: 'fa-frown',
+    5: 'fa-grin-squint',
+    6: 'fa-smile',
+    7: 'fa-heart',
+    8: 'fa-grin-beam',
+    9: 'fa-meh'
+};
+
+const moodMapText = {
+    0: 'Sad',
+    1: 'Angry',
+    2: 'Lonely',
+    3: 'Stressed',
+    4: 'Regret',
+    5: 'Excited',
+    6: 'Content',
+    7: 'Grateful',
+    8: 'Happy',
+    9: 'Indifferent'
+};
 
 function updateTime() {
     const diffInSeconds = Math.floor(((new Date()) - new Date(latestRelapse)) / 1000);
@@ -252,7 +288,7 @@ $(document).on('click', '.auto-jsCalendar table td', function(e) {
     console.log('a');
 });
 
-$('#mood-face').on('click', async function(e) {
+$('#mood-icon').on('click', async function(e) {
     let userMoodSet = false;
 
     const customAlert = Swal.mixin({
@@ -294,7 +330,7 @@ $('#mood-face').on('click', async function(e) {
         }
     });
 
-    $('#mood-face').removeClass().addClass(`fa-regular ${result.moodIcon} mt-5 font-size-100px pointer-on-hover`);
+    $('#mood-icon').removeClass().addClass(`fa-regular ${result.moodIcon} mt-5 font-size-100px pointer-on-hover`);
     $('#mood-text').text(result.moodText);
 
     if(userMoodSet === true)
