@@ -266,16 +266,16 @@ $('#mood-face').on('click', async function(e) {
         title: 'How do you feel today?',
         input: 'radio',
         inputOptions: {
-            '0': '<i data-text="Sad" data-mood="fa-sad-tear" class="pointer-on-hover mood-icon center-icon fa fa-sad-tear"></i> Sad',
+            '0': '<i data-text="Sad" data-mood="fa-sad-cry" class="pointer-on-hover mood-icon center-icon fa fa-sad-cry"></i> Sad',
             '1': '<i data-text="Angry" data-mood="fa-angry" class="pointer-on-hover mood-icon center-icon fa fa-angry"></i> Angry',
-            '2': '<i data-text="Lonely" data-mood="fa-meh" class="pointer-on-hover mood-icon center-icon fa fa-meh"></i> Lonely',
-            '3': '<i data-text="Stressed" data-mood="fa-circle-exclamation" class="pointer-on-hover mood-icon center-icon fa fa-circle-exclamation"></i> Stressed',
+            '2': '<i data-text="Lonely" data-mood="fa-sad-tear" class="pointer-on-hover mood-icon center-icon fa fa-sad-tear"></i> Lonely',
+            '3': '<i data-text="Stressed" data-mood="fa-tired" class="pointer-on-hover mood-icon center-icon fa fa-tired"></i> Stressed',
             '4': '<i data-text="Regret" data-mood="fa-frown" class="pointer-on-hover mood-icon center-icon fa fa-frown"></i> Regret',
-            '5': '<i data-text="Excited" data-mood="fa-grin-stars" class="pointer-on-hover mood-icon center-icon fa fa-grin-stars"></i> Excited',
+            '5': '<i data-text="Excited" data-mood="fa-grin-squint" class="pointer-on-hover mood-icon center-icon fa fa-grin-squint"></i> Excited',
             '6': '<i data-text="Content" data-mood="fa-smile" class="pointer-on-hover mood-icon center-icon fa fa-smile"></i> Content',
             '7': '<i data-text="Grateful" data-mood="fa-heart" class="pointer-on-hover mood-icon center-icon fa fa-heart"></i> Grateful',
-            '8': '<i data-text="Happy" data-mood="fa-sun" class="pointer-on-hover mood-icon center-icon fa fa-sun"></i> Happy',
-            '9': '<i data-text="Indifferent" data-mood="fa-circle" class="pointer-on-hover mood-icon center-icon fa fa-circle"></i> Indifferent',
+            '8': '<i data-text="Happy" data-mood="fa-grin-beam" class="pointer-on-hover mood-icon center-icon fa fa-grin-beam"></i> Happy',
+            '9': '<i data-text="Indifferent" data-mood="fa-meh" class="pointer-on-hover mood-icon center-icon fa fa-meh"></i> Indifferent',
         },
         animation: false,
         showConfirmButton: false,
@@ -292,7 +292,7 @@ $('#mood-face').on('click', async function(e) {
         }
     });
 
-    $('#mood-face').removeClass().addClass(`fa-solid ${userMoodIcon} mt-5 font-size-100px pointer-on-hover`);
+    $('#mood-face').removeClass().addClass(`fa-regular ${userMoodIcon} mt-5 font-size-100px pointer-on-hover`);
     $('#mood-text').text(userMoodText);
 });
 

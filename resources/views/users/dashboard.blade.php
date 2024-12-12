@@ -125,7 +125,7 @@
             
             <div class="col-md-2 my-3 me-1 border-radius-1-rem shadow d-flex flex-column align-items-center max-width-10-percent">
                 <p class="text-center mt-3 h3 text-muted">Mood</p>
-                <i class="fa-solid fa-face-meh-blank mt-5 font-size-100px pointer-on-hover" id="mood-face"></i>
+                <i class="fa-regular fa-face-meh-blank mt-5 font-size-100px pointer-on-hover" id="mood-face"></i>
                 <p class="text-center mt-3 text-wrap" id="mood-text">
                     Not set yet, click the face to set a mood for today!
                 </p>
