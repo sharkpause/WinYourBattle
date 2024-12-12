@@ -127,7 +127,8 @@
                 <p class="text-center mt-3 h3 text-muted">Mood</p>
                 <i class="fa-regular fa-face-meh-blank mt-5 font-size-100px pointer-on-hover"
                    id="mood-face"
-                   data-url="{{ route('set-mood') }}"></i>
+                   data-url="{{ route('set-mood') }}"
+                   data-csrf-token="{{ csrf_token() }}"></i>
                 <p class="text-center mt-3 text-wrap" id="mood-text">
                     Not set yet, click the face to set a mood for today!
                 </p>
