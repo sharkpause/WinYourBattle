@@ -35,10 +35,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/set-new-relapse', [DashboardController::class, 'setNewRelapse'])->name('set-new-relapse');
     Route::put('/set-initial-relapse-date', [DashboardController::class, 'setInitialRelapseDate'])->name('set-initial-relapse-date');
     Route::delete('/reset-relapse-data', [DashboardController::class, 'resetRelapseData'])->name('reset-relapse-data');
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
-
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
+    Route::post('/set-mood', [DashboardController::class, 'setMood'])->name('set-mood');
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
     Route::put('/email/verify', [AuthController::class, 'verifyChangeEmail'])->name('verification.change-email');
