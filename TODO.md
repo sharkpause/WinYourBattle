@@ -15,7 +15,7 @@
 - [X] Task 13: Add a confirm delete pop up when deleting posts, accounts, and relapse data, and there deletions if they exist
 - [ ] Task 14: Modify the quotes and fill it with quotes that actually makes sense
 - [X] Task 15: Add a feature to plot the chart over a choice of period of time
-- [ ] Task 16: Create a table called "daily_logs"
+- [X] Task 16: Create a table called "daily_logs"
 - [ ] Task 17: Create the migration file and its contents for daily_logs (user_id foreignID, date, mood (int), journal (text))
 - [ ] Task 18: Create a calendar UI in dashboard to display each day of relapse (for example, coloring a day red to show that that day the user relapsed)
 - [X] Task 19: Create a daily log creation feature where users can easily input their mood and journal entry.
