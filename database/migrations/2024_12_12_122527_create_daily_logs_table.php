@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('daily_logs', function (Blueprint $table) {
             $table->id();
+            $table->foreignID('user_id')->constrained()->onDelete('cascade');
+            $table->date('date');
+            $table->tinyInteger('mood')->nullable();
+            $table->text('journal')->nullable();
             $table->timestamps();
         });
     }
