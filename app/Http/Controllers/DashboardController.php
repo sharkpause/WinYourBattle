@@ -102,4 +102,18 @@ class DashboardController extends Controller
 
         return response()->json($relapseTracks);
     }
+
+    public function setMood(Request $request) {
+        $fields = $request->validate([
+            'mood' => ['required', 'nullable', 'integer', 'between:-128,127']
+        ]);
+
+        Auth::user()->daily_logs()->create([
+            'date' => now()->format('Y-m-d'),
+            'mood' => $request->mood,
+            'journal' => ''
+        ]);
+
+        return response()->json([ 'success' => 'Successfully set mood' ]);
+    }
 }
