@@ -262,7 +262,7 @@ $('#mood-face').on('click', async function(e) {
         }
     })
 
-    const result = await customAlert.fire({
+    await customAlert.fire({
         title: 'How do you feel today?',
         input: 'radio',
         inputOptions: {
