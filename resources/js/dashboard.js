@@ -299,7 +299,10 @@ $('#mood-face').on('click', async function(e) {
 
     if(userMoodSet === true)
         try {
-            await axios.post($(this).attr('data-url'), { _token: $(this).attr('data-csrf-token'), mood: result.moodIndex });
+            await axios.post($(this).attr('data-url'), {
+                _token: $(this).attr('data-csrf-token'),
+                mood: result.moodIndex,
+            });
         } catch(err) {
             console.log(err);
         }
