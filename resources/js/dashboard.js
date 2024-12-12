@@ -3,6 +3,7 @@ import Chart from 'chart.js/auto';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import './jsCalendar.js';
 
 import './components/alert.js'
 
@@ -243,4 +244,10 @@ $('#delete-account-form').on('submit', async function(e) {
         
         this.submit();
     }
+});
+
+$(document).on('click', '.auto-jsCalendar table td', function(e) {
+    e.preventDefault();
+    alert('a');
+    console.log('a');
 });

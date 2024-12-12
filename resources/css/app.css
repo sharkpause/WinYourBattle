@@ -68,11 +68,11 @@ select.form-control:focus {
 }
 
 .border-radius-2-rem {
-    border-radius: 2rem;
+    border-radius: 2rem !important;
 }
 
 .border-radius-1-rem {
-    border-radius: 1rem;
+    border-radius: 1rem !important;
 }
 
 #user-post-input {
