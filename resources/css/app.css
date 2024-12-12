@@ -172,6 +172,18 @@ select.form-control:focus {
     font-style: italic;
 }
 
+.font-size-100px {
+    font-size: 100px;
+}
+
+.max-width-10-percent {
+    max-width: 10%;
+}
+
+.max-height-260px {
+    max-height: 260px;
+}
+
 .mw-97 {
     max-width: 97% !important;
 }
