@@ -184,8 +184,8 @@ select.form-control:focus {
     max-height: 260px;
 }
 
-.height-260px {
-    height: 260px;
+.height-250px {
+    height: 250px;
 }
 
 .overflow-y-scroll {
@@ -295,12 +295,22 @@ select.form-control:focus {
 .submit-button {
     display: flex;
     align-items: center;
-    justify-content: center; /* Centers all content initially */
-    position: relative; /* Allows the spinner to be absolutely positioned */
+    justify-content: center;
+    position: relative;
 }
 
 .spinner-elem {
   position: absolute;
-  left: 10px; /* Adjust this value as needed for spacing from the left edge */
-  visibility: hidden; /* Reserve space without showing the spinner */
+  left: 10px;
+  visibility: hidden;
+}
+
+.center-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.width-850px {
+    width: 850px;
 }

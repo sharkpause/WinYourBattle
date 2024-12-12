@@ -125,8 +125,8 @@
             
             <div class="col-md-2 my-3 me-1 border-radius-1-rem shadow d-flex flex-column align-items-center max-width-10-percent">
                 <p class="text-center mt-3 h3 text-muted">Mood</p>
-                <i class="fa-regular fa-face-meh-blank mt-5 font-size-100px pointer-on-hover" id="mood-face"></i>
-                <p class="text-center mt-3 text-wrap">
+                <i class="fa-solid fa-face-meh-blank mt-5 font-size-100px pointer-on-hover" id="mood-face"></i>
+                <p class="text-center mt-3 text-wrap" id="mood-text">
                     Not set yet, click the face to set a mood for today!
                 </p>
             </div>
@@ -141,7 +141,7 @@
                     No entry today!
                 </div>
                 <textarea
-                    class="text-wrap overflow-auto max-height-260px break-word mt-2 hidden height-260px overflow-y-scroll keep-whitespace"
+                    class="text-wrap overflow-auto max-height-260px break-word mt-2 hidden height-250px overflow-y-scroll keep-whitespace"
                     id="journal-entry-textarea">No entry today!</textarea>
             </div>
         </div>
