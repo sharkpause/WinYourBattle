@@ -33,3 +33,4 @@
 
 </x-layout>
 
+@vite('resources/js/index.js')
