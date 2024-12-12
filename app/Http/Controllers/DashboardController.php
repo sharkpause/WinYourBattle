@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\Post;
 use App\Models\User;
-use App\Models\Statistic;
+
 use App\Models\Quote;
+use App\Models\DailyLog;
+use App\Models\Statistic;
 use App\Models\RelapseTrack;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -110,10 +111,17 @@ class DashboardController extends Controller
 
         $todayDate = now()->format('Y-m-d');
 
-        DailyLog::updateOrCreate([
-            [ 'date' => now()->format('Y-m-d') ],
-            [ 'mood' => $request->mood, 'journal' => '' ]
-        ]);
+        if(DailyLog::where('date', $todayDate)->exists()) {
+            DailyLog::where('date', $todayDate)->update([
+                'mood' => $request->mood
+            ]);
+        } else {
+            Auth::user()->daily_logs()->create([
+                'date' => $todayDate,
+                'mood' => $request->mood,
+                'journal' => ''
+            ]);
+        }
 
         return response()->json([ 'success' => 'Successfully set mood' ]);
     }
