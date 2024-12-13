@@ -173,6 +173,8 @@ $('#timezone-input').val(userTimezone);
     }
 })();
 
+$('#mood-selected-date').text((new Date()).toISOString().split('T')[0]);
+
 const moodMapIcon = {
     0: 'fa-sad-cry',
     1: 'fa-angry',
