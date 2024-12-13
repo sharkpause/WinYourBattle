@@ -39,6 +39,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
     Route::post('/set-mood', [DashboardController::class, 'setMood'])->name('set-mood');
     Route::get('/get-mood', [DashboardController::class, 'getMood'])->name('get-mood');
+    Route::post('/set-journal', [DashboardController::class, 'setJournal'])->name('set-journal');
+    Route::get('/get-journal', [DashboardController::class, 'getJournal'])->name('get-journal');
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
     Route::put('/email/verify', [AuthController::class, 'verifyChangeEmail'])->name('verification.change-email');

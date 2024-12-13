@@ -118,7 +118,6 @@ class DashboardController extends Controller
             Auth::user()->daily_logs()->create([
                 'date' => $request->date,
                 'mood' => $request->mood,
-                'journal' => ''
             ]);
         }
 
@@ -129,5 +128,29 @@ class DashboardController extends Controller
         $date = $request->query('date');
         
         return response()->json([ 'mood' => DailyLog::where('date', $date)->first()->mood ?? null ]);
+    }
+
+    public function setJournal(Request $request) {
+        $fields = $request->validate([
+            'journal' => ['required', 'nullable', 'string', 'max:65535'],
+            'date' => ['required', 'regex:/^\d{4}-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$/']
+        ]);
+
+        if(DailyLog::where('date', $request->date)->exists()) {
+            DailyLog::where('date', $request->date)->update([
+                'journal' => $request->journal
+            ]);
+        } else {
+            Auth::user()->daily_logs()->create([
+                'date' => $request->date,
+                'journal' => $request->journal,
+            ]);
+        }
+    }
+
+    public function getJournal(Request $request) {
+        $date = $request->query('date');
+        
+        return response()->json([ 'journal' => DailyLog::where('date', $date)->first()->journal ?? null ]);
     }
 }

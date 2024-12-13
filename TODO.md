@@ -19,6 +19,6 @@
 - [X] Task 17: Create the migration file and its contents for daily_logs (user_id foreignID, date, mood (int), journal (text))
 - [X] Task 18: Create a calendar UI in dashboard to display each day of relapse (for example, coloring a day red to show that that day the user relapsed)
 - [X] Task 19: Create a daily log creation feature where users can easily input their mood and journal entry.
-- [ ] Task 20: Create a feature where if the user clicks on a day on the calendar, they can view the mood in the form of a little emoji and their journal
+- [X] Task 20: Create a feature where if the user clicks on a day on the calendar, they can view the mood in the form of a little emoji and their journal
 - [X] Task 21: Create a UI to prompt the user for their mood and journal for the day in the dashboard
-- [ ] Task 22: Create a controller to handle the user inputted mood and journal
+- [X] Task 22: Create a controller to handle the user inputted mood and journal

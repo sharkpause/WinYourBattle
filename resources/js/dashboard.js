@@ -171,11 +171,14 @@ $('#timezone-input').val(userTimezone);
     } catch(err) {
         console.log(err);
     }
-})();
 
-const currentDate = (new Date()).toISOString().split('T')[0];
-$('#mood-selected-date').text(currentDate);
-$('#journal-selected-date').text(currentDate);
+    try {
+        const journalEntry = (await axios.get(`/get-journal?date=${(new Date()).toISOString().split('T')[0]}`)).data.journal;
+        $('#journal-entry-text').text(journalEntry);
+    } catch(err) {
+        console.log(err);
+    }
+})();
 
 const moodMapIcon = {
     0: 'fa-sad-cry',
@@ -308,6 +311,10 @@ jsCalendar.new("#relapse-calendar", new Date(), {
     monthFormat: "month YYYY",
 });
 
+let selectedDate = (new Date()).toISOString().split('T')[0];
+$('#mood-selected-date').text(selectedDate);
+$('#journal-selected-date').text(selectedDate);
+
 function getSelectedDate(elem) {
     const currentDay = $(elem).text();
     const titleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
@@ -321,7 +328,7 @@ $(document).on('click', '#relapse-calendar table td', async function(e) {
     $('.selected-calendar-date').removeClass('selected-calendar-date');
     $(this).addClass('selected-calendar-date');
 
-    const selectedDate = getSelectedDate(this);
+    selectedDate = getSelectedDate(this);
 
     let moodIndex = (await axios.get(`/get-mood?date=${selectedDate}`)).data.mood;
     if(moodIndex === null) moodIndex = 10;
@@ -330,6 +337,9 @@ $(document).on('click', '#relapse-calendar table td', async function(e) {
     $('#mood-selected-date').text(selectedDate);
 
     $('#journal-selected-date').text(selectedDate);
+
+    const journalEntry = (await axios.get(`/get-journal?date=${selectedDate}`)).data.journal || 'No entry for this date!';
+    $('#journal-entry-text').text(journalEntry);
 });
 
 $('#mood-icon').on('click', async function(e) {
@@ -412,13 +422,17 @@ $('#submit-entry-button').on('click', async function(e) {
     toggleJournalTextarea();
 
     $('#journal-entry-text').text(textareaValue);
-    
-    try {
 
+    try {
+        const response = await axios.post($(this).attr('data-url'), {
+            date: selectedDate,
+            journal: textareaValue
+        });
     } catch(err) {
 
     }
 });
+
 
 async function showRelapseOnDate() {
     const response = await axios.get('/get-statistics');
@@ -430,11 +444,7 @@ async function showRelapseOnDate() {
     }
 
     $('#relapse-calendar table td').each(function(e) {
-        const thisDay = $(this).text();
-        const thisTitleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
-        const thisMonth = thisTitleName[0];
-        const thisYear = thisTitleName[1];
-        const thisDate = `${thisYear}-${monthMap[thisMonth]}-${thisDay}`;
+        const thisDate = getSelectedDate(this);
 
         if(thisDate === relapseDates[thisDate]) {
             delete relapseDates[thisDate];
