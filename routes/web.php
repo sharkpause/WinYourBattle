@@ -35,11 +35,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/set-new-relapse', [DashboardController::class, 'setNewRelapse'])->name('set-new-relapse');
     Route::put('/set-initial-relapse-date', [DashboardController::class, 'setInitialRelapseDate'])->name('set-initial-relapse-date');
     Route::delete('/reset-relapse-data', [DashboardController::class, 'resetRelapseData'])->name('reset-relapse-data');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
+    Route::get('/profile', [UserController::class, 'index'])->middleware('verified')->name('profile');
+
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
-    Route::post('/set-mood', [DashboardController::class, 'setMood'])->name('set-mood');
+    Route::post('/set-mood', [DashboardController::class, 'setMood'])->middleware('verified')->name('set-mood');
     Route::get('/get-mood', [DashboardController::class, 'getMood'])->name('get-mood');
-    Route::post('/set-journal', [DashboardController::class, 'setJournal'])->name('set-journal');
+    Route::post('/set-journal', [DashboardController::class, 'setJournal'])->middleware('verified')->name('set-journal');
     Route::get('/get-journal', [DashboardController::class, 'getJournal'])->name('get-journal');
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
@@ -47,9 +50,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/email/verify/{user_id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
     Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:5,1')->name('verification.send');
 
-    Route::get('/{user_id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::patch('/{user_id}/edit', [UserController::class, 'update'])->name('users.update');
-    Route::delete('/{user_id}/delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::get('/{user_id}/edit', [UserController::class, 'edit'])->middleware('verified')->name('users.edit');
+    Route::patch('/{user_id}/edit', [UserController::class, 'update'])->middleware('verified')->name('users.update');
+    Route::delete('/{user_id}/delete', [UserController::class, 'delete'])->middleware('verified')->name('users.delete');
 
     Route::post('/posts/{post_id}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post_id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');

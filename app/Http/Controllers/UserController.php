@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    public function index(Request $request) {
+        return view('users.profile', [ 'posts' => Auth::user()->posts()->paginate(10) ]);
+    }
+
     public function edit(User $user, $user_id) {
         Gate::authorize('update', [User::findOrFail($user_id), $user_id]);
         
@@ -40,7 +45,7 @@ class UserController extends Controller
             'image' => $newImage
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Your account was successfully updated!');
+        return redirect()->route('profile')->with('success', 'Your account was successfully updated!');
     }
 
     public function delete(Request $request, $user_id) {
