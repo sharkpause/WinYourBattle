@@ -192,6 +192,10 @@ select.form-control:focus {
     overflow-y: scroll;
 }
 
+.selected-calendar-date {
+    background-color: #2ecc71;
+}
+
 .mw-97 {
     max-width: 97% !important;
 }

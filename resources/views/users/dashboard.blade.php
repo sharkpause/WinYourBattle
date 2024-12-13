@@ -120,7 +120,7 @@
     <div class="container card mt-5 border-radius-2-rem shadow">
         <div class="row">
             <div class="col-auto my-3 mx-1">
-                <div class="auto-jsCalendar material-theme"></div>
+                <div id="relapse-calendar" class="material-theme"></div>
             </div>
             
             <div class="col-md-2 my-3 me-1 border-radius-1-rem shadow d-flex flex-column align-items-center max-width-10-percent">
@@ -131,7 +131,7 @@
                    data-url="{{ route('set-mood') }}"
                    data-csrf-token="{{ csrf_token() }}"></i>
                 <p class="text-center mt-3 text-wrap" id="mood-text">
-                    Not set yet, click the face to set a mood for today!
+                    Not set yet, click the face to set a mood for this day!
                 </p>
             </div>
             

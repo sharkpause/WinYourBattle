@@ -1547,3 +1547,5 @@ var jsCalendar = (function(){
     // Return
     return JsCalendar;
 })();
+
+export default jsCalendar;

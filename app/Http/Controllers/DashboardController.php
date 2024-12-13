@@ -106,18 +106,17 @@ class DashboardController extends Controller
 
     public function setMood(Request $request) {
         $fields = $request->validate([
-            'mood' => ['required', 'nullable', 'integer', 'between:-128,127']
+            'mood' => ['required', 'nullable', 'integer', 'between:-128,127'],
+            'date' => ['required', 'regex:/^\d{4}-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$/']
         ]);
 
-        $todayDate = now()->format('Y-m-d');
-
-        if(DailyLog::where('date', $todayDate)->exists()) {
-            DailyLog::where('date', $todayDate)->update([
+        if(DailyLog::where('date', $request->date)->exists()) {
+            DailyLog::where('date', $request->date)->update([
                 'mood' => $request->mood
             ]);
         } else {
             Auth::user()->daily_logs()->create([
-                'date' => $todayDate,
+                'date' => $request->date,
                 'mood' => $request->mood,
                 'journal' => ''
             ]);

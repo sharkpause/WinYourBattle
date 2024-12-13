@@ -3,7 +3,7 @@ import Chart from 'chart.js/auto';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import './jsCalendar.js';
+import jsCalendar from './jsCalendar.js';
 
 import './components/alert.js'
 
@@ -185,7 +185,8 @@ const moodMapIcon = {
     6: 'fa-smile',
     7: 'fa-heart',
     8: 'fa-grin-beam',
-    9: 'fa-meh'
+    9: 'fa-meh',
+    10: 'fa-face-meh-blank'
 };
 
 const moodMapText = {
@@ -198,7 +199,23 @@ const moodMapText = {
     6: 'Content',
     7: 'Grateful',
     8: 'Happy',
-    9: 'Indifferent'
+    9: 'Indifferent',
+    10: 'Not set yet, click the face to set a mood for this date!'
+};
+
+const monthMap = {
+    "January": 1,
+    "February": 2,
+    "March": 3,
+    "April": 4,
+    "May": 5,
+    "June": 6,
+    "July": 7,
+    "August": 8,
+    "September": 9,
+    "October": 10,
+    "November": 11,
+    "December": 12
 };
 
 function updateTime() {
@@ -284,10 +301,33 @@ $('#delete-account-form').on('submit', async function(e) {
     }
 });
 
-$(document).on('click', '.auto-jsCalendar table td', function(e) {
-    e.preventDefault();
-    alert('a');
-    console.log('a');
+jsCalendar.new("#relapse-calendar", new Date(), {
+    navigator: true,
+    monthFormat: "month YYYY",
+});
+
+let currentDay = $('#relapse-calendar table td').text();
+let titleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
+let currentMonth = titleName[0];
+let currentYear = titleName[1];
+let selectedDate = `${currentYear}-${monthMap[currentMonth]}-${currentDay}`;
+
+$(document).on('click', '#relapse-calendar table td', async function(e) {
+    $('.selected-calendar-date').removeClass('selected-calendar-date');
+    $(this).addClass('selected-calendar-date');
+
+    currentDay = $(this).text();
+    titleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
+    currentMonth = titleName[0];
+    currentYear = titleName[1];
+
+    selectedDate = `${currentYear}-${monthMap[currentMonth]}-${currentDay}`;
+
+    let moodIndex = (await axios.get(`/get-mood?date=${currentYear}-${monthMap[currentMonth]}-${currentDay}`)).data.mood;
+    if(moodIndex === null) moodIndex = 10;
+    $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
+    $('#mood-text').text(moodMapText[moodIndex]);
+    $('#mood-selected-date').text(selectedDate);
 });
 
 $('#mood-icon').on('click', async function(e) {
@@ -340,6 +380,7 @@ $('#mood-icon').on('click', async function(e) {
             await axios.post($(this).attr('data-url'), {
                 _token: $(this).attr('data-csrf-token'),
                 mood: result.moodIndex,
+                date: selectedDate,
             });
         } catch(err) {
             console.log(err);
