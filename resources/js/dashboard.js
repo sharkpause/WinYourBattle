@@ -329,7 +329,7 @@ $(document).on('click', '#relapse-calendar table td', async function(e) {
     $('#mood-text').text(moodMapText[moodIndex]);
     $('#mood-selected-date').text(selectedDate);
 
-    $('#journal-selected-date').text(getSelectedDate(this));
+    $('#journal-selected-date').text(selectedDate);
 });
 
 $('#mood-icon').on('click', async function(e) {

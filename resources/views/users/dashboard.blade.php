@@ -146,7 +146,7 @@
                 </div>
                 <textarea
                     class="text-wrap overflow-auto max-height-260px break-word mt-2 hidden height-250px overflow-y-scroll keep-whitespace"
-                    id="journal-entry-textarea">No entry today!</textarea>
+                    id="journal-entry-textarea">No entry this date!</textarea>
             </div>
         </div>
     </div>
