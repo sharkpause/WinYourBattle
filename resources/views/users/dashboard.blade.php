@@ -137,7 +137,7 @@
             
             <div class="col my-3 mx-3 d-flex flex-column border-radius-1-rem shadow">
                 <div class="mt-3">
-                    <span class="h3 text-muted">Journal</span>
+                    <span class="h3 text-muted">Journal</span><span class="text-muted ms-2" id="journal-selected-date"></span>
                     <button class="btn btn-primary float-end" id="start-writing-entry-button">Start writing an entry</button>
                     <button class="btn btn-primary float-end me-1 hidden" id="submit-entry-button">Submit entry</button>
                 </div>

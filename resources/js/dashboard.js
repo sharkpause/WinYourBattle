@@ -173,7 +173,9 @@ $('#timezone-input').val(userTimezone);
     }
 })();
 
-$('#mood-selected-date').text((new Date()).toISOString().split('T')[0]);
+const currentDate = (new Date()).toISOString().split('T')[0];
+$('#mood-selected-date').text(currentDate);
+$('#journal-selected-date').text(currentDate);
 
 const moodMapIcon = {
     0: 'fa-sad-cry',
@@ -326,6 +328,8 @@ $(document).on('click', '#relapse-calendar table td', async function(e) {
     $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
     $('#mood-text').text(moodMapText[moodIndex]);
     $('#mood-selected-date').text(selectedDate);
+
+    $('#journal-selected-date').text(getSelectedDate(this));
 });
 
 $('#mood-icon').on('click', async function(e) {
