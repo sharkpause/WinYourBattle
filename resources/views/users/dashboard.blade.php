@@ -139,7 +139,7 @@
                 <div class="mt-3">
                     <span class="h3 text-muted">Journal</span><span class="text-muted ms-2" id="journal-selected-date"></span>
                     <button class="btn btn-primary float-end" id="start-writing-entry-button">Start writing an entry</button>
-                    <button class="btn btn-primary float-end me-1 hidden" id="submit-entry-button">Submit entry</button>
+                    <button class="btn btn-primary float-end me-1 hidden" id="submit-entry-button" data-url="{{ route('set-journal') }}">Submit entry</button>
                 </div>
                 <div class="text-wrap overflow-auto max-height-260px break-word mt-2" id="journal-entry-text">
                     No entry today!
