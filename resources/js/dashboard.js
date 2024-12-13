@@ -306,24 +306,22 @@ jsCalendar.new("#relapse-calendar", new Date(), {
     monthFormat: "month YYYY",
 });
 
-let currentDay = $('#relapse-calendar table td').text();
-let titleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
-let currentMonth = titleName[0];
-let currentYear = titleName[1];
-let selectedDate = `${currentYear}-${monthMap[currentMonth]}-${currentDay}`;
+function getSelectedDate(elem) {
+    const currentDay = $(elem).text();
+    const titleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
+    const currentMonth = titleName[0];
+    const currentYear = titleName[1];
+
+    return `${currentYear}-${monthMap[currentMonth]}-${currentDay}`;
+}
 
 $(document).on('click', '#relapse-calendar table td', async function(e) {
     $('.selected-calendar-date').removeClass('selected-calendar-date');
     $(this).addClass('selected-calendar-date');
 
-    currentDay = $(this).text();
-    titleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
-    currentMonth = titleName[0];
-    currentYear = titleName[1];
+    const selectedDate = getSelectedDate(this);
 
-    selectedDate = `${currentYear}-${monthMap[currentMonth]}-${currentDay}`;
-
-    let moodIndex = (await axios.get(`/get-mood?date=${currentYear}-${monthMap[currentMonth]}-${currentDay}`)).data.mood;
+    let moodIndex = (await axios.get(`/get-mood?date=${selectedDate}`)).data.mood;
     if(moodIndex === null) moodIndex = 10;
     $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
     $('#mood-text').text(moodMapText[moodIndex]);
@@ -403,4 +401,37 @@ $('#start-writing-entry-button').on('click', function(e) {
 
 $('#submit-entry-button').on('click', function(e) {
     alert('submit');
+});
+
+async function showRelapseOnDate() {
+    const response = await axios.get('/get-statistics');
+    let relapseDates = {};
+    let relapseDate;
+    for(let i = 0; i < response.data.length; ++i) {
+        relapseDate = response.data[i].relapse_date.split('T')[0];
+        relapseDates[relapseDate] = relapseDate;
+    }
+
+    $('#relapse-calendar table td').each(function(e) {
+        const thisDay = $(this).text();
+        const thisTitleName = $('.jsCalendar-title-name').text().split(/[ ,]+/).filter(Boolean);
+        const thisMonth = thisTitleName[0];
+        const thisYear = thisTitleName[1];
+        const thisDate = `${thisYear}-${monthMap[thisMonth]}-${thisDay}`;
+
+        if(thisDate === relapseDates[thisDate]) {
+            delete relapseDates[thisDate];
+            $(this).addClass('relapsed-date');
+        }
+    });
+}
+
+showRelapseOnDate();
+
+$('.jsCalendar-nav-right').on('click', function(e) {
+    showRelapseOnDate();
+});
+
+$('.jsCalendar-nav-left').on('click', function(e) {
+    showRelapseOnDate();
 });
