@@ -22,3 +22,5 @@
 - [X] Task 20: Create a feature where if the user clicks on a day on the calendar, they can view the mood in the form of a little emoji and their journal
 - [X] Task 21: Create a UI to prompt the user for their mood and journal for the day in the dashboard
 - [X] Task 22: Create a controller to handle the user inputted mood and journal
+- [ ] Task 23: Create individual profiles for each users to view
+- [ ] Task 24: Create a way to make profiles private and public

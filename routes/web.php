@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/reset-relapse-data', [DashboardController::class, 'resetRelapseData'])->name('reset-relapse-data');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
-    Route::get('/profile', [UserController::class, 'index'])->middleware('verified')->name('profile');
+    Route::get('{user_id}/profile', [UserController::class, 'index'])->middleware('verified')->name('profile');
 
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
     Route::post('/set-mood', [DashboardController::class, 'setMood'])->middleware('verified')->name('set-mood');
