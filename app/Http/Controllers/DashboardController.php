@@ -83,7 +83,8 @@ class DashboardController extends Controller
         return back()->with('success', 'Successfully reset relapse data');
     }
 
-    public function userPosts(User $user) {
+    public function userPosts($user_id) {
+        $user = User::findOrFail($user_id);
         $userPosts = $user->posts()->latest()->paginate(6);
 
         return view('users.posts', [ 'posts' => $userPosts, 'username' => $user->username ]);

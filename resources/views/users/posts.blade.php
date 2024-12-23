@@ -11,6 +11,6 @@
         @endforeach
     </div>
 
-    <x-paginator :posts="$posts"></x-paginator>
+    <x-paginator :items="$posts"></x-paginator>
 
 </x-layout>
