@@ -24,3 +24,4 @@
 - [X] Task 22: Create a controller to handle the user inputted mood and journal
 - [ ] Task 23: Create individual profiles for each users to view
 - [ ] Task 24: Create a way to make profiles private and public
+- [ ] Task 25: Integrate google accounts as another way to register and logging in
