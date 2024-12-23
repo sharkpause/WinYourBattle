@@ -193,7 +193,7 @@ select.form-control:focus {
 }
 
 .selected-calendar-date {
-    background-color: #2ecc71;
+    background-color: #2ecc71 !important;
 }
 
 .relapsed-date {
