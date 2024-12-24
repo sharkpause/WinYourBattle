@@ -12,8 +12,8 @@
                 <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px">
                 
                 <div class="ms-5">
-                    <h1>{{ Auth::user()->username }}</h1>
-                    <p class="text-muted">{{ Auth::user()->bio }}</p>
+                    <h1>{{ $user->username }}</h1>
+                    <p class="text-muted">{{ $user->bio }}</p>
                 </div>
             </div>
                 
