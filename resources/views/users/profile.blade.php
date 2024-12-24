@@ -17,6 +17,8 @@
                 </div>
             </div>
                 
+            @auth
+            @if(Auth::id() === $user->id)
             <div>
                 <i type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false"
                    class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
@@ -30,6 +32,8 @@
                     </form>
                 </div>
             </div>
+            @endif
+            @endauth
         </div>
     </div>
     </div>
