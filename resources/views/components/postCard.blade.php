@@ -24,7 +24,7 @@
         @endif
         @endauth
         <div class="mb-3">
-            <a class="no-underline me-3" href="{{ route('posts.user', $post->user) }}">{{ $post->user->username }}</a>
+            <a class="no-underline me-3" href="{{ route('profile', $post->user->id) }}">{{ $post->user->username }}</a>
             <span class="text-muted">{{ $post->created_at->diffForHumans() }}</span>
         </div>
       

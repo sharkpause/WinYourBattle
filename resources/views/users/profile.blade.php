@@ -9,7 +9,7 @@
     <div class="card-body m-3">
         <div class="d-flex align-items-start justify-content-between">
             <div class="d-flex align-items-start">
-                <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px">
+                <img src="{{ asset('storage/' . $user->image) }}" class="rounded-circle hw-200px">
                 
                 <div class="ms-5">
                     <h1>{{ $user->username }}</h1>
@@ -17,14 +17,12 @@
                 </div>
             </div>
                 
-            @auth
-            @if(Auth::id() === $user->id)
             <div>
                 <i type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false"
                    class="fa-solid fa-ellipsis-vertical expand-clickable-area-1-rem"></i>
                 <div class="dropdown-menu dropdown-menu-end post-menu-dropdown-margin shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
-                    <a href="{{ route('users.edit', Auth::id()) }}" class="dropdown-item no-underline">Edit Account Info</a>
-                    <form action="{{ route('users.delete', Auth::id()) }}" method="POST" id="delete-account-form">
+                    <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item no-underline">Edit Account Info</a>
+                    <form action="{{ route('users.delete', $user->id) }}" method="POST" id="delete-account-form">
                         @csrf
                         @method('DELETE')
 
@@ -32,8 +30,6 @@
                     </form>
                 </div>
             </div>
-            @endif
-            @endauth
         </div>
     </div>
     </div>
