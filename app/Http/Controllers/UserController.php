@@ -11,8 +11,12 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    public function index(Request $request) {
-        return view('users.profile', [ 'posts' => Auth::user()->posts()->paginate(10) ]);
+    public function index(Request $request, $user_id) {
+        $user = User::findOrFail($user_id);
+        return view('users.profile', [
+            'posts' => $user->posts()->paginate(10),
+            'user' => $user
+        ]);
     }
 
     public function edit(User $user, $user_id) {
