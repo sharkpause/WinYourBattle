@@ -60,4 +60,8 @@ class UserController extends Controller
         
         return redirect()->route('login')->with('success', 'Your account was successfully deleted!');
     }
+
+    public function follow(Request $request, $user_id) {
+        ;
+    }
 }
