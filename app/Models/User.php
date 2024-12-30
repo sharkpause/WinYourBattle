@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Comment;
 use App\Models\DailyLog;
+use App\Models\Follower;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
@@ -80,5 +81,15 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
     public function daily_logs() : HasMany
     {
         return $this->hasMany(DailyLog::class);
+    }
+
+    public function followers() : HasMany
+    {
+        return $this->hasMany(Follower::class, 'follower_id');
+    }
+    
+    public function followings() : HasMany
+    {
+        return $this->hasMany(Follower::class, 'user_id');
     }
 }
