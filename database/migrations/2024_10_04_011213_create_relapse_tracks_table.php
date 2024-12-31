@@ -17,6 +17,8 @@ return new class extends Migration
             $table->dateTime('relapse_date')->nullable();
             $table->bigInteger('streak_time')->nullable();
             $table->timestamps();
+
+            $table->index('user_id');
         });
     }
 

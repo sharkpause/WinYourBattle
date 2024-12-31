@@ -18,6 +18,10 @@ return new class extends Migration
             $table->tinyInteger('mood')->nullable();
             $table->text('journal')->nullable()->default('');
             $table->timestamps();
+
+            $table->unique(['user_id', 'date']);
+            
+            $table->index(['user_id', 'date']);
         });
     }
 

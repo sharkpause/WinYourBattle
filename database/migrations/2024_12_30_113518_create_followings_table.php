@@ -16,9 +16,13 @@ return new class extends Migration
                 
             $table->foreignID('user_id')->on('users')->onDelete('cascade');
             $table->foreignID('following_id')->on('users')->onDelete('cascade');
-            $table->unique(['user_id', 'following_id']);
 
             $table->timestamps();
+
+            $table->unique(['user_id', 'following_id']);
+            
+            $table->index('user_id');
+            $table->index(['user_id', 'following_id']);
         });
     }
 

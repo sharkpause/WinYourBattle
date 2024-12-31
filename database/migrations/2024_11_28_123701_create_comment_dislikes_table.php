@@ -16,6 +16,12 @@ return new class extends Migration
             $table->foreignID('user_id')->constrained()->onDelete('cascade');
             $table->foreignID('comment_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['user_id', 'comment_id']);
+
+            $table->index('user_id');
+            $table->index('comment_id');
+            $table->index(['user_id', 'comment_id']);
         });
     }
 

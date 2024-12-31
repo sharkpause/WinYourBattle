@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('dislike_count')->default(0);
             $table->timestamps();
             $table->string('image')->nullable();
+
+            $table->index('created_at');
         });
     }
 

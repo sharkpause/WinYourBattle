@@ -16,6 +16,12 @@ return new class extends Migration
             $table->foreignID('user_id')->constrained()->onDelete('cascade');
             $table->foreignID('post_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['user_id', 'post_id']);
+
+            $table->index('user_id');
+            $table->index('post_id');
+            $table->index(['user_id', 'post_id']);
         });
     }
 
