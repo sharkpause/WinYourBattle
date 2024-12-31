@@ -28,3 +28,9 @@
 - [ ] Task 26: Add a following and follower system
 - [ ] Task 27: Add a page to display latest following's posts
 - [ ] Task 28: Add account info onto profiles: Account join date, etc
+- [ ] Task 29: Index certain tables:
+        user_id for relapse_tracks
+        created_at for posts
+        id for comments
+        user_id post_id comment_id for post_likes&dislikes and comment_likes&dislikes and a composite index for user_id and post&comment_id
+        composite index user_id date for daily_logs
