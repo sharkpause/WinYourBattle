@@ -73,7 +73,7 @@ class UserController extends Controller
             'following_id' => $user_id
         ]);
 
-        return response()->json([ 'success' => 'Sucessfully followed user with ID ' . $user_id ]);
+        return response()->json([ 'followCount' => Following::where('following_id', $user_id)->count() ]);
     }
 
     public function unfollow(Request $request, $user_id) {
@@ -86,6 +86,6 @@ class UserController extends Controller
 
         $following->delete();
 
-        return response()->json([ 'success' => 'Successfully unfollowed user with ID' . $user_id ]);
+        return response()->json([ 'followCount' => Following::where('following_id', $user_id)->count() ]);
     }
 }
