@@ -73,6 +73,19 @@ class UserController extends Controller
             'following_id' => $user_id
         ]);
 
-        return response()->json([ 'success' => 'Sucessfully followed user with ID '.$user_id ]);
+        return response()->json([ 'success' => 'Sucessfully followed user with ID ' . $user_id ]);
+    }
+
+    public function unfollow(Request $request, $user_id) {
+        if(Auth::id() === $user_id)
+            return response()->json([ 'error' => "You can't unfollow yourself" ]);
+
+        $following = Following::where('user_id', Auth::id())->where('following_id', $user_id);
+        if(!$following->exists())
+            return response()->json([ 'error' => 'You are already unfollowing this person' ], 400);
+
+        $following->delete();
+
+        return response()->json([ 'success' => 'Successfully unfollowed user with ID' . $user_id ]);
     }
 }
