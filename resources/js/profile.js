@@ -33,9 +33,51 @@ $('#delete-account-form').on('submit', async function(e) {
 $('#follow-button').on('click', async function(e) {
     e.preventDefault();
 
-    try {
-        axios.post($(this).attr('data-url'), { _token: $(this).attr('data-csrf-token') });
-    } catch(err) {
-        ;
+    if($(this).attr('data-followed').trim() === 'false') {
+        $(this).text('Following');
+        $(this).attr('data-followed', 'true');
+        $(this).addClass('btn-primary');
+        $(this).removeClass('btn-gray');
+        $(this).addClass('btn-no-hover');
+        $(this).removeClass('btn');
+
+        try {
+            axios.post($(this).attr('data-url'), { _token: $(this).attr('data-csrf-token') });
+        } catch(err) {
+            $(this).text('Follow');
+            $(this).attr('data-followed', 'false');
+            $(this).addClass('btn-primary');
+            $(this).removeClass('btn-gray');
+            $(this).removeClass('btn-no-hover');
+            $(this).addClass('btn');
+        }
+    } else if($(this).attr('data-followed').trim() === 'true') {
+        const customAlert = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger',
+                popup: 'border-radius-1-rem'
+            }
+        })
+    
+        const result = await customAlert.fire({
+            title: 'Are you sure you want to unfollow this person?',
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Confirm',
+            denyButtonText: 'Cancel',
+            animation: false
+        });
+    
+        if(result.isConfirmed) {
+            $(this).text('Follow');
+            $(this).attr('data-followed', 'false');
+            $(this).addClass('btn-primary');
+            $(this).removeClass('btn-gray');
+            $(this).removeClass('btn-no-hover');
+            $(this).addClass('btn');
+            
+            this.submit();
+        }
     }
 });

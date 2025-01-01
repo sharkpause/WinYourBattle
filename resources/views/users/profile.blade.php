@@ -16,10 +16,11 @@
                         <span class="h1">{{ $user->username }}</span>
                         @auth
                         @if(Auth::id() !== $user->id && !Auth::user()->followings()->where('following_id', $user->id)->exists())
-                            <button class="btn-no-hover ms-4 btn-gray fw-bold"
+                            <button class="btn ms-4 btn-primary fw-bold"
                                     id="follow-button"
                                     data-url="{{ route('users.follow', $user->id) }}"
-                                    data-csrf-token="{{ csrf_token() }}">Follow</button>
+                                    data-csrf-token="{{ csrf_token() }}"
+                                    data-followed="false">Follow</button>
                         @endif
                         @endauth
                     </div>
