@@ -12,9 +12,17 @@
                 <img src="{{ asset('storage/' . $user->image) }}" class="rounded-circle hw-200px">
                 
                 <div class="ms-5">
-                    <h1>{{ $user->username }}</h1>
-                    <p class="text-muted">Account created {{ $user->created_at->diffForHumans() }}</p>
-                    <p class="">{{ $user->bio }}</p>
+                    <div class="d-flex align-items-center">
+                        <span class="h1">{{ $user->username }}</span>
+                        @auth
+                        @if(Auth::id() !== $user->id && !Auth::user()->followings()->where('following_id', $user->id)->exists())
+                            <button class="btn-no-hover ms-4 btn-gray fw-bold">Follow</button>
+                        @endif
+                        @endauth
+                    </div>
+
+                    <p class="text-muted fs-6">Account created {{ $user->created_at->diffForHumans() }}</p>
+                    <p class="fs-5">{{ $user->bio }}</p>
                 </div>
             </div>
                 

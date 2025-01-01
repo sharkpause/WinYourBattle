@@ -125,6 +125,15 @@ select.form-control:focus {
     border: none !important;
 }
 
+.btn-gray {
+    background-color: #ecf0f1;
+    border: none !important;
+}
+
+.btn-gray:hover {
+    background-color: #dcdde1;
+}
+
 .btn-no-hover {
     --bs-btn-padding-x: 0.75rem;
     --bs-btn-padding-y: 0.375rem;
