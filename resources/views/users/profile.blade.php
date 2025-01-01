@@ -32,8 +32,8 @@
                     </div>
 
                     <span class="text-muted fs-6">{{ $user->posts()->count() }} Posts</span>
-                    <span class="text-muted fs-6">{{ $user->followers()->count() }} Followers</span>
-                    <span class="text-muted fs-6">{{ $user->followings()->count() }} Followings</span>
+                    <span class="text-muted fs-6 ms-3">{{ $user->followers()->count() }} Followers</span>
+                    <span class="text-muted fs-6 ms-3">{{ $user->followings()->count() }} Followings</span>
 
                     <p class="fs-5">{{ $user->bio }}</p>
                 </div>
