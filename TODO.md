@@ -25,7 +25,7 @@
 - [X] Task 23: Create individual profiles for each users to view
 - [ ] Task 24: Create a way to make profiles private and public
 - [ ] Task 25: Integrate google accounts as another way to register and logging in
-- [ ] Task 26: Add a following and follower system
+- [X] Task 26: Add a following and follower system
 - [ ] Task 27: Add a page to display latest following's posts
 - [X] Task 28: Add account info onto profiles: Account join date, etc
 - [X] Task 29: Index certain tables:
