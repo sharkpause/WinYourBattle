@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/reset-relapse-data', [DashboardController::class, 'resetRelapseData'])->name('reset-relapse-data');
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
-    Route::get('{user_id}/profile', [UserController::class, 'index'])->middleware('verified')->name('profile');
+    Route::get('{user_id}/profile', [UserController::class, 'index'])->name('profile');
 
     Route::get('/get-statistics', [DashboardController::class, 'getStatistics'])->name('get-statistics');
     Route::post('/set-mood', [DashboardController::class, 'setMood'])->middleware('verified')->name('set-mood');
@@ -47,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/email/verify', [AuthController::class, 'verifyNotice'])->name('verification.notice');
     Route::put('/email/verify', [AuthController::class, 'verifyChangeEmail'])->name('verification.change-email');
-    Route::get('/email/verify/{user_id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
+    Route::get('/email/verify/{id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
     Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:5,1')->name('verification.send');
 
     Route::get('/{user_id}/edit', [UserController::class, 'edit'])->middleware('verified')->name('users.edit');
