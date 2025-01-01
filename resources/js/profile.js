@@ -42,7 +42,7 @@ $('#follow-button').on('click', async function(e) {
         $(this).removeClass('btn');
 
         try {
-            axios.post($(this).attr('data-url'), { _token: $(this).attr('data-csrf-token') });
+            axios.post($(this).attr('data-follow-url'), { _token: $(this).attr('data-csrf-token') });
         } catch(err) {
             $(this).text('Follow');
             $(this).attr('data-followed', 'false');
@@ -50,6 +50,8 @@ $('#follow-button').on('click', async function(e) {
             $(this).removeClass('btn-gray');
             $(this).removeClass('btn-no-hover');
             $(this).addClass('btn');
+
+            console.log(err);
         }
     } else if($(this).attr('data-followed').trim() === 'true') {
         const customAlert = Swal.mixin({
@@ -76,6 +78,19 @@ $('#follow-button').on('click', async function(e) {
             $(this).removeClass('btn-gray');
             $(this).removeClass('btn-no-hover');
             $(this).addClass('btn');
+
+            try {
+                axios.post($(this).attr('data-unfollow-url'), { _token: $(this).attr('data-csrf-token') });
+            } catch(err) {
+                console.log(err);
+
+                $(this).text('Following');
+                $(this).attr('data-followed', 'true');
+                $(this).addClass('btn-primary');
+                $(this).removeClass('btn-gray');
+                $(this).addClass('btn-no-hover');
+                $(this).removeClass('btn');
+            }
         }
     }
 });
