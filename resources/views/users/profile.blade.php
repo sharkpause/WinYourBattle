@@ -13,7 +13,8 @@
                 
                 <div class="ms-5">
                     <h1>{{ $user->username }}</h1>
-                    <p class="text-muted">{{ $user->bio }}</p>
+                    <p class="text-muted">Account created {{ $user->created_at->diffForHumans() }}</p>
+                    <p class="">{{ $user->bio }}</p>
                 </div>
             </div>
                 
