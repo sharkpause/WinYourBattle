@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Following;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -62,6 +63,16 @@ class UserController extends Controller
     }
 
     public function follow(Request $request, $user_id) {
-        ;
+        if(Auth::id() === $user_id)
+            return response()->json([ 'error' => "You can't follow yourself" ]);
+        if(Following::where('user_id', Auth::id())->where('following_id', $user_id)->exists())
+            return response()->json([ 'error' => 'You are already following this person' ], 400);
+
+        Following::create([
+            'user_id' => Auth::id(),
+            'following_id' => $user_id
+        ]);
+
+        return response()->json([ 'success' => 'Sucessfully followed user with ID '.$user_id ]);
     }
 }

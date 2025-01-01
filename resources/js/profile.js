@@ -76,8 +76,6 @@ $('#follow-button').on('click', async function(e) {
             $(this).removeClass('btn-gray');
             $(this).removeClass('btn-no-hover');
             $(this).addClass('btn');
-            
-            this.submit();
         }
     }
 });

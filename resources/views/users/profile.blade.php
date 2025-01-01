@@ -15,12 +15,18 @@
                     <div class="d-flex align-items-center">
                         <span class="h1">{{ $user->username }}</span>
                         @auth
-                        @if(Auth::id() !== $user->id && !Auth::user()->followings()->where('following_id', $user->id)->exists())
-                            <button class="btn ms-4 btn-primary fw-bold"
+                        @php
+                            $isFollowing = DB::table('followings')
+                                ->where('user_id', Auth::id())
+                                ->where('following_id', $user->id)
+                                ->exists();
+                        @endphp
+                        @if(Auth::id() !== $user->id)
+                            <button class="ms-4 fw-bold @if($isFollowing) btn-no-hover btn-gray @else btn btn-primary @endif"
                                     id="follow-button"
                                     data-url="{{ route('users.follow', $user->id) }}"
                                     data-csrf-token="{{ csrf_token() }}"
-                                    data-followed="false">Follow</button>
+                                    data-followed="false">@if($isFollowing) Following @else Follow @endif</button>
                         @endif
                         @endauth
                     </div>
