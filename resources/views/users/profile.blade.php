@@ -31,7 +31,10 @@
                         @endauth
                     </div>
 
-                    <p class="text-muted fs-6">Account created {{ $user->created_at->diffForHumans() }}</p>
+                    <span class="text-muted fs-6">{{ $user->posts()->count() }} Posts</span>
+                    <span class="text-muted fs-6">{{ $user->followers()->count() }} Followers</span>
+                    <span class="text-muted fs-6">{{ $user->followings()->count() }} Followings</span>
+
                     <p class="fs-5">{{ $user->bio }}</p>
                 </div>
             </div>
