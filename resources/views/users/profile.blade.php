@@ -63,4 +63,4 @@
 
 </x-layout>
 
-@vite('resources/css/jsCalendar.css')
+@vite('resources/css/profile.js')
