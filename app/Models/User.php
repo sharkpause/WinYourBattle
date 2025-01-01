@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Comment;
 use App\Models\DailyLog;
-use App\Models\Follower;
+use App\Models\Following;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\CanResetPassword;
