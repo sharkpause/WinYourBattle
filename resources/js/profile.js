@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 $('#delete-account-form').on('submit', async function(e) {
     e.preventDefault();
@@ -26,5 +27,15 @@ $('#delete-account-form').on('submit', async function(e) {
         $('#reset-relapse-data-button').attr('disabled', 'disabled');
         
         this.submit();
+    }
+});
+
+$('#follow-button').on('click', async function(e) {
+    e.preventDefault();
+
+    try {
+        axios.post($(this).attr('data-url'), { _token: $(this).attr('data-csrf-token') });
+    } catch(err) {
+        ;
     }
 });
