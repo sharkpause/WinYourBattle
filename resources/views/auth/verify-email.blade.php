@@ -6,7 +6,7 @@
 
     <div class="d-flex flex-column min-vh-80 justify-content-center align-items-center"><div class="card col-8 border-radius-2-rem shadow">
     <div class="card-body m-3">
-      <h4>Please check your email inbox for the email verification link we've sent you.</h4>
+      <h4 id="card-title">Please check your email inbox for the email verification link we've sent you.</h4>
       
       <a class="text-muted underline pointer-on-hover" id="wrong-email-link">Wrong email? Click me to change it!</a>
       <div id="change-email-container" class="d-none">

@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->intended('dashboard');
+        return redirect()->route('verification.notice');
     }
 
     public function login(Request $request) {

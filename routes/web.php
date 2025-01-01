@@ -50,9 +50,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/email/verify/{id}/{hash}', [AuthController::class,'verifyEmail'])->middleware('signed')->name('verification.verify');
     Route::post('/email/verification-notification', [AuthController::class, 'verifyHandler'])->middleware('throttle:5,1')->name('verification.send');
 
-    Route::get('/{user_id}/edit', [UserController::class, 'edit'])->middleware('verified')->name('users.edit');
-    Route::patch('/{user_id}/edit', [UserController::class, 'update'])->middleware('verified')->name('users.update');
-    Route::delete('/{user_id}/delete', [UserController::class, 'delete'])->middleware('verified')->name('users.delete');
+    Route::get('/{user_id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::patch('/{user_id}/edit', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/{user_id}/delete', [UserController::class, 'delete'])->name('users.delete');
 
     Route::post('/posts/{post_id}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post_id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');

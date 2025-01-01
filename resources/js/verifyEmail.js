@@ -12,4 +12,5 @@ $('#wrong-email-link').on('click', function() {
     $(this).addClass('d-none');
     $('#send-email-again-container').hide();
     $('#change-email-container').removeClass('d-none');
+    $('#card-title').text('Enter your new email');
 });
