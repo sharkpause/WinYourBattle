@@ -83,12 +83,12 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         return $this->hasMany(DailyLog::class);
     }
 
-    public function followers() : HasMany
+    public function followings() : HasMany
     {
         return $this->hasMany(Following::class, 'user_id');
     }
     
-    public function followings() : HasMany
+    public function followers() : HasMany
     {
         return $this->hasMany(Following::class, 'following_id');
     }
