@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/{user_id}/edit', [UserController::class, 'update'])->name('users.update');
     Route::delete('/{user_id}/delete', [UserController::class, 'delete'])->name('users.delete');
     Route::post('/{user_id}/follow', [UserController::class, 'follow'])->name('users.follow');
+    Route::post('/{user_id}/unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
 
     Route::post('/posts/{post_id}/like', [PostController::class, 'like'])->name('posts.like');
     Route::post('/posts/{post_id}/unlike', [PostController::class, 'unlike'])->name('posts.unlike');
