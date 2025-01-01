@@ -34,3 +34,4 @@
         created_at for comments
         user_id post_id comment_id for post_likes&dislikes and comment_likes&dislikes and a composite index for user_id and post&comment_id
         composite index user_id date for daily_logs
+- [ ] Task 30: Move account creation date to a separate account info tab
