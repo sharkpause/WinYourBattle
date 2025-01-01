@@ -49,7 +49,7 @@ class UserController extends Controller
             'image' => $newImage
         ]);
 
-        return redirect()->route('profile')->with('success', 'Your account was successfully updated!');
+        return redirect()->route('profile', $user_id)->with('success', 'Your account was successfully updated!');
     }
 
     public function delete(Request $request, $user_id) {
