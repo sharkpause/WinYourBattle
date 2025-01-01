@@ -63,4 +63,4 @@
 
 </x-layout>
 
-@vite('resources/css/profile.js')
+@vite('resources/js/profile.js')
