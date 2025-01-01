@@ -2,6 +2,22 @@ import $ from 'jquery';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+function diffForHumans(num) {
+    let result = num;
+    
+    if(num >= 1_000_000_000) {
+        result /= 1_000_000_000;
+    }
+    if(num >= 1_000_000) {
+        result /= 1_000_000;
+    }
+    if(num >= 1_000) {
+        result /= 1_000;
+    }
+
+    return result;
+}
+
 $('#delete-account-form').on('submit', async function(e) {
     e.preventDefault();
 
@@ -42,7 +58,8 @@ $('#follow-button').on('click', async function(e) {
         $(this).removeClass('btn');
 
         try {
-            axios.post($(this).attr('data-follow-url'), { _token: $(this).attr('data-csrf-token') });
+            const response = await axios.post($(this).attr('data-follow-url'), { _token: $(this).attr('data-csrf-token') });
+            $('#follower-count').text(diffForHumans(response.data.followCount) + ' Followers');
         } catch(err) {
             $(this).text('Follow');
             $(this).attr('data-followed', 'false');
@@ -80,7 +97,8 @@ $('#follow-button').on('click', async function(e) {
             $(this).addClass('btn');
 
             try {
-                axios.post($(this).attr('data-unfollow-url'), { _token: $(this).attr('data-csrf-token') });
+                const response = await axios.post($(this).attr('data-unfollow-url'), { _token: $(this).attr('data-csrf-token') });
+                $('#follower-count').text(diffForHumans(response.data.followCount + ' Followers'));
             } catch(err) {
                 console.log(err);
 
