@@ -27,7 +27,7 @@
 - [ ] Task 25: Integrate google accounts as another way to register and logging in
 - [ ] Task 26: Add a following and follower system
 - [ ] Task 27: Add a page to display latest following's posts
-- [ ] Task 28: Add account info onto profiles: Account join date, etc
+- [X] Task 28: Add account info onto profiles: Account join date, etc
 - [X] Task 29: Index certain tables:
         user_id for relapse_tracks
         created_at for posts
