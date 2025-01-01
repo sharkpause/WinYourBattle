@@ -16,7 +16,7 @@
                         <span class="h1">{{ $user->username }}</span>
                         @auth
                         @if(Auth::id() !== $user->id && !Auth::user()->followings()->where('following_id', $user->id)->exists())
-                            <button class="btn-no-hover ms-4 btn-gray fw-bold">Follow</button>
+                            <button class="btn-no-hover ms-4 btn-gray fw-bold" id="follow-button">Follow</button>
                         @endif
                         @endauth
                     </div>
@@ -63,4 +63,4 @@
 
 </x-layout>
 
-@vite(['resources/js/dashboard.js', 'resources/css/jsCalendar.css'])
+@vite('resources/css/jsCalendar.css')
