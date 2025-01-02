@@ -55,7 +55,12 @@
                         </form>
                     @endif
                     @endauth
-                    <a id="account-info-button" class="dropdown-item no-underline pointer-on-hover">Account info</a>
+                    <a id="account-info-button"
+                       class="dropdown-item no-underline pointer-on-hover"
+                       data-timezone="{{ $user->statistics ? $user->statistics->timezone : 'null' }}"
+                       data-created-at="{{ $user->created_at->format('d F, Y') }}"
+                       data-created-ago="{{ $user->created_at->diffForHumans() }}"
+                       data-username="{{ $user->username }}">Account info</a>
                 </div>
             </div>
         </div>
