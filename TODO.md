@@ -50,3 +50,4 @@
         - Create the API to return the client a list of users the user is following (doesn't have to be the entire user object, just need pfp and username)  
         - Create the AJAX request logic to display the list on the popup  
         - Create a follow button for each account in the list like in instagram
+- [ ] Task 32: Add spinners to all AJAX requested resources
