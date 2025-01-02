@@ -4,15 +4,19 @@ import axios from 'axios';
 
 function diffForHumans(num) {
     let result = num;
-    
+
     if(num >= 1_000_000_000) {
         result /= 1_000_000_000;
-    }
-    if(num >= 1_000_000) {
+        result = result.toFixed(2);
+        result += ' B';
+    } else if(num >= 1_000_000) {
         result /= 1_000_000;
-    }
-    if(num >= 1_000) {
+        result = result.toFixed(2);
+        result += ' M';
+    } else if(num >= 1_000) {
         result /= 1_000;
+        result = result.toFixed(2);
+        result += ' K';
     }
 
     return result;
