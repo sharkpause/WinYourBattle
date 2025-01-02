@@ -198,6 +198,14 @@ class PostController extends Controller implements HasMiddleware
         ], 200);
     }
 
+    public function following(Request $request) {
+        $posts = Post::where('user_id',
+            Auth::user()->followings()->pluck('following_id') // ID of all of user's follows
+        )->latest()->paginate(10);
+
+        return view('posts.following', [ 'posts' => $posts ]);
+    }
+
     private function validateUserAndPost($userID, $postID) {
         if(Validator::make(
             [ 'user_id' => $userID, 'post_id' => $postID ],
@@ -233,5 +241,4 @@ class PostController extends Controller implements HasMiddleware
         $post = Post::findOrFail($post_id);
         $post->decrement('like_count');
     }
-
 }
