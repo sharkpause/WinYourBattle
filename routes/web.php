@@ -12,8 +12,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::redirect('/', 'posts', 301);
 
-Route::resource('posts', PostController::class);
-
 Route::middleware(['guest'])->group(function () {
     Route::view('/register', 'auth.register')->name('register');
     Route::view('/login', 'auth.login')->name('login');
@@ -75,3 +73,5 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::patch('/posts/{post_id}/comments/{comment_id}', [CommentController::class, 'update'])->name('comments.update');
 });
+
+Route::resource('posts', PostController::class);
