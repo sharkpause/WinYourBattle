@@ -62,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/posts/{post_id}/dislike', [PostController::class, 'dislike'])->name('posts.dislike');
     Route::post('/posts/{post_id}/undislike', [PostController::class, 'undislike'])->name('posts.undislike');
 
+    Route::get('/posts/following', [PostController::class, 'following'])->name('posts.following');
+
     Route::post('/posts/{post_id}/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::get('/posts/{post_id}/comments', [CommentController::class, 'show'])->name('comments.show');
     
