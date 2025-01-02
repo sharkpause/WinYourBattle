@@ -12,13 +12,27 @@
     <header class="mb-5">
         <nav class="navbar navbar-expand-lg navbar-light bg-dracula px-5 fixed-top">
             <div class="navbar-collapse" id="navbar-supported-content">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ml-auto gap-3">
                   <li class="nav-item active">
-                    <a class="nav-link text-white button-click-animation" href="{{ route('posts.index') }}">Home</a>
+                    <a class="nav-link text-white button-click-animation" href="{{ route('posts.index') }}">
+                        <i class="fa-solid fa-house me-1"></i>
+                        Latest Posts
+                    </a>
+                  </li>
+                  @auth
+                  <li class="nav-item">
+                    <a class="nav-link text-white button-click-animation" href="{{ route('posts.following') }}">
+                        <i class="fa-solid fa-user-group me-1"></i>
+                        Followed posts
+                    </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white button-click-animation" href="{{ route('dashboard') }}">Dashboard</a>
+                    <a class="nav-link text-white button-click-animation" href="{{ route('dashboard') }}">
+                        <i class="fa-solid fa-chart-line me-1"></i>    
+                        Dashboard
+                    </a>
                   </li>
+                  @endauth
                 </ul>
             </div>
 
