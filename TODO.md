@@ -31,7 +31,7 @@
         - Create the button to follow back person
         - Create the UI for unfollowed private accounts similar to instagram
         - Modify the controllers to restrict unfollowed accounts from viewing private accounts
-        - Create the database to store notifications containing: user_id, message, category, read
+        - Create the database to store notifications
         - Create the has many relationship between user and notifications
 - [ ] Task 25: Integrate google accounts as another way to register and logging in
 - [X] Task 26: Add a following and follower system
