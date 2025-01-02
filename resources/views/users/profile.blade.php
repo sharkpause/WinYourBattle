@@ -69,7 +69,7 @@
 
     @if($posts->total() > 0)
     <div class="container mt-5">
-        <h1 class="mb-4">Your latest posts</h1>
+        <h1 class="mb-4">{{ Auth::user()->username === $user->username ? 'Your' : $user->username . "'s" }} latest posts</h1>
 
         @foreach($posts as $post)
             <x-postCard :post="$post" :id="$post->id"></x-postCard>
