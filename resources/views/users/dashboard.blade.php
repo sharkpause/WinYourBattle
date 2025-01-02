@@ -123,6 +123,8 @@
         </div>
     </div>
 
+    <div class="mb-5"></div>
+
 </x-layout>
 
 @vite(['resources/js/dashboard.js', 'resources/css/jsCalendar.css'])
