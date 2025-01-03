@@ -103,7 +103,7 @@
                    data-url="{{ route('set-mood') }}"
                    data-csrf-token="{{ csrf_token() }}"></i>
                 <p class="text-center mt-3 text-wrap" id="mood-text">
-                    Not set yet, click the face to set a mood for this day!
+                    Loading... Hold on!
                 </p>
             </div>
             
@@ -114,7 +114,7 @@
                     <button class="btn btn-primary float-end me-1 hidden" id="submit-entry-button" data-url="{{ route('set-journal') }}">Submit entry</button>
                 </div>
                 <div class="text-wrap overflow-auto max-height-260px break-word mt-2" id="journal-entry-text">
-                    No entry today!
+                    Loading... Please wait!
                 </div>
                 <textarea
                     class="text-wrap overflow-auto max-height-260px break-word mt-2 hidden height-250px overflow-y-scroll keep-whitespace"
