@@ -93,7 +93,11 @@
       @endauth
 
       @if($post->comments()->count() > 0)
-      <div class="mt-5"></div>
+        <div class="mt-5"></div>
+      @else
+        <div class="text-center">
+          <span class="text-muted">Hmm... no one's given their comment on this yet...</span>
+        </div>
       @endif
       <div id="comment-cards-{{ $post->id }}"></div>
   </div>
