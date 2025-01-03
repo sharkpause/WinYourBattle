@@ -173,8 +173,9 @@ $('#timezone-input').val(userTimezone);
     }
 
     try {
-        const journalEntry = (await axios.get(`/get-journal?date=${(new Date()).toISOString().split('T')[0]}`)).data.journal;
-        $('#journal-entry-text').text(journalEntry);
+        $('#journal-entry-text').text(
+            (await axios.get(`/get-journal?date=${(new Date()).toISOString().split('T')[0]}`)).data.journal || 'No entry for this date!'
+        );
     } catch(err) {
         console.log(err);
     }
