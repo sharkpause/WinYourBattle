@@ -344,3 +344,7 @@ select.form-control:focus {
 .spin {
     animation: spin 1s linear infinite;
 }
+
+.underline-on-hover:hover {
+    text-decoration: underline;
+}
