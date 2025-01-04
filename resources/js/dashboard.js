@@ -302,21 +302,29 @@ function getSelectedDate(elem) {
 }
 
 $(document).on('click', '#relapse-calendar table td', async function(e) {
-    $('.selected-calendar-date').removeClass('selected-calendar-date');
-    $(this).addClass('selected-calendar-date');
+    try {
+        $('#journal-entry-text').text('Loading... Please wait!');
+        $('#mood-icon').removeClass().addClass(`fa-solid fa-circle-notch mt-5 font-size-100px spin`);
+        $('#mood-text').text('Loading...');
 
-    selectedDate = getSelectedDate(this);
+        $('.selected-calendar-date').removeClass('selected-calendar-date');
+        $(this).addClass('selected-calendar-date');
 
-    let moodIndex = (await axios.get(`/get-mood?date=${selectedDate}`)).data.mood;
-    if(moodIndex === null) moodIndex = 10;
-    $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
-    $('#mood-text').text(moodMapText[moodIndex]);
-    $('#mood-selected-date').text(selectedDate);
+        selectedDate = getSelectedDate(this);
 
-    $('#journal-selected-date').text(selectedDate);
+        let moodIndex = (await axios.get(`/get-mood?date=${selectedDate}`)).data.mood;
+        if(moodIndex === null) moodIndex = 10;
+        $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
+        $('#mood-text').text(moodMapText[moodIndex]);
+        $('#mood-selected-date').text(selectedDate);
 
-    const journalEntry = (await axios.get(`/get-journal?date=${selectedDate}`)).data.journal || 'No entry for this date!';
-    $('#journal-entry-text').text(journalEntry);
+        $('#journal-selected-date').text(selectedDate);
+
+        const journalEntry = (await axios.get(`/get-journal?date=${selectedDate}`)).data.journal || 'No entry for this date!';
+        $('#journal-entry-text').text(journalEntry);
+    } catch(err) {
+        console.log(err);
+    }
 });
 
 $('#mood-icon').on('click', async function(e) {
