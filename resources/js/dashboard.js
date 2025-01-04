@@ -168,6 +168,9 @@ $('#timezone-input').val(userTimezone);
         if(moodIndex !== null) {
             $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
             $('#mood-text').text(moodMapText[moodIndex]);
+        } else {
+            $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[10]} mt-5 font-size-100px`);
+            $('#mood-text').text('No mood set yet for today, click the icon above to set one!');
         }
     } catch(err) {
         console.log(err);
