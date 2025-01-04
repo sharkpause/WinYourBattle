@@ -14,20 +14,23 @@
             <div class="navbar-collapse" id="navbar-supported-content">
                 <ul class="navbar-nav ml-auto gap-3">
                   <li class="nav-item active">
-                    <a class="nav-link text-white button-click-animation" href="{{ route('posts.index') }}">
+                    <a class="nav-link button-click-animation
+                              {{ request()->routeIs('posts.index') ? 'text-primary' : 'text-white' }}" href="{{ route('posts.index') }}">
                         <i class="fa-solid fa-house me-1"></i>
                         Latest Posts
                     </a>
                   </li>
                   @auth
                   <li class="nav-item">
-                    <a class="nav-link text-white button-click-animation" href="{{ route('posts.following') }}">
+                    <a class="nav-link button-click-animation
+                              {{ request()->routeIs('posts.following') ? 'text-primary' : 'text-white' }}" href="{{ route('posts.following') }}">
                         <i class="fa-solid fa-user-group me-1"></i>
                         Followed posts
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link text-white button-click-animation" href="{{ route('dashboard') }}">
+                    <a class="nav-link button-click-animation
+                              {{ request()->routeIs('dashboard') ? 'text-primary' : 'text-white' }}" href="{{ route('dashboard') }}">
                         <i class="fa-solid fa-chart-line me-1"></i>    
                         Dashboard
                     </a>
@@ -54,8 +57,10 @@
                 </li>
                 @endauth
                 @guest
-                    <a class="nav-link text-white button-click-animation" href="{{ route('login') }}">Log in</a>
-                    <a class="nav-link text-white button-click-animation" href="{{ route('register') }}">Register</a>
+                    <a class="nav-link text-white button-click-animation
+                              {{ request()->routeIs('login') ? 'text-primary' : '' }}" href="{{ route('login') }}">Log in</a>
+                    <a class="nav-link text-white button-click-animation
+                            {{ request()->routeIs('register') ? 'text-primary' : '' }}" href="{{ route('register') }}">Register</a>
                 @endguest
             </ul>
         </nav>
