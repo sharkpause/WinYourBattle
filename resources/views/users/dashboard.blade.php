@@ -98,7 +98,7 @@
             <div class="col-md-2 my-3 me-1 border-radius-1-rem shadow d-flex flex-column align-items-center max-width-10-percent">
                 <p class="text-center mt-3 h3 text-muted">Mood</p>
                 <p class="text-center text-muted" id="mood-selected-date"></p>
-                <i class="fa-regular fa-face-meh-blank mt-5 font-size-100px pointer-on-hover"
+                <i class="fa-solid fa-spinner mt-5 font-size-100px spin"
                    id="mood-icon"
                    data-url="{{ route('set-mood') }}"
                    data-csrf-token="{{ csrf_token() }}"></i>
