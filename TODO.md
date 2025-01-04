@@ -25,13 +25,13 @@
 - [X] Task 23: Create individual profiles for each users to view
 - [ ] Task 24: Create a way to make profiles private and public  
         - ~~Create the migrations to add a public column to users~~  
-        - Create a notifications dropdown to display latest follow requests
-        - Create the button to accept follow requests
-        - Create the button to deny follow requests
-        - Create the button to follow back person
-        - Create the UI for unfollowed private accounts similar to instagram
-        - Modify the controllers to restrict unfollowed accounts from viewing private accounts
-        - Create the database to store notifications
+        - Create a notifications dropdown to display latest follow requests  
+        - Create the button to accept follow requests  
+        - Create the button to deny follow requests  
+        - Create the button to follow back person  
+        - Create the UI for unfollowed private accounts similar to instagram  
+        - Modify the controllers to restrict unfollowed accounts from viewing private accounts  
+        - Create the database to store notifications  
         - Create the has many relationship between user and notifications
 - [ ] Task 25: Integrate google accounts as another way to register and logging in
 - [X] Task 26: Add a following and follower system
@@ -40,12 +40,12 @@
 - [X] Task 29: Index certain tables:  
         user_id for relapse_tracks  
         created_at for posts  
-        created_at for comments  
+        created_at for comments    
         user_id post_id comment_id for post_likes&dislikes and comment_likes&dislikes and a composite index for user_id and post&comment_id  
-        composite index user_id date for daily_logs  
+        composite index user_id date for daily_logs
 - [X] Task 30: Move account creation date to a separate account info tab
-- [ ] Task 31: Make a popup to check who the user is following or who is following user by clicking on the follower and following text on profile:
-        - Create the event listener to listen for click  
+- [ ] Task 31: Make a popup to check who the user is following or who is following user by clicking on the follower and following text on profile:<br>
+        - ~~Create the event listener to listen for click~~  
         - Create the popup with swal2  
         - Create the API to return the client a list of users the user is following (doesn't have to be the entire user object, just need pfp and username)  
         - Create the AJAX request logic to display the list on the popup  
