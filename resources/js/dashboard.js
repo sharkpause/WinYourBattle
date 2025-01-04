@@ -5,7 +5,8 @@ import Swal from 'sweetalert2';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import jsCalendar from './jsCalendar.js';
 
-import './components/alert.js'
+import './components/alert.js';
+import './components/spinner.js';
 
 Chart.register(zoomPlugin);
 
@@ -402,7 +403,7 @@ $('#submit-entry-button').on('click', async function(e) {
             journal: textareaValue
         });
     } catch(err) {
-
+        console.log(err);
     }
 });
 
