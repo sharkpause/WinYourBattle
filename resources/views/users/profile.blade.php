@@ -32,7 +32,8 @@
                         @endauth
                     </div>
 
-                    <span id="post-count" class="pointer-on-hover underline-on-hover text-muted fs-6">{{ $user->posts()->count() }} Posts</span>
+                    <span id="post-count" class="pointer-on-hover underline-on-hover text-muted fs-6"
+                          href="{{ route('posts.user') }}">{{ $user->posts()->count() }} Posts</span>
                     <span id="follower-count" class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followers()->count() }} Followers</span>
                     <span id="following-count" class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followings()->count() }} Followings</span>
 

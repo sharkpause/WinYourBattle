@@ -511,10 +511,6 @@ $('#account-info-button').on('click', async function() {
     });
 });
 
-$('#post-count').on('click', function(e) {
-    alert('clicked');
-});
-
 $('#follower-count').on('click', function(e) {
     alert('clicked');
 });
