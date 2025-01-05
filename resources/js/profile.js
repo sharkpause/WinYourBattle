@@ -511,8 +511,86 @@ $('#account-info-button').on('click', async function() {
     });
 });
 
-$('#follower-count').on('click', function(e) {
-    alert('clicked');
+$('#follower-count').on('click', async function(e) {
+    const customAlert = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            popup: 'border-radius-1-rem shadow'
+        }
+    })
+
+   await customAlert.fire({
+        title: $(this).attr('data-username'),
+        showDenyButton: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        animation: false,
+        html:
+        `
+        <ul class="list-unstyled w-100">
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>John Doe</strong> (@johndoe)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Jane Smith</strong> (@janesmith)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Robert Brown</strong> (@robertbrown)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Emily White</strong> (@emilywhite)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Michael Green</strong> (@michaelgreen)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Olivia Black</strong> (@oliviablack)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Daniel Harris</strong> (@danielharris)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Sophia Adams</strong> (@sophiaadams)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Chris Evans</strong> (@chrisevans)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+            <li class="d-flex align-items-center justify-content-between p-2">
+                <div>
+                    <strong>Lisa Brown</strong> (@lisabrown)
+                </div>
+                <button class="btn btn-primary btn-sm">Follow</button>
+            </li>
+        </ul>
+        `,
+    });
 });
 
 $('#following-count').on('click', function(e) {
