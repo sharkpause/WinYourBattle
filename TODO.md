@@ -51,3 +51,4 @@
         - Create the AJAX request logic to display the list on the popup  
         - Create a follow button for each account in the list like in instagram
 - [ ] Task 32: Add spinners to all AJAX requested resources
+- [ ] Task 33: Use swal2 to implement error messages on the front end
