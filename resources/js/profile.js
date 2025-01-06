@@ -515,7 +515,7 @@ $('#follower-count').on('click', async function(e) {
     const customAlert = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-primary',
-            popup: 'border-radius-1-rem shadow'
+            popup: 'border-radius-1-rem-left shadow'
         }
     })
 
@@ -527,66 +527,13 @@ $('#follower-count').on('click', async function(e) {
         animation: false,
         html:
         `
-        <ul class="list-unstyled w-100">
+        <ul class="list-unstyled w-100" style="max-height: 50vh">
             <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>John Doe</strong> (@johndoe)
+                <div">
+                    <img src="http://localhost:8000/storage/profile_images/default.jpeg" class="rounded-circle me-2" width="30" height="30">
+                    <strong>123456789123456789123456789000</strong>
                 </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Jane Smith</strong> (@janesmith)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Robert Brown</strong> (@robertbrown)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Emily White</strong> (@emilywhite)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Michael Green</strong> (@michaelgreen)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Olivia Black</strong> (@oliviablack)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Daniel Harris</strong> (@danielharris)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Sophia Adams</strong> (@sophiaadams)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Chris Evans</strong> (@chrisevans)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
-            </li>
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div>
-                    <strong>Lisa Brown</strong> (@lisabrown)
-                </div>
-                <button class="btn btn-primary btn-sm">Follow</button>
+                <button class="btn btn-primary"><strong>Follow</strong></button>
             </li>
         </ul>
         `,

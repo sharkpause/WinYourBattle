@@ -348,3 +348,8 @@ select.form-control:focus {
 .underline-on-hover:hover {
     text-decoration: underline;
 }
+
+.border-radius-1-rem-left {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
