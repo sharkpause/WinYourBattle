@@ -46,9 +46,9 @@
 - [X] Task 30: Move account creation date to a separate account info tab
 - [ ] Task 31: Make a popup to check who the user is following or who is following user by clicking on the follower and following text on profile:<br>
         - ~~Create the event listener to listen for click~~  
-        - Create the popup with swal2  
+        - ~~Create the popup with swal2~~  
         - Create the API to return the client a list of users the user is following (doesn't have to be the entire user object, just need pfp and username)  
         - Create the AJAX request logic to display the list on the popup  
-        - Create a follow button for each account in the list like in instagram
+        - ~~Create a follow button for each account in the list like in instagram~~
 - [ ] Task 32: Add spinners to all AJAX requested resources
 - [ ] Task 33: Use swal2 to implement error messages on the front end
