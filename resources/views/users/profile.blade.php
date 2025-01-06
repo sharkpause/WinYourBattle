@@ -9,7 +9,7 @@
     <div class="card-body m-3">
         <div class="d-flex align-items-start justify-content-between">
             <div class="d-flex align-items-start">
-                <img src="{{ asset('storage/' . $user->image) }}" class="rounded-circle hw-200px">
+                <img src="{{ asset('storage' . $user->image) }}" class="rounded-circle hw-200px">
                 
                 <div class="ms-5">
                     <div class="d-flex align-items-center">

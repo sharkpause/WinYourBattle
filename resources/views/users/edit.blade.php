@@ -11,7 +11,7 @@
                 <div class="d-flex align-items-start mb-4">
                     <input type="file" name="image" class="hidden" id="profile-image-input">
                     <label for="profile-image-input" class="image-container position-relative pointer-on-hover d-flex align-items-center justify-content-center">
-                        <img src="{{ asset('storage/' . Auth::user()->image) }}" class="rounded-circle hw-200px profile-image" id="profile-image-preview">
+                        <img src="{{ asset('storage' . Auth::user()->image) }}" class="rounded-circle hw-200px profile-image" id="profile-image-preview">
                         <i class="fas fa-edit icon icon-on-top"></i>
                     </label>
                     @error('image')
