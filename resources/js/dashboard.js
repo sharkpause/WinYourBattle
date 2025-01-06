@@ -258,12 +258,20 @@ setInterval(updateTime, 1000);
 $('#reset-relapse-data-form').on('submit', async function(e) {
     e.preventDefault();
 
-    const result = await Swal.fire({
+    const customAlert = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            popup: 'border-radius-1-rem shadow'
+        }
+    })
+
+    const result = await customAlert.fire({
         title: 'Are you sure you want to reset all relapse data?',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Confirm',
-        denyButtonText: 'Cancel'
+        denyButtonText: 'Cancel',
+        animation: false
     });
 
     if (result.isConfirmed) {
