@@ -88,4 +88,18 @@ class UserController extends Controller
 
         return response()->json([ 'followCount' => Following::where('following_id', $user_id)->count() ]);
     }
+
+    public function getFollowers(Request $request, $user_id) {
+        $user = User::findOrFail($user_id);
+        $followers = User::whereIn('id', $user->followers()->pluck('user_id'))
+                        ->paginate(50)
+                        ->through(function ($follower) {
+                            $follower->image_url = asset('storage' . $follower->image);
+                            return $follower;
+                        });
+
+        return response()->json([
+            'followers' => $followers
+        ], 200);
+    }
 }
