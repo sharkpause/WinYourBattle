@@ -34,7 +34,7 @@
 
                     <a id="post-count" class="pointer-on-hover underline-on-hover text-muted fs-6 no-underline"
                           href="{{ route('posts.user', $user->id) }}">{{ $user->posts()->count() }} Posts</a>
-                    <span id="follower-count" class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followers()->count() }} Followers</span>
+                    <span data-url="{{ route('users.followers', $user->id) }}" id="follower-count" class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followers()->count() }} Followers</span>
                     <span id="following-count" class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followings()->count() }} Followings</span>
 
                     <p class="fs-5">{{ $user->bio }}</p>
