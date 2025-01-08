@@ -2,6 +2,8 @@ import $ from 'jquery';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+let followerListPage = 1; // For pagination
+
 const TIMEZONE_COUNTRY_MAP = {
     "Africa/Abidjan": "Ivory Coast",
     "Africa/Accra": "Ghana",
@@ -527,17 +529,34 @@ $('#follower-count').on('click', async function(e) {
         animation: false,
         html:
         `
-        <ul class="list-unstyled w-100" style="max-height: 50vh">
-            <li class="d-flex align-items-center justify-content-between p-2">
-                <div">
-                    <img src="http://localhost:8000/storage/profile_images/default.jpeg" class="rounded-circle me-2" width="30" height="30">
-                    <strong>123456789123456789123456789000</strong>
-                </div>
-                <button class="btn btn-primary"><strong>Follow</strong></button>
-            </li>
-        </ul>
+        <ul class="list-unstyled w-100" style="max-height: 50vh" id="follower-list"></ul>
         `,
+        didRender: async() => {
+            const followers = (await axios.get(
+                $(this).attr('data-url') + '?page=' + followerListPage)
+            ).data.followers.data;
+            console.log(followers);
+            for(let i = 0; i < followers.length; ++i) {
+                $('#follower-list').append(`
+                    <li class="d-flex align-items-center justify-content-between p-2">
+                        <div>
+                            <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                            <strong>${followers[i].username}</strong>
+                        </div>
+                    <button class="btn btn-primary"><strong>Follow</strong></button>
+                    </li>
+                `);
+            }
+        }
     });
+
+    //console.log(`${
+    //    (await axios.get(
+    //        $(this).attr('data-url') + '?page=' + followerListPage)
+    //    ).data.followers.map(item => {
+    //        return `<li>${item}</li>`;
+    //    })
+    //}`);
 });
 
 $('#following-count').on('click', function(e) {
