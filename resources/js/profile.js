@@ -529,15 +529,21 @@ $('#follower-count').on('click', async function(e) {
         animation: false,
         html:
         `
-        <ul class="list-unstyled w-100" style="max-height: 50vh" id="follower-list"></ul>
+        <ul class="list-unstyled w-100 max-height-50vh" id="follower-list">
+            <i class="fa-solid fa-circle-notch spin mt-3"></i>
+        </ul>
         `,
         didRender: async() => {
+            const followerList = $('#follower-list');
+            
             const followers = (await axios.get(
                 $(this).attr('data-url') + '?page=' + followerListPage)
             ).data.followers.data;
-            console.log(followers);
+
+            followerList.empty();
+
             for(let i = 0; i < followers.length; ++i) {
-                $('#follower-list').append(`
+                followerList.append(`
                     <li class="d-flex align-items-center justify-content-between p-2">
                         <div>
                             <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
