@@ -555,14 +555,6 @@ $('#follower-count').on('click', async function(e) {
             }
         }
     });
-
-    //console.log(`${
-    //    (await axios.get(
-    //        $(this).attr('data-url') + '?page=' + followerListPage)
-    //    ).data.followers.map(item => {
-    //        return `<li>${item}</li>`;
-    //    })
-    //}`);
 });
 
 $('#following-count').on('click', function(e) {
