@@ -22,8 +22,8 @@
                                 ->exists();
                         @endphp
                         @if(Auth::id() !== $user->id)
-                            <button class="ms-4 fw-bold @if($isFollowing) btn-no-hover btn-gray @else btn btn-primary @endif"
-                                    id="follow-button"
+                            <button class="ms-4 fw-bold follow-button @if($isFollowing) btn-no-hover btn-gray @else btn btn-primary @endif"
+                                    id="profile-follow-button"
                                     data-follow-url="{{ route('users.follow', $user->id) }}"
                                     data-unfollow-url="{{ route('users.unfollow', $user->id) }}"
                                     data-csrf-token="{{ csrf_token() }}"
