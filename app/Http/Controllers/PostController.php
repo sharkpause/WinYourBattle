@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controllers\HasMiddleware;
 
 class PostController extends Controller implements HasMiddleware
@@ -199,6 +200,14 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function following(Request $request) {
+        if(!Post::where('user_id', Auth::user())->exists())
+            return view('posts.following', [
+                'posts' => new LengthAwarePaginator(
+                    collect([]), // Empty collection
+                    0,           // Total number of items
+                    10           // Items per page
+                )]);
+
         $posts = Post::where('user_id',
             Auth::user()->followings()->pluck('following_id') // ID of all of user's follows
         )->latest()->paginate(10);
