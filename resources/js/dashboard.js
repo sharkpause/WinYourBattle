@@ -80,7 +80,6 @@ $('#timezone-input').val(userTimezone);
         const responseDataLength = Object.keys(response.data).length;
 
         if(responseDataLength <= 0) return $('#chart-container').empty();
-
         latestRelapse = response.data[0].relapse_date;
 
         let labels = [];
@@ -162,9 +161,12 @@ $('#timezone-input').val(userTimezone);
         relapseChartError.text('Sorry, there was an unexpected problem when getting the chart :(');
         $('#relapse-chart-container').height('400px');
     }
+})();
 
+(async () => {
     try {
         const moodIndex = (await axios.get(`/get-mood?date=${(new Date()).toISOString().split('T')[0]}`)).data.mood;
+
         if(moodIndex !== null) {
             $('#mood-icon').removeClass().addClass(`fa-regular ${moodMapIcon[moodIndex]} mt-5 font-size-100px pointer-on-hover`);
             $('#mood-text').text(moodMapText[moodIndex]);
@@ -175,7 +177,9 @@ $('#timezone-input').val(userTimezone);
     } catch(err) {
         console.log(err);
     }
+})();
 
+(async () => {
     try {
         $('#journal-entry-text').text(
             (await axios.get(`/get-journal?date=${(new Date()).toISOString().split('T')[0]}`)).data.journal || 'No entry for this date!'
