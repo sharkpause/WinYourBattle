@@ -95,6 +95,12 @@ class UserController extends Controller
                         ->paginate(50)
                         ->through(function ($follower) {
                             $follower->image_url = asset('storage' . $follower->image);
+                            $follower->followURL = route('users.follow', $follower->id);
+                            $follower->unfollowURL = route('users.unfollow', $follower->id);
+                            $follower->followedByAuth =
+                                Following::where('user_id', Auth::id())->where('following_id', $follower->id)->exists()
+                                ? true : false;
+
                             return $follower;
                         });
 
