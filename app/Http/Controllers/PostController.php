@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\PostLike;
+use App\Models\Following;
 use App\Models\PostDislike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -200,7 +201,7 @@ class PostController extends Controller implements HasMiddleware
     }
 
     public function following(Request $request) {
-        if(!Post::where('user_id', Auth::user())->exists())
+        if(!Following::where('user_id', Auth::id())->exists())
             return view('posts.following', [
                 'posts' => new LengthAwarePaginator(
                     collect([]), // Empty collection
