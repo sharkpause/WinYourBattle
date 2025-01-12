@@ -209,7 +209,7 @@ class PostController extends Controller implements HasMiddleware
                     10           // Items per page
                 )]);
 
-        $posts = Post::where('user_id',
+        $posts = Post::whereIn('user_id',
             Auth::user()->followings()->pluck('following_id') // ID of all of user's follows
         )->latest()->paginate(10);
 
