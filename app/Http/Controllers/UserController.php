@@ -73,7 +73,10 @@ class UserController extends Controller
             'following_id' => $user_id
         ]);
 
-        return response()->json([ 'followCount' => Following::where('following_id', $user_id)->count() ]);
+        return response()->json([
+            'followerCount' => Following::where('following_id', $user_id)->count(),
+            'followingCount' => Following::where('user_id', $user_id)->count()
+        ]);
     }
 
     public function unfollow(Request $request, $user_id) {
@@ -106,6 +109,26 @@ class UserController extends Controller
 
         return response()->json([
             'followers' => $followers
+        ], 200);
+    }
+
+    public function getFollowings(Request $request, $user_id) {
+        $user = User::findOrFail($user_id);
+        $followings = User::whereIn('id', $user->followings()->pluck('following_id'))
+                        ->paginate(50)
+                        ->through(function ($following) {
+                            $following->image_url = asset('storage' . $following->image);
+                            $following->followURL = route('users.follow', $following->id);
+                            $following->unfollowURL = route('users.unfollow', $following->id);
+                            $following->followedByAuth =
+                                Following::where('user_id', Auth::id())->where('following_id', $following->id)->exists()
+                                ? true : false;
+
+                            return $following;
+                        });
+
+        return response()->json([
+            'followings' => $followings
         ], 200);
     }
 }
