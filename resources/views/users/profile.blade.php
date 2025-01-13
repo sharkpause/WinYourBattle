@@ -38,7 +38,10 @@
                           data-auth-user-ID="{{ Auth::id() }}"
                           id="follower-count" 
                           class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followers()->count() }} Followers</span>
-                    <span id="following-count" class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followings()->count() }} Followings</span>
+                    <span data-url="{{ route('users.followings', $user->id) }}"
+                          data-auth-user-ID="{{ Auth::id() }}"
+                          id="following-count"
+                          class="pointer-on-hover underline-on-hover text-muted fs-6 ms-3">{{ $user->followings()->count() }} Followings</span>
 
                     <p class="fs-5">{{ $user->bio }}</p>
                 </div>
