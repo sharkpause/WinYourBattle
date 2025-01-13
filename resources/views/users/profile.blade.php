@@ -88,6 +88,8 @@
 
     </div>
 
+    <span class="hidden" id="own-profile-page" data-own-profile-page="{{ Auth::id() === $user->id }}"></span>
+
 </x-layout>
 
 @vite('resources/js/profile.js')

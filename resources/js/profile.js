@@ -3,6 +3,12 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 let followerListPage = 1; // For pagination
+let followingListPage = 1;
+
+let followerCountReal = Number($('#follower-count').text().split(' ')[0]); // Split because this .text() return "n Followers"
+let followingCountReal = Number($('#following-count').text().split(' ')[0]);
+
+const ownProfilePage = Number($('#own-profile-page').attr('data-own-profile-page'));
 
 const TIMEZONE_COUNTRY_MAP = {
     "Africa/Abidjan": "Ivory Coast",
@@ -423,10 +429,17 @@ $(document).on('click', '.follow-button', async function(e) {
         $(this).addClass('btn-no-hover');
         $(this).removeClass('btn');
 
+        if(ownProfilePage === 1 && $(this).attr('id') !== 'profile-follow-button') {
+            followingCountReal += 1;
+            $('#following-count').text(diffForHumans(followingCountReal + ' Followings'));
+        }
+
         try {
             const response = await axios.post($(this).attr('data-follow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
-            if($(this).attr('id') === 'profile-follow-button')
-            $('#follower-count').text(diffForHumans(response.data.followCount) + ' Followers');
+            if($(this).attr('id') === 'profile-follow-button') {
+                $('#follower-count').text(diffForHumans(response.data.followerCount) + ' Followers');
+                $('#following-count').text(diffForHumans(response.data.followingCount) + ' Followings');
+            }
         } catch(err) {
             $(this).text('Follow');
             $(this).attr('data-followed', 'false');
@@ -438,30 +451,43 @@ $(document).on('click', '.follow-button', async function(e) {
             console.log(err);
         }
     } else if($(this).attr('data-followed').trim() === 'true') {
-        const customAlert = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-primary',
-                cancelButton: 'btn btn-danger',
-                popup: 'border-radius-1-rem'
-            }
-        })
+        let result;
+
+        const isInPopup = $(this).hasClass('following-list-follow-button') || $(this).hasClass('follower-list-follow-button') || false;
+        if(!isInPopup) {
+            const customAlert = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-primary',
+                    cancelButton: 'btn btn-danger',
+                    popup: 'border-radius-1-rem'
+                }
+            })
+        
+            result = await customAlert.fire({
+                title: 'Are you sure you want to unfollow this person?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Confirm',
+                denyButtonText: 'Cancel',
+                animation: false
+            });
+        }
     
-        const result = await customAlert.fire({
-            title: 'Are you sure you want to unfollow this person?',
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: 'Confirm',
-            denyButtonText: 'Cancel',
-            animation: false
-        });
-    
-        if(result.isConfirmed) {
+        if(isInPopup || result.isConfirmed) {
             $(this).text('Follow');
             $(this).attr('data-followed', 'false');
             $(this).addClass('btn-primary');
             $(this).removeClass('btn-gray');
             $(this).removeClass('btn-no-hover');
             $(this).addClass('btn');
+
+            if(!ownProfilePage && $(this).attr('id') === 'profile-follow-button'){
+                followerCountReal -= 1;
+                $('#follower-count').text(diffForHumans(followerCountReal + ' Followers'));
+            } else if(ownProfilePage && $(this).attr('id') !== 'profile-follow-button') {
+                followingCountReal -= 1;
+                $('#following-count').text(diffForHumans(followingCountReal + ' Followings'));
+            }
 
             try {
                 const response = await axios.post($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
@@ -562,6 +588,7 @@ $('#follower-count').on('click', async function(e) {
                             </div>
                             <button class="btn btn-primary follow-button follower-list-follow-button"
                                     data-follow-url="${followers[i].followURL}"
+                                    data-own-profile-page="${ownProfilePage}"
                                     data-unfollow-url="${followers[i].unfollowURL}"
                                     data-followed="${followers[i].followedByAuth}">
                                 <strong>Follow</strong>    
@@ -580,6 +607,68 @@ $('#follower-count').on('click', async function(e) {
     });
 });
 
-$('#following-count').on('click', function(e) {
-    alert('clicked');
+$('#following-count').on('click', async function(e) {
+    const customAlert = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-primary',
+            popup: 'border-radius-1-rem-left shadow'
+        }
+    })
+
+   await customAlert.fire({
+        title: $(this).attr('data-username'),
+        showDenyButton: false,
+        showCancelButton: false,
+        showConfirmButton: false,
+        animation: false,
+        html:
+        `
+        <ul class="list-unstyled w-100 max-height-50vh" id="following-list">
+            <i class="fa-solid fa-circle-notch spin mt-3"></i>
+        </ul>
+        `,
+        didRender: async() => {
+            const followingList = $('#following-list');
+            
+            const followings = (await axios.get(
+                $(this).attr('data-url') + '?page=' + followingListPage)
+            ).data.followings.data;
+
+            followingList.empty();
+            for(let i = 0; i < followings.length; ++i) {
+                if(followings[i].id === Number($(this).attr('data-auth-user-id').trim())) {
+                    followingList.prepend(`
+                        <li class="d-flex align-items-center justify-content-between p-2">
+                            <div>
+                                <img src="${followings[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                                <strong>${followings[i].username}</strong>
+                            </div>
+                        </li>
+                    `);
+                } else {
+                    followingList.append(`
+                        <li class="d-flex align-items-center justify-content-between p-2">
+                            <div>
+                                <img src="${followings[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                                <strong>${followings[i].username}</strong>
+                            </div>
+                            <button class="btn btn-primary follow-button following-list-follow-button"
+                                    data-own-profile-page="${ownProfilePage}"
+                                    data-follow-url="${followings[i].followURL}"
+                                    data-unfollow-url="${followings[i].unfollowURL}"
+                                    data-followed="${followings[i].followedByAuth}">
+                                <strong>Follow</strong>    
+                            </button>
+                        </li>
+                    `);
+
+                    if(followings[i].followedByAuth) {
+                        const followingListFollowButton = $('.following-list-follow-button');
+                        followingListFollowButton.addClass('btn-no-hover btn-gray');
+                        followingListFollowButton.text('Following');
+                    }
+                }
+            }
+        }
+    });
 });
