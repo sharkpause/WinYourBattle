@@ -357,3 +357,11 @@ select.form-control:focus {
 .max-height-50vh {
     max-height: 50vh;
 }
+
+.font-size-150-percent {
+    font-size: 140%;
+}
+
+.mt-2_5 {
+    margin-top: 11px;
+}

@@ -41,6 +41,21 @@
 
             <ul style="list-style-type: none" class="navbar-nav py-2">
                 @auth
+                <li class="nav-item dropdown me-4">
+                    <a href="#" type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-bell text-white mt-2_5 font-size-150-percent"></i>
+                    </a>
+                    
+                    <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
+                         <p class="dropdown-header">{{ Auth::user()->username }}</p> 
+                         <a class="dropdown-item" href="{{ route('profile', Auth::id()) }}">Profile</a>
+                         <form action="{{ route('logout') }}" method="POST">
+                             @csrf
+                             <button class="dropdown-item">Log out</button>
+                         </form>
+                    </div>
+                    </li>
+
                 <li class="nav-item dropdown">
                 <a href="#" type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{ asset('storage' . Auth::user()->image) }}" class="rounded-circle hw-45px button-click-animation">
