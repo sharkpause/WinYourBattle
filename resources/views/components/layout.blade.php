@@ -83,3 +83,5 @@
 
 </body>
 </html>
+
+@vite('resources/js/layout.js')
