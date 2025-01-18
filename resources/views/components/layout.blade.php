@@ -47,12 +47,8 @@
                     </a>
                     
                     <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
-                         <p class="dropdown-header">{{ Auth::user()->username }}</p> 
-                         <a class="dropdown-item" href="{{ route('profile', Auth::id()) }}">Profile</a>
-                         <form action="{{ route('logout') }}" method="POST">
-                             @csrf
-                             <button class="dropdown-item">Log out</button>
-                         </form>
+                         <p class="dropdown-header">Notifications</p>
+                         <a class="dropdown-item pointer-on-hover" id="follow-requests-button">Follow requests</a>
                     </div>
                     </li>
 
