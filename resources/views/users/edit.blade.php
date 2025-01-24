@@ -30,6 +30,32 @@
                                 @error('bio')
                             <p class="ms-1 text-danger">{{ $message }}</p>
                         @enderror
+                        <div class="mt-2">
+                            @php
+                                $visibilityState;
+
+                                if(Auth::user()->public == 1)
+                                    $visibilityState = 1;
+                                else
+                                    $visibilityState = 0;
+                            @endphp
+                            <span class="text-muted" id="account-visibility-information-text">
+                                @if($visibilityState === 1) Your account is visible to everybody 😎
+                                @else Your account is only visible to followers 🤫 @endif
+                            </span>
+
+                            <label class="ms-2 me-2 toggle-switch">
+                                <input type="checkbox" id="visibilityToggle"
+                                       data-visibility="@if($visibilityState === 1) 1
+                                       @else 0 @endif">
+                                <span class="slider"></span>
+                            </label>
+
+                            <span class="text-muted" id="account-visibility-state">
+                                @if($visibilityState === 1) Public
+                                @else Private @endif
+                            </span>
+                        </div>
                     </div>
                 </div>
     
