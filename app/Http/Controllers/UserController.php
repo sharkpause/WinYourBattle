@@ -32,11 +32,13 @@ class UserController extends Controller
 
         $request->validate([
             'bio' => ['nullable', 'max:255'],
-            'image' => ['nullable', 'file', 'max:4096', 'mimes:png,jpg,jpeg,webp']
+            'image' => ['nullable', 'file', 'max:4096', 'mimes:png,jpg,jpeg,webp'],
+            'public' => ['nullable']
         ]);
 
         $newBio = 'No bio';
         $newImage = '/profile_images/default.jpeg';
+        $newPublic = 1;
 
         if($request->has('bio') && $request->bio != '') {
             $newBio = $request->bio;
@@ -44,10 +46,15 @@ class UserController extends Controller
         if($request->has('image')) {
             $newImage = Storage::disk('public')->put('profile_images', $request->image);
         }
+        if($request->has('public')) {
+            if($request->public === 'on') // public on = private, off = public
+                $newPublic = 0;
+        }
 
         $user->update([
             'bio' => $newBio,
-            'image' => $newImage
+            'image' => $newImage,
+            'public' => $newPublic
         ]);
 
         return redirect()->route('profile', $user_id)->with('success', 'Your account was successfully updated!');
