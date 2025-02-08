@@ -39,10 +39,6 @@
                                 else
                                     $visibilityState = 0;
                             @endphp
-                            <span class="text-muted" id="account-visibility-information-text">
-                                @if($visibilityState === 1) Your account is visible to everybody 😎
-                                @else Your account is only visible to followers 🤫 @endif
-                            </span>
 
                             <label class="ms-2 me-2 toggle-switch">
                                 <input type="checkbox" id="visibility-toggle"
@@ -51,11 +47,18 @@
                                        @if($visibilityState === 0) checked="true" @endif>
                                 <span class="slider"></span>
                             </label>
-
+                            
                             <span class="text-muted" id="account-visibility-state">
                                 @if($visibilityState === 1) Public
                                 @else Private @endif
                             </span>
+
+                            <span>(</span>
+                            <span class="text-muted" id="account-visibility-information-text">
+                                @if($visibilityState === 1) Your account is visible to everybody 
+                                @else Your account is only visible to followers 🤫 @endif
+                            </span>
+                            <span>)</span>
                         </div>
                     </div>
                 </div>
