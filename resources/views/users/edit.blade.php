@@ -32,7 +32,7 @@
                         @enderror
                         <div class="mt-2">
                             @php
-                                $visibilityState;
+                                $visibilityState; // 1 = public, 0 = private
 
                                 if(Auth::user()->public == 1)
                                     $visibilityState = 1;
@@ -47,7 +47,9 @@
                             <label class="ms-2 me-2 toggle-switch">
                                 <input type="checkbox" id="visibilityToggle"
                                        data-visibility="@if($visibilityState === 1) 1
-                                       @else 0 @endif">
+                                       @else 0 @endif"
+                                       name="public"
+                                       @if($visibilityState === 0) checked="true" @endif>
                                 <span class="slider"></span>
                             </label>
 
