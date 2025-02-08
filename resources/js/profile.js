@@ -2,6 +2,8 @@ import $ from 'jquery';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+import './components/alert.js';
+
 let followerListPage = 1; // For pagination
 let followingListPage = 1;
 
