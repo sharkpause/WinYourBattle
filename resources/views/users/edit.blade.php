@@ -45,7 +45,7 @@
                             </span>
 
                             <label class="ms-2 me-2 toggle-switch">
-                                <input type="checkbox" id="visibilityToggle"
+                                <input type="checkbox" id="visibility-toggle"
                                        data-visibility="@if($visibilityState === 1) 1
                                        @else 0 @endif"
                                        name="public"
