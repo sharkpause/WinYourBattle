@@ -27,7 +27,8 @@
                                     data-follow-url="{{ route('users.follow', $user->id) }}"
                                     data-unfollow-url="{{ route('users.unfollow', $user->id) }}"
                                     data-csrf-token="{{ csrf_token() }}"
-                                    data-followed="@if($isFollowing) true @else false @endif">@if($isFollowing) Following @else Follow @endif</button>
+                                    data-followed="@if($isFollowing) true @else false @endif"
+                                    data-private-account="{{ $private }}">@if($isFollowing) Following @else Follow @endif</button>
                         @endif
                         @endauth
                     </div>
