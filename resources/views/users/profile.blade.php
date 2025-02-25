@@ -74,7 +74,7 @@
     </div>
     </div>
 
-    @if($posts->total() > 0)
+    @if($private === false) @if($posts->total() > 0)
     <div class="container mt-5">
         <h1 class="mb-4">{{ Auth::user()->username === $user->username ? 'Your' : $user->username . "'s" }} latest posts</h1>
 
@@ -85,6 +85,12 @@
     @endif
 
     <x-paginator :items="$posts"></x-paginator>
+    @else
+    <div class="container mt-5 text-center">
+        <i class="fa-solid fa-lock font-size-150-percent"></i>
+        <span class="h4 ms-2 text-muted">This person's account is private, follow them to see their content!</span>
+    </div>
+    @endif
 
     </div>
 
