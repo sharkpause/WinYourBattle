@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('follow_requests', function (Blueprint $table) {
             $table->id();
+            
+            $table->foreignID('user_id')->on('users');
+
             $table->timestamps();
         });
     }
