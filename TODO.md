@@ -29,8 +29,8 @@
         - Create the button to accept follow requests  
         - Create the button to deny follow requests  
         - Create the button to follow back person  
-        - Create the UI for unfollowed private accounts similar to instagram  
-        - Modify the controllers to restrict unfollowed accounts from viewing private accounts  
+        - ~Create the UI for unfollowed private accounts similar to instagram~  
+        - ~Modify the controllers to restrict unfollowed accounts from viewing private accounts~  
         - ~Create the database to store follow request notifications~  
         - Create the has many relationship between user and notifications
 - [ ] Task 25: Integrate google accounts as another way to register and logging in
