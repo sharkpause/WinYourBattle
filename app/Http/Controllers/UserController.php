@@ -14,10 +14,19 @@ class UserController extends Controller
 {
     public function index(Request $request, $user_id) {
         $user = User::findOrFail($user_id);
-        return view('users.profile', [
-            'posts' => $user->posts()->paginate(10),
-            'user' => $user
-        ]);
+        
+        if(Following::where('user_id', Auth::id())->where('following_id', $user_id)->first()) {
+            return view('users.profile', [
+                'posts' => $user->posts()->paginate(10),
+                'user' => $user,
+                'private' => false,
+            ]);
+        } else {
+            return view('users.profile', [
+                'private' => true,
+                'user' => $user
+            ]);
+        }
     }
 
     public function edit(User $user, $user_id) {
