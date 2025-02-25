@@ -423,6 +423,10 @@ $('#delete-account-form').on('submit', async function(e) {
 $(document).on('click', '.follow-button', async function(e) {
     e.preventDefault();
 
+    if($(this).attr('data-private-account').trim() === 'true') {
+        // Copy the code below but change the display to "Requested"
+    }
+
     if($(this).attr('data-followed').trim() === 'false') {
         $(this).text('Following');
         $(this).attr('data-followed', 'true');
