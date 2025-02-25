@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('public')->default(true);
+            $table->boolean('public')->default(true); // true, 1 means public   false, 0 means private
         });
     }
 
