@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index(Request $request, $user_id) {
         $user = User::findOrFail($user_id);
         
-        if(Following::where('user_id', Auth::id())->where('following_id', $user_id)->first()) {
+        if(Following::where('user_id', Auth::id())->where('following_id', $user_id)->first() || Auth::id() == $user_id) {
             return view('users.profile', [
                 'posts' => $user->posts()->paginate(10),
                 'user' => $user,
