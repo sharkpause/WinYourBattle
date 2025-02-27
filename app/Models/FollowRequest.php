@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FollowRequest extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'follower_id',
+        'followed_id',
+    ];
 }
