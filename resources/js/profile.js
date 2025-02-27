@@ -423,9 +423,9 @@ $('#delete-account-form').on('submit', async function(e) {
 $(document).on('click', '.follow-button', async function(e) {
     e.preventDefault();
 
-    if($(this).attr('data-private-account').trim() === 'true') {
-        // Copy the code below but change the display to "Requested"
-    }
+    //if($(this).attr('data-private-account').trim() === '1') { // 1 is public, 0 is private
+    //    alert('a');
+    //}
 
     if($(this).attr('data-followed').trim() === 'false') {
         $(this).text('Following');
@@ -487,8 +487,8 @@ $(document).on('click', '.follow-button', async function(e) {
             $(this).removeClass('btn-no-hover');
             $(this).addClass('btn');
 
-            if(!ownProfilePage && $(this).attr('id') === 'profile-follow-button'){
-                followerCountReal -= 1;
+            if(!ownProfilePage && $(this).attr('id') === 'profile-follow-button') {
+                //followerCountReal -= 1;
                 $('#follower-count').text(diffForHumans(followerCountReal + ' Followers'));
             } else if(ownProfilePage && $(this).attr('id') !== 'profile-follow-button') {
                 followingCountReal -= 1;
