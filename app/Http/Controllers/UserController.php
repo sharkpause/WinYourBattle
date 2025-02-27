@@ -120,6 +120,7 @@ class UserController extends Controller
                             $follower->image_url = asset('storage' . $follower->image);
                             $follower->followURL = route('users.follow', $follower->id);
                             $follower->unfollowURL = route('users.unfollow', $follower->id);
+                            $follower->profileURL = route('profile', $follower->id);
                             $follower->followedByAuth =
                                 Following::where('user_id', Auth::id())->where('following_id', $follower->id)->exists()
                                 ? true : false;
@@ -140,6 +141,7 @@ class UserController extends Controller
                             $following->image_url = asset('storage' . $following->image);
                             $following->followURL = route('users.follow', $following->id);
                             $following->unfollowURL = route('users.unfollow', $following->id);
+                            $following->profileURL = route('profile', $following->id);
                             $following->followedByAuth =
                                 Following::where('user_id', Auth::id())->where('following_id', $following->id)->exists()
                                 ? true : false;

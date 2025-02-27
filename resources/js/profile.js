@@ -423,9 +423,11 @@ $('#delete-account-form').on('submit', async function(e) {
 $(document).on('click', '.follow-button', async function(e) {
     e.preventDefault();
 
-    //if($(this).attr('data-private-account').trim() === '1') { // 1 is public, 0 is private
-    //    alert('a');
-    //}
+    if($(this).attr('data-private-account')) { // Checks if data-private-account exists since on follower, following popups, this attribute doesn't exist
+        if($(this).attr('data-private-account').trim() === '1') { // 1 is public, 0 is private
+            alert('a');
+        }
+    }
 
     if($(this).attr('data-followed').trim() === 'false') {
         $(this).text('Following');
@@ -588,10 +590,10 @@ $('#follower-count').on('click', async function(e) {
                 } else {
                     followerList.append(`
                         <li class="d-flex align-items-center justify-content-between p-2">
-                            <div>
+                            <a href="${followers[i].profileURL}" class="no-styling pointer-on-hover">
                                 <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
                                 <strong>${followers[i].username}</strong>
-                            </div>
+                            </a>
                             <button class="btn btn-primary follow-button follower-list-follow-button"
                                     data-follow-url="${followers[i].followURL}"
                                     data-own-profile-page="${ownProfilePage}"
@@ -654,10 +656,10 @@ $('#following-count').on('click', async function(e) {
                 } else {
                     followingList.append(`
                         <li class="d-flex align-items-center justify-content-between p-2">
-                            <div>
+                            <a href="${followings[i].profileURL}" class="no-styling pointer-on-hover">
                                 <img src="${followings[i].image_url}" class="rounded-circle me-2" width="30" height="30">
                                 <strong>${followings[i].username}</strong>
-                            </div>
+                            </a>
                             <button class="btn btn-primary follow-button following-list-follow-button"
                                     data-own-profile-page="${ownProfilePage}"
                                     data-follow-url="${followings[i].followURL}"
