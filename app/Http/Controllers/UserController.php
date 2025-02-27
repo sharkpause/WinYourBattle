@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Following;
 use Illuminate\Http\Request;
+use App\Models\FollowRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -87,6 +88,13 @@ class UserController extends Controller
             return response()->json([ 'error' => "You can't follow yourself" ]);
         if(Following::where('user_id', Auth::id())->where('following_id', $user_id)->exists())
             return response()->json([ 'error' => 'You are already following this person' ], 400);
+        
+        if(User::findOrFail($user_id)->public === 0) {
+            FollowRequest::create([
+                'follower_id' => Auth::id(),
+                'followed_id' => $user_id
+            ]);
+        }
 
         Following::create([
             'user_id' => Auth::id(),
