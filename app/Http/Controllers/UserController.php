@@ -125,7 +125,7 @@ class UserController extends Controller
     public function getFollowers(Request $request, $user_id) {
         $user = User::findOrFail($user_id);
         $followers = User::whereIn('id', $user->followers()->pluck('user_id'))
-                        ->select(['id', 'image'])
+                        ->select(['id', 'image', 'username'])
                         ->paginate(50)
                         ->through(function ($follower) {
                             $follower->image_url = asset('storage' . $follower->image);
@@ -147,7 +147,7 @@ class UserController extends Controller
     public function getFollowings(Request $request, $user_id) {
         $user = User::findOrFail($user_id);
         $followings = User::whereIn('id', $user->followings()->pluck('following_id'))
-                        ->select(['id', 'image'])
+                        ->select(['id', 'image', 'username'])
                         ->paginate(50)
                         ->through(function ($following) {
                             $following->image_url = asset('storage' . $following->image);
