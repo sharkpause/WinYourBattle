@@ -20,15 +20,23 @@
                                 ->where('user_id', Auth::id())
                                 ->where('following_id', $user->id)
                                 ->exists();
+                            $isRequesting = DB::table('follow_requests')
+                                ->where('follower_id', Auth::id())
+                                ->where('followed_id', $user->id)
+                                ->exists();
                         @endphp
                         @if(Auth::id() !== $user->id)
-                            <button class="ms-4 fw-bold follow-button @if($isFollowing) btn-no-hover btn-gray @else btn btn-primary @endif"
+                            <button class="ms-4 fw-bold follow-button @if($isFollowing || $isRequesting) btn-no-hover btn-gray @else btn btn-primary @endif"
                                     id="profile-follow-button"
                                     data-follow-url="{{ route('users.follow', $user->id) }}"
                                     data-unfollow-url="{{ route('users.unfollow', $user->id) }}"
                                     data-csrf-token="{{ csrf_token() }}"
-                                    data-followed="@if($isFollowing) true @else false @endif"
-                                    data-private-account="{{ $private }}">@if($isFollowing) Following @else Follow @endif</button>
+                                    data-followed="@if($isFollowing || $isRequesting) true @else false @endif"
+                                    data-private-account="{{ $private }}">
+                                        @if($isFollowing) Following
+                                        @elseif($isRequesting) Requested
+                                        @else Follow @endif
+                                    </button>
                         @endif
                         @endauth
                     </div>
