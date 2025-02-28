@@ -94,6 +94,8 @@ class UserController extends Controller
                 'follower_id' => Auth::id(),
                 'followed_id' => $user_id
             ]);
+
+            return response()->json([ 'message' => 'Successfully requested a follow' ], 200);
         }
 
         Following::create([
