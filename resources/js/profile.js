@@ -446,59 +446,25 @@ $(document).on('click', '.follow-button', async function(e) {
                     console.log(err);
                 }
             } else if($(this).attr('data-followed').trim() === 'true') {
-                // let result;
-        
-                // const isInPopup = $(this).hasClass('following-list-follow-button') || $(this).hasClass('follower-list-follow-button') || false;
-                // if(!isInPopup) {
-                //     const customAlert = Swal.mixin({
-                //         customClass: {
-                //             confirmButton: 'btn btn-primary',
-                //             cancelButton: 'btn btn-danger',
-                //             popup: 'border-radius-1-rem'
-                //         }
-                //     })
-                
-                //     result = await customAlert.fire({
-                //         title: 'Are you sure you want to unfollow this person?',
-                //         showDenyButton: true,
-                //         showCancelButton: false,
-                //         confirmButtonText: 'Confirm',
-                //         denyButtonText: 'Cancel',
-                //         animation: false
-                //     });
-                // }
-            
-                // if(isInPopup || result.isConfirmed) {
-                //     $(this).text('Follow');
-                //     $(this).attr('data-followed', 'false');
-                //     $(this).addClass('btn-primary');
-                //     $(this).removeClass('btn-gray');
-                //     $(this).removeClass('btn-no-hover');
-                //     $(this).addClass('btn');
-        
-                //     if(!ownProfilePage && $(this).attr('id') === 'profile-follow-button') {
-                //         //followerCountReal -= 1;
-                //         $('#follower-count').text(diffForHumans(followerCountReal + ' Followers'));
-                //     } else if(ownProfilePage && $(this).attr('id') !== 'profile-follow-button') {
-                //         followingCountReal -= 1;
-                //         $('#following-count').text(diffForHumans(followingCountReal + ' Followings'));
-                //     }
-        
-                //     try {
-                //         const response = await axios.post($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
-                //         if($(this).attr('id') === 'profile-follow-button')
-                //             $('#follower-count').text(diffForHumans(response.data.followCount + ' Followers'));
-                //     } catch(err) {
-                //         console.log(err);
-        
-                //         $(this).text('Following');
-                //         $(this).attr('data-followed', 'true');
-                //         $(this).addClass('btn-primary');
-                //         $(this).removeClass('btn-gray');
-                //         $(this).addClass('btn-no-hover');
-                //         $(this).removeClass('btn');
-                //     }
-                // }
+                $(this).text('Follow');
+                $(this).attr('data-followed', 'false');
+                $(this).addClass('btn-primary');
+                $(this).removeClass('btn-gray');
+                $(this).removeClass('btn-no-hover');
+                $(this).addClass('btn');
+    
+                try {
+                    const response = await axios.post($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
+                } catch(err) {
+                    console.log(err);
+    
+                    $(this).text('Following');
+                    $(this).attr('data-followed', 'true');
+                    $(this).addClass('btn-primary');
+                    $(this).removeClass('btn-gray');
+                    $(this).addClass('btn-no-hover');
+                    $(this).removeClass('btn');
+                }
             }
         }
 
