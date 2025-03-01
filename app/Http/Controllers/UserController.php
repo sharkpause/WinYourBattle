@@ -132,7 +132,7 @@ class UserController extends Controller
     public function getFollowers(Request $request, $user_id) {
         $user = User::findOrFail($user_id);
         $followers = User::whereIn('id', $user->followers()->pluck('user_id'))
-                        ->select(['id', 'image', 'username'])
+                        ->select(['id', 'image', 'username', 'public'])
                         ->paginate(50)
                         ->through(function ($follower) {
                             $follower->image_url = asset('storage' . $follower->image);
@@ -142,6 +142,10 @@ class UserController extends Controller
                             $follower->followedByAuth =
                                 Following::where('user_id', Auth::id())->where('following_id', $follower->id)->exists()
                                 ? true : false;
+                            $follower->requestedByAuth =
+                                FollowRequest::where('follower_id', Auth::id())->where('followed_id', $follower->id)->exists()
+                                ? true : false;
+                            $follower->private = !$follower->public;
 
                             return $follower;
                         });
@@ -164,6 +168,10 @@ class UserController extends Controller
                             $following->followedByAuth =
                                 Following::where('user_id', Auth::id())->where('following_id', $following->id)->exists()
                                 ? true : false;
+                            $following->requestedByAuth =
+                                FollowRequest::where('follower_id', Auth::id())->where('followed_id', $following->id)->exists()
+                                ? true : false;
+                            $following->private = !$following->public;
 
                             return $following;
                         });

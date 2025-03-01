@@ -424,7 +424,7 @@ $(document).on('click', '.follow-button', async function(e) {
     e.preventDefault();
 
     if($(this).attr('data-private-account')) { // Checks if data-private-account exists since on follower, following popups, this attribute doesn't exist
-        if($(this).attr('data-private-account').trim() === '1') { // 1 is public, 0 is private
+        if($(this).attr('data-private-account').trim() === '1' || $(this).attr('data-private-account').trim() === 'true') { // 1 is public, 0 is private
             if($(this).attr('data-followed').trim() === 'false') {
                 $(this).text('Requested');
                 $(this).attr('data-followed', 'true');
@@ -466,9 +466,8 @@ $(document).on('click', '.follow-button', async function(e) {
                     $(this).removeClass('btn');
                 }
             }
+            return;
         }
-
-        return;
     }
 
     if($(this).attr('data-followed').trim() === 'false') {
@@ -630,6 +629,13 @@ $('#follower-count').on('click', async function(e) {
                         </li>
                     `);
                 } else {
+                    let followedData;
+                    if(followers[i].private) {
+                        followedData = followers[i].requestedByAuth;
+                    } else {
+                        followedData = followers[i].followedByAuth;
+                    }
+
                     followerList.append(`
                         <li class="d-flex align-items-center justify-content-between p-2">
                             <a href="${followers[i].profileURL}" class="no-styling pointer-on-hover">
@@ -640,7 +646,8 @@ $('#follower-count').on('click', async function(e) {
                                     data-follow-url="${followers[i].followURL}"
                                     data-own-profile-page="${ownProfilePage}"
                                     data-unfollow-url="${followers[i].unfollowURL}"
-                                    data-followed="${followers[i].followedByAuth}">
+                                    data-followed="${followedData}"
+                                    data-private-account="${followers[i].private}">
                                 <strong>Follow</strong>    
                             </button>
                         </li>
@@ -650,6 +657,10 @@ $('#follower-count').on('click', async function(e) {
                         const followerListFollowButton = $('.follower-list-follow-button');
                         followerListFollowButton.addClass('btn-no-hover btn-gray');
                         followerListFollowButton.text('Following');
+                    } else if(followers[i].requestedByAuth) {
+                        const followerListFollowButton = $('.follower-list-follow-button');
+                        followerListFollowButton.addClass('btn-no-hover btn-gray');
+                        followerListFollowButton.text('Requested');
                     }
                 }
             }
