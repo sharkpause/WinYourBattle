@@ -194,4 +194,15 @@ class UserController extends Controller
                             });
         return response()->json($followRequests, 200);
     }
+
+    public function acceptFollowRequest(Request $request) {
+        // Get follower ID
+        // Add follower ID to followings table
+        // Delete follower request with follower ID
+    }
+
+    public function rejectFollowRequest(Request $request) {
+        // Get follower ID
+        // Delete follower request with follower ID
+    }
 }
