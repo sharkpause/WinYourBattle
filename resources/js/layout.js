@@ -1,5 +1,8 @@
 import $ from 'jquery';
 import Swal from 'sweetalert2';
+import axios from 'axios';
+
+let followerListPage = 0;
 
 $('#follow-requests-button').on('click', async function(e) {
     const customAlert = Swal.mixin({
@@ -24,24 +27,20 @@ $('#follow-requests-button').on('click', async function(e) {
         didRender: async() => {
             const followRequestList = $('#follow-request-list');
             
-            //const followers = (await axios.get(
-            //    $(this).attr('data-url') + '?page=' + followerListPage)
-            //).data.followers.data;
-            const followers = [
-                { 'id': 1, 'username': 'Donny' }
-            ];
+            const followers = (await axios.get(
+                $(this).attr('data-url') + '?page=' + followerListPage)
+            ).data.data;
 
             followRequestList.empty();
             for(let i = 0; i < followers.length; ++i) {
                 followRequestList.append(`
                     <li class="d-flex align-items-center justify-content-between p-2">
                         <div>
-                            <img class="rounded-circle me-2" width="30" height="30">
+                            <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
                             <strong>${followers[i].username}</strong>
                         </div>
                         <button class="btn btn-primary follow-button follower-list-follow-button"
-
-                            <strong>Follow</strong>    
+                            <strong>Accept</strong>
                         </button>
                     </li>
                 `);
