@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/{user_id}/followers', [UserController::class, 'getFollowers'])->name('users.followers');
     Route::get('/{user_id}/followings', [UserController::class, 'getFollowings'])->name('users.followings');
+    Route::get('/{user_id}/follow-requests', [UserController::class, 'getFollowRequests'])->name('users.follow-requests');
 
     Route::get('/{user_id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::patch('/{user_id}/edit', [UserController::class, 'update'])->name('users.update');

@@ -180,4 +180,18 @@ class UserController extends Controller
             'followings' => $followings
         ], 200);
     }
+
+    public function getFollowRequests(Request $request) {
+        $followRequests = FollowRequest::where('followed_id', Auth::id())
+                            ->select(['follower_id'])
+                            ->paginate(50)
+                            ->through(function ($followRequest) {
+                                $account = User::findOrFail($followRequest->follower_id);
+                                $followRequest->image_url = asset('storage' . $account->image);
+                                $followRequest->username = $account->username;
+                            
+                                return $followRequest;
+                            });
+        return response()->json($followRequests, 200);
+    }
 }
