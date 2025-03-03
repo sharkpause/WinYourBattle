@@ -238,7 +238,7 @@ select.form-control:focus {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .pointer-on-hover:hover {
