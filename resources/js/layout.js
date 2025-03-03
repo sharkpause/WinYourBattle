@@ -78,6 +78,12 @@ $('#follow-requests-button').on('click', async function(e) {
 $(document).on('click', '.accept-follow-request-button', async function(e) {
     if($(this).attr('data-accepted') === 'false') {
         $(this).text('Follow Back')
+
+        try {
+            //
+        } catch(err) {
+            //
+        }
     } else {
         alert('b')
     }
