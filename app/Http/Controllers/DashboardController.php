@@ -38,7 +38,7 @@ class DashboardController extends Controller
 
         $date = Carbon::createFromFormat(
                 'Y-m-d H:i:s',
-                Carbon::parse($request->time_of_relapse),
+                Carbon::parse($request->date_of_relapse . ' ' . $request->time_of_relapse),
                 $request->timezone)->setTimezone('UTC');
 
         /*  The code above basically takes the time of relapse from the request,
