@@ -203,10 +203,9 @@ class UserController extends Controller
         // Delete follower request with follower ID
     }
 
-    public function rejectFollowRequest(Request $request) {
-        //$request->validate([
-        //    ''
-        //]);
-        // Delete follower request with follower ID
+    public function rejectFollowRequest(Request $request, $user_id, $follower_id) {
+        FollowRequest::where('follower_id', $follower_id)->where('followed_id', $user_id)->delete();
+        
+        return response()->json([ 'message' => 'Follow request successfully rejected' ], 200);
     }
 }
