@@ -189,6 +189,8 @@ class UserController extends Controller
                                 $account = User::findOrFail($followRequest->follower_id);
                                 $followRequest->image_url = asset('storage' . $account->image);
                                 $followRequest->username = $account->username;
+                                $followRequest->acceptURL = route('follow-request', [Auth::id(), $followRequest->follower_id]);
+                                $followRequest->rejectURL = route('follow-request', [Auth::id(), $followRequest->follower_id]);
                             
                                 return $followRequest;
                             });
@@ -202,7 +204,9 @@ class UserController extends Controller
     }
 
     public function rejectFollowRequest(Request $request) {
-        // Get follower ID
+        //$request->validate([
+        //    ''
+        //]);
         // Delete follower request with follower ID
     }
 }
