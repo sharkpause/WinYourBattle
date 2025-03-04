@@ -41,10 +41,10 @@ $('#follow-requests-button').on('click', async function(e) {
                             <strong>${followers[i].username}</strong>
                         </div>
                         <div>
-                            <button class="btn btn-primary accept-follow-request-button" data-accepted="false">
+                            <button class="btn btn-primary accept-follow-request-button" data-accepted="false" data-url="${followers[i].acceptURL}">
                                 <strong>Accept</strong>
                             </button>
-                            <button class="btn btn-danger reject-follow-request-button">
+                            <button class="btn btn-danger reject-follow-request-button" data-url="${followers[i].rejectURL}">
                                 <strong>Reject</strong>
                             </button>
                         </div>
@@ -96,5 +96,11 @@ $(document).on('click', '.reject-follow-request-button', async function(e) {
     --followRequestCount;
     if(followRequestCount === 0) {
         $('#follow-request-list').append('<p class="text-muted mt-3">No follow requests</p>');
+    }
+
+    try {
+    //    const response = await axios.post()
+    } catch(err) {
+
     }
 });
