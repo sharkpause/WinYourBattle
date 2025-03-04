@@ -52,8 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/{user_id}/followings', [UserController::class, 'getFollowings'])->name('users.followings');
     Route::get('/{user_id}/follow-requests', [UserController::class, 'getFollowRequests'])->name('users.follow-requests');
 
-    Route::post('/{user_id}/follow-requests/accept', [UserController::class, 'acceptFollowRequest'])->name('follow-request.accept');
-    Route::post('/{user_id}/follow-requests/reject', [UserController::class, 'rejectFollowRequest'])->name('follow-request.reject');
+    Route::post('/{user_id}/follow-requests/{follower_id}', [UserController::class, 'acceptFollowRequest'])->name('follow-request');
+    Route::delete('/{user_id}/follow-requests/{follower_id}', [UserController::class, 'rejectFollowRequest'])->name('follow-request');
 
     Route::get('/{user_id}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::patch('/{user_id}/edit', [UserController::class, 'update'])->name('users.update');
