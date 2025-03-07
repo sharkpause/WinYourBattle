@@ -95,12 +95,18 @@ $(document).on('click', '.reject-follow-request-button', async function(e) {
 
     --followRequestCount;
     if(followRequestCount === 0) {
-        $('#follow-request-list').append('<p class="text-muted mt-3">No follow requests</p>');
+        $('#follow-request-list').append('<p class="text-muted mt-3" id="no-follow-request-text">No follow requests</p>');
     }
 
     try {
-    //    const response = await axios.post()
+        const response = await axios.delete($(this).attr('data-url'));
     } catch(err) {
+        console.log(err);
+        ++followRequestCount;
+        accountItem.removeClass('hidden');
 
+        if(followRequestCount === 1) {
+            $('#no-follow-request-text').addClass('hidden');
+        }
     }
 });
