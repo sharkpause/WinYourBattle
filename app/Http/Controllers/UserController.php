@@ -113,7 +113,7 @@ class UserController extends Controller
         if(Auth::id() === $user_id)
             return response()->json([ 'error' => "You can't unfollow yourself" ]);
 
-        $followRequest = FollowRequest::where('follower_id', Auth::id())->where('followed_id', $user_id );
+        $followRequest = FollowRequest::where('follower_id', Auth::id())->where('followed_id', $user_id)->first();
         if(User::findOrFail($user_id)->public === 0 && $followRequest) {
             $followRequest->delete();
 
