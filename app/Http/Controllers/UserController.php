@@ -191,6 +191,11 @@ class UserController extends Controller
                                 $followRequest->username = $account->username;
                                 $followRequest->acceptURL = route('follow-request.accept', [Auth::id(), $followRequest->follower_id]);
                                 $followRequest->rejectURL = route('follow-request.reject', [Auth::id(), $followRequest->follower_id]);
+                                $followRequest->private = !$account->public;
+                                $followRequest->followURL = route('users.follow', $user_id);
+                                $followRequest->followedByAuth =
+                                    Following::where('user_id', Auth::id())->where('following_id', $following->id)->exists()
+                                    ? true : false;
                             
                                 return $followRequest;
                             });
