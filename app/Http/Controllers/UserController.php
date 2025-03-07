@@ -189,18 +189,23 @@ class UserController extends Controller
                                 $account = User::findOrFail($followRequest->follower_id);
                                 $followRequest->image_url = asset('storage' . $account->image);
                                 $followRequest->username = $account->username;
-                                $followRequest->acceptURL = route('follow-request', [Auth::id(), $followRequest->follower_id]);
-                                $followRequest->rejectURL = route('follow-request', [Auth::id(), $followRequest->follower_id]);
+                                $followRequest->acceptURL = route('follow-request.accept', [Auth::id(), $followRequest->follower_id]);
+                                $followRequest->rejectURL = route('follow-request.reject', [Auth::id(), $followRequest->follower_id]);
                             
                                 return $followRequest;
                             });
         return response()->json($followRequests, 200);
     }
 
-    public function acceptFollowRequest(Request $request) {
-        // Get follower ID
-        // Add follower ID to followings table
-        // Delete follower request with follower ID
+    public function acceptFollowRequest(Request $request, $user_id, $follower_id) {
+        Following::create([
+            'user_id' => $follower_id,
+            'following_id' => $user_id
+        ]);
+
+        FollowRequest::where('follower_id', $follower_id)->where('followed_id', $user_id)->delete();
+
+        return response()->json([ 'message' => 'Follow request successfully accepted' ], 200);
     }
 
     public function rejectFollowRequest(Request $request, $user_id, $follower_id) {
