@@ -33,31 +33,35 @@ $('#follow-requests-button').on('click', async function(e) {
             ).data.data;
 
             followRequestList.empty();
-            for(let i = 0; i < followers.length; ++i) {
-                followRequestList.append(`
-                    <li class="d-flex align-items-center justify-content-between p-2 account-item">
-                        <div>
-                            <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
-                            <strong>${followers[i].username}</strong>
-                        </div>
-                        <div>
-                            <button class="btn btn-primary accept-follow-request-button" data-accepted="false" data-url="${followers[i].acceptURL}">
-                                <strong>Accept</strong>
-                            </button>
-                            <button class="btn btn-danger reject-follow-request-button" data-url="${followers[i].rejectURL}">
-                                <strong>Reject</strong>
-                            </button>
-                        </div>
-                    </li>
-                `);
+            if(followers.length <= 0) {
+                followRequestList.append('<p class="text-muted mt-3" id="no-follow-request-text">No follow requests</p>');
+            } else {
+                for(let i = 0; i < followers.length; ++i) {
+                    followRequestList.append(`
+                        <li class="d-flex align-items-center justify-content-between p-2 account-item">
+                            <div>
+                                <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                                <strong>${followers[i].username}</strong>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary accept-follow-request-button" data-accepted="false" data-url="${followers[i].acceptURL}">
+                                    <strong>Accept</strong>
+                                </button>
+                                <button class="btn btn-danger reject-follow-request-button" data-url="${followers[i].rejectURL}">
+                                    <strong>Reject</strong>
+                                </button>
+                            </div>
+                        </li>
+                    `);
 
-                ++followRequestCount;
+                    ++followRequestCount;
 
-                // if(followers[i].followedByAuth) {
-                //     const followerListFollowButton = $('.follower-list-follow-button');
-                    // // followerListFollowButton.addClass('btn-no-hover btn-gray');
-                //     // followerListFollowButton.text('Following');
-                // }
+                    // if(followers[i].followedByAuth) {
+                    //     const followerListFollowButton = $('.follower-list-follow-button');
+                        // // followerListFollowButton.addClass('btn-no-hover btn-gray');
+                    //     // followerListFollowButton.text('Following');
+                    // }
+                }
             }
         }
     });
@@ -78,11 +82,15 @@ $('#follow-requests-button').on('click', async function(e) {
 $(document).on('click', '.accept-follow-request-button', async function(e) {
     if($(this).attr('data-accepted') === 'false') {
         $(this).text('Follow Back')
+        $(this).attr('data-accepted', 'true');
 
         try {
-            //
+            const response = await axios.post($(this).attr('data-url'));
         } catch(err) {
-            //
+            $(this).text('Accept')
+            $(this).attr('data-accepted', 'false');
+
+            console.log(err);
         }
     } else {
         alert('b')
