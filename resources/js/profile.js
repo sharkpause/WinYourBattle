@@ -454,7 +454,7 @@ $(document).on('click', '.follow-button', async function(e) {
                 $(this).addClass('btn');
     
                 try {
-                    const response = await axios.post($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
+                    const response = await axios.delete($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
                 } catch(err) {
                     console.log(err);
     
@@ -539,7 +539,7 @@ $(document).on('click', '.follow-button', async function(e) {
             }
 
             try {
-                const response = await axios.post($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
+                const response = await axios.delete($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
                 if($(this).attr('id') === 'profile-follow-button')
                     $('#follower-count').text(diffForHumans(response.data.followCount + ' Followers'));
             } catch(err) {
