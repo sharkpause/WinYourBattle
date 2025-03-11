@@ -196,6 +196,9 @@ class UserController extends Controller
                                 $followRequest->followedByAuth =
                                     Following::where('user_id', Auth::id())->where('following_id', $followRequest->follower_id)->exists()
                                     ? true : false;
+                                $followRequest->requestedByAuth =
+                                    FollowRequest::where('follower_id', Auth::id())->where('followed_id', $followRequest->follower_id)->exists()
+                                    ? true : false;
                                 $followRequest->profileURL = route('profile', $followRequest->follower_id);
                             
                                 return $followRequest;

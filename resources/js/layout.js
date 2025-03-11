@@ -44,7 +44,10 @@ $('#follow-requests-button').on('click', async function(e) {
                                 <strong>${followers[i].username}</strong>
                             </a>
                             <div>
-                                <button class="btn btn-primary accept-follow-request-button" data-accepted="false" data-url="${followers[i].acceptURL}" data-private="${followers[i].private}" data-followed="${followers[i].followedByAuth}">
+                                <button class="btn btn-primary accept-follow-request-button"
+                                        data-accepted="false" data-url="${followers[i].acceptURL}"
+                                        data-private="${followers[i].private}" data-followed="${followers[i].followedByAuth}"
+                                        data-follow-url=${followers[i].followURL} data-requested="${followers[i].requestedByAuth}">
                                     <strong>Accept</strong>
                                 </button>
                                 <button class="btn btn-danger reject-follow-request-button" data-url="${followers[i].rejectURL}">
@@ -81,7 +84,22 @@ $('#follow-requests-button').on('click', async function(e) {
 
 $(document).on('click', '.accept-follow-request-button', async function(e) {
     if($(this).attr('data-accepted') === 'false') {
-        $(this).text('Follow Back')
+        if($(this).attr('data-followed').trim() === 'true') {
+            $(this).text('Following');
+            $(this).addClass('btn-primary');
+            $(this).removeClass('btn-gray');
+            $(this).addClass('btn-no-hover');
+            $(this).removeClass('btn');
+        } else if($(this).attr('data-requested').trim() === 'true') {
+            $(this).text('Requested');
+            $(this).addClass('btn-primary');
+            $(this).removeClass('btn-gray');
+            $(this).addClass('btn-no-hover');
+            $(this).removeClass('btn');
+        } else if($(this).attr('data-followed').trim() === 'false' || $(this).attr('data-requested').trim() === 'false') {
+            $(this).text('Follow back');
+        } 
+
         $(this).attr('data-accepted', 'true');
 
         try {
@@ -93,19 +111,23 @@ $(document).on('click', '.accept-follow-request-button', async function(e) {
             console.log(err);
         }
     } else {
-        if($(this).attr('data-private').trim() === '1') {
-            $(this).text('Requested');
-            
+        if($(this).attr('data-followed').trim() === 'false') {
             $(this).addClass('btn-primary');
             $(this).removeClass('btn-gray');
             $(this).addClass('btn-no-hover');
             $(this).removeClass('btn');
-        }
 
-        try {
+            if($(this).attr('data-private').trim() === 'true') {
+                $(this).text('Requested');
+            } else {
+                $(this).text('Following');
+            }
 
-        } catch(err) {
-            console.log(err);
+            try {
+                const response = await axios.post($(this).attr('data-follow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
+            } catch(err) {
+                console.log(err);
+            }
         }
     }
 });
