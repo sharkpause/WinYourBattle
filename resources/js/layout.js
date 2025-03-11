@@ -39,12 +39,12 @@ $('#follow-requests-button').on('click', async function(e) {
                 for(let i = 0; i < followers.length; ++i) {
                     followRequestList.append(`
                         <li class="d-flex align-items-center justify-content-between p-2 account-item">
-                            <div>
-                                <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                            <a href="${followers[i].profileURL}" class="no-styling pointer-on-hover">
+                                <img src="${followers[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
                                 <strong>${followers[i].username}</strong>
-                            </div>
+                            </a>
                             <div>
-                                <button class="btn btn-primary accept-follow-request-button" data-accepted="false" data-url="${followers[i].acceptURL}">
+                                <button class="btn btn-primary accept-follow-request-button" data-accepted="false" data-url="${followers[i].acceptURL}" data-private="${followers[i].private}" data-followed="${followers[i].followedByAuth}">
                                     <strong>Accept</strong>
                                 </button>
                                 <button class="btn btn-danger reject-follow-request-button" data-url="${followers[i].rejectURL}">
@@ -93,7 +93,20 @@ $(document).on('click', '.accept-follow-request-button', async function(e) {
             console.log(err);
         }
     } else {
-        alert('b')
+        if($(this).attr('data-private').trim() === '1') {
+            $(this).text('Requested');
+            
+            $(this).addClass('btn-primary');
+            $(this).removeClass('btn-gray');
+            $(this).addClass('btn-no-hover');
+            $(this).removeClass('btn');
+        }
+
+        try {
+
+        } catch(err) {
+            console.log(err);
+        }
     }
 });
 
