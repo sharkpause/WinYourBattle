@@ -623,7 +623,7 @@ $('#follower-count').on('click', async function(e) {
                     followerList.prepend(`
                         <li class="d-flex align-items-center justify-content-between p-2">
                             <div>
-                                <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                                <img src="${followers[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
                                 <strong>${followers[i].username}</strong>
                             </div>
                         </li>
@@ -639,7 +639,7 @@ $('#follower-count').on('click', async function(e) {
                     followerList.append(`
                         <li class="d-flex align-items-center justify-content-between p-2">
                             <a href="${followers[i].profileURL}" class="no-styling pointer-on-hover">
-                                <img src="${followers[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                                <img src="${followers[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
                                 <strong>${followers[i].username}</strong>
                             </a>
                             <button class="btn btn-primary follow-button follower-list-follow-button"
@@ -701,7 +701,7 @@ $('#following-count').on('click', async function(e) {
                     followingList.prepend(`
                         <li class="d-flex align-items-center justify-content-between p-2">
                             <div>
-                                <img src="${followings[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                                <img src="${followings[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
                                 <strong>${followings[i].username}</strong>
                             </div>
                         </li>
@@ -710,7 +710,7 @@ $('#following-count').on('click', async function(e) {
                     followingList.append(`
                         <li class="d-flex align-items-center justify-content-between p-2">
                             <a href="${followings[i].profileURL}" class="no-styling pointer-on-hover">
-                                <img src="${followings[i].image_url}" class="rounded-circle me-2" width="30" height="30">
+                                <img src="${followings[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
                                 <strong>${followings[i].username}</strong>
                             </a>
                             <button class="btn btn-primary follow-button following-list-follow-button"
