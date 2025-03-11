@@ -135,7 +135,7 @@ class UserController extends Controller
                         ->select(['id', 'image', 'username', 'public'])
                         ->paginate(50)
                         ->through(function ($follower) {
-                            $follower->image_url = asset('storage' . $follower->image);
+                            $follower->imageURL = asset('storage' . $follower->image);
                             $follower->followURL = route('users.follow', $follower->id);
                             $follower->unfollowURL = route('users.unfollow', $follower->id);
                             $follower->profileURL = route('profile', $follower->id);
@@ -161,7 +161,7 @@ class UserController extends Controller
                         ->select(['id', 'image', 'username'])
                         ->paginate(50)
                         ->through(function ($following) {
-                            $following->image_url = asset('storage' . $following->image);
+                            $following->imageURL = asset('storage' . $following->image);
                             $following->followURL = route('users.follow', $following->id);
                             $following->unfollowURL = route('users.unfollow', $following->id);
                             $following->profileURL = route('profile', $following->id);
@@ -187,7 +187,7 @@ class UserController extends Controller
                             ->paginate(50)
                             ->through(function ($followRequest) {
                                 $account = User::findOrFail($followRequest->follower_id);
-                                $followRequest->image_url = asset('storage' . $account->image);
+                                $followRequest->imageURL = asset('storage' . $account->image);
                                 $followRequest->username = $account->username;
                                 $followRequest->acceptURL = route('follow-request.accept', [Auth::id(), $followRequest->follower_id]);
                                 $followRequest->rejectURL = route('follow-request.reject', [Auth::id(), $followRequest->follower_id]);
@@ -196,6 +196,7 @@ class UserController extends Controller
                                 $followRequest->followedByAuth =
                                     Following::where('user_id', Auth::id())->where('following_id', $followRequest->follower_id)->exists()
                                     ? true : false;
+                                $followRequest->profileURL = route('profile', $followRequest->follower_id);
                             
                                 return $followRequest;
                             });
