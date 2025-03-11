@@ -103,7 +103,7 @@ $(document).on('click', '.accept-follow-request-button', async function(e) {
         $(this).attr('data-accepted', 'true');
 
         try {
-            const response = await axios.post($(this).attr('data-url'));
+            const response = await axios.post($(this).attr('data-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
         } catch(err) {
             $(this).text('Accept')
             $(this).attr('data-accepted', 'false');
