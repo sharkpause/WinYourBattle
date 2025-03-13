@@ -90,12 +90,14 @@ $(document).on('click', '.accept-follow-request-button', async function(e) {
             $(this).removeClass('btn-gray');
             $(this).addClass('btn-no-hover');
             $(this).removeClass('btn');
+            $(this).attr('data-followed', 'true');
         } else if($(this).attr('data-requested').trim() === 'true') {
             $(this).text('Requested');
             $(this).addClass('btn-primary');
             $(this).removeClass('btn-gray');
             $(this).addClass('btn-no-hover');
             $(this).removeClass('btn');
+            $(this).attr('data-followed', 'true');
         } else if($(this).attr('data-followed').trim() === 'false' || $(this).attr('data-requested').trim() === 'false') {
             $(this).text('Follow back');
         } 
@@ -113,10 +115,10 @@ $(document).on('click', '.accept-follow-request-button', async function(e) {
         }
     } else {
         if($(this).attr('data-followed').trim() === 'false') {
-            $(this).addClass('btn-primary');
-            $(this).removeClass('btn-gray');
-            $(this).addClass('btn-no-hover');
-            $(this).removeClass('btn');
+            $(this).removeClass('btn-primary');
+            $(this).addClass('btn-gray');
+            $(this).removeClass('btn-no-hover');
+            $(this).addClass('btn');
 
             if($(this).attr('data-private').trim() === 'true') {
                 $(this).text('Requested');
@@ -126,9 +128,14 @@ $(document).on('click', '.accept-follow-request-button', async function(e) {
 
             try {
                 const response = await axios.post($(this).attr('data-follow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
+                $(this).attr('data-followed', 'true');
             } catch(err) {
                 console.log(err);
+                $(this).text('Follow back');
+                $(this).attr('data-followed', 'false');
             }
+        } else {
+            ;
         }
     }
 });
