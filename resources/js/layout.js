@@ -101,6 +101,7 @@ $(document).on('click', '.accept-follow-request-button', async function(e) {
         } 
 
         $(this).attr('data-accepted', 'true');
+        $(this).siblings('.reject-follow-request-button').hide();
 
         try {
             const response = await axios.post($(this).attr('data-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
