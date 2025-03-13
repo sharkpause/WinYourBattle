@@ -435,6 +435,10 @@ $(document).on('click', '.follow-button', async function(e) {
         
                 try {
                     const response = await axios.post($(this).attr('data-follow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
+                    if($(this).attr('id') === 'profile-follow-button') {
+                        $('#follower-count').text(diffForHumans(response.data.followerCount) + ' Followers');
+                        $('#following-count').text(diffForHumans(response.data.followingCount) + ' Followings');
+                    }
                 } catch(err) {
                     $(this).text('Follow');
                     $(this).attr('data-followed', 'false');
@@ -455,6 +459,10 @@ $(document).on('click', '.follow-button', async function(e) {
     
                 try {
                     const response = await axios.delete($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
+                    if($(this).attr('id') === 'profile-follow-button') {
+                        $('#follower-count').text(diffForHumans(response.data.followerCount) + ' Followers');
+                        $('#following-count').text(diffForHumans(response.data.followingCount) + ' Followings');
+                    }
                 } catch(err) {
                     console.log(err);
     
@@ -540,8 +548,10 @@ $(document).on('click', '.follow-button', async function(e) {
 
             try {
                 const response = await axios.delete($(this).attr('data-unfollow-url'), { _token: $('#profile-follow-button').attr('data-csrf-token') });
-                if($(this).attr('id') === 'profile-follow-button')
-                    $('#follower-count').text(diffForHumans(response.data.followCount + ' Followers'));
+                if($(this).attr('id') === 'profile-follow-button') {
+                    $('#follower-count').text(diffForHumans(response.data.followerCount) + ' Followers');
+                    $('#following-count').text(diffForHumans(response.data.followingCount) + ' Followings');
+                }
             } catch(err) {
                 console.log(err);
 

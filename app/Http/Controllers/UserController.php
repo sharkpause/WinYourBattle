@@ -95,7 +95,11 @@ class UserController extends Controller
                 'followed_id' => $user_id
             ]);
 
-            return response()->json([ 'message' => 'Successfully requested a follow' ], 200);
+            return response()->json([
+                'message' => 'Successfully requested a follow',
+                'followerCount' => Following::where('following_id', $user_id)->count(),
+                'followingCount' => Following::where('user_id', $user_id)->count()
+            ], 200);
         }
 
         Following::create([
@@ -117,7 +121,11 @@ class UserController extends Controller
         if(User::findOrFail($user_id)->public === 0 && $followRequest) {
             $followRequest->delete();
 
-            return response()->json([ 'message' => 'Successfully unrequested a follow' ], 200);
+            return response()->json([
+                'message' => 'Successfully unrequested a follow',
+                'followerCount' => Following::where('following_id', $user_id)->count(),
+                'followingCount' => Following::where('user_id', $user_id)->count()
+            ], 200);
         }
 
         $following = Following::where('user_id', Auth::id())->where('following_id', $user_id);
@@ -126,7 +134,10 @@ class UserController extends Controller
 
         $following->delete();
 
-        return response()->json([ 'followCount' => Following::where('following_id', $user_id)->count() ]);
+        return response()->json([
+            'followerCount' => Following::where('following_id', $user_id)->count(),
+            'followingCount' => Following::where('user_id', $user_id)->count()
+        ], 200);
     }
 
     public function getFollowers(Request $request, $user_id) {
