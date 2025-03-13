@@ -594,7 +594,7 @@ $('#follower-count').on('click', async function(e) {
     const customAlert = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-primary',
-            popup: 'border-radius-1-rem-left shadow'
+            popup: 'border-radius-1-rem shadow'
         }
     })
 
@@ -618,51 +618,58 @@ $('#follower-count').on('click', async function(e) {
             ).data.followers.data;
 
             followerList.empty();
-            for(let i = 0; i < followers.length; ++i) {
-                if(followers[i].id === Number($(this).attr('data-auth-user-id').trim())) {
-                    followerList.prepend(`
-                        <li class="d-flex align-items-center justify-content-between p-2">
-                            <div>
-                                <img src="${followers[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
-                                <strong>${followers[i].username}</strong>
-                            </div>
-                        </li>
-                    `);
-                } else {
-                    let followedData;
-                    if(followers[i].private) {
-                        followedData = followers[i].requestedByAuth;
+
+            if(followers.length <= 0) {
+                followerList.prepend(`
+                    <p class="text-center text-muted mt-3">No followers</p>
+                `);
+            } else {
+                for(let i = 0; i < followers.length; ++i) {
+                    if(followers[i].id === Number($(this).attr('data-auth-user-id').trim())) {
+                        followerList.prepend(`
+                            <li class="d-flex align-items-center justify-content-between p-2">
+                                <div>
+                                    <img src="${followers[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
+                                    <strong>${followers[i].username}</strong>
+                                </div>
+                            </li>
+                        `);
                     } else {
-                        followedData = followers[i].followedByAuth;
-                    }
+                        let followedData;
+                        if(followers[i].private) {
+                            followedData = followers[i].requestedByAuth;
+                        } else {
+                            followedData = followers[i].followedByAuth;
+                        }
 
-                    followerList.append(`
-                        <li class="d-flex align-items-center justify-content-between p-2">
-                            <a href="${followers[i].profileURL}" class="no-styling pointer-on-hover">
-                                <img src="${followers[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
-                                <strong>${followers[i].username}</strong>
-                            </a>
-                            <button class="btn btn-primary follow-button follower-list-follow-button"
-                                    data-follow-url="${followers[i].followURL}"
-                                    data-own-profile-page="${ownProfilePage}"
-                                    data-unfollow-url="${followers[i].unfollowURL}"
-                                    data-followed="${followedData}"
-                                    data-private-account="${followers[i].private}">
-                                <strong>Follow</strong>    
-                            </button>
-                        </li>
-                    `);
+                        followerList.append(`
+                            <li class="d-flex align-items-center justify-content-between p-2">
+                                <a href="${followers[i].profileURL}" class="no-styling pointer-on-hover">
+                                    <img src="${followers[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
+                                    <strong>${followers[i].username}</strong>
+                                </a>
+                                <button class="btn btn-primary follow-button follower-list-follow-button"
+                                        data-follow-url="${followers[i].followURL}"
+                                        data-own-profile-page="${ownProfilePage}"
+                                        data-unfollow-url="${followers[i].unfollowURL}"
+                                        data-followed="${followedData}"
+                                        data-private-account="${followers[i].private}">
+                                    <strong>Follow</strong>    
+                                </button>
+                            </li>
+                        `);
 
-                    if(followers[i].followedByAuth) {
-                        const followerListFollowButton = $('.follower-list-follow-button');
-                        followerListFollowButton.addClass('btn-no-hover btn-gray');
-                        followerListFollowButton.text('Following');
-                    } else if(followers[i].requestedByAuth) {
-                        const followerListFollowButton = $('.follower-list-follow-button');
-                        followerListFollowButton.addClass('btn-no-hover btn-gray');
-                        followerListFollowButton.text('Requested');
+                        if(followers[i].followedByAuth) {
+                            const followerListFollowButton = $('.follower-list-follow-button');
+                            followerListFollowButton.addClass('btn-no-hover btn-gray');
+                            followerListFollowButton.text('Following');
+                        } else if(followers[i].requestedByAuth) {
+                            const followerListFollowButton = $('.follower-list-follow-button');
+                            followerListFollowButton.addClass('btn-no-hover btn-gray');
+                            followerListFollowButton.text('Requested');
+                        }
                     }
-                }
+            }
             }
         }
     });
@@ -672,7 +679,7 @@ $('#following-count').on('click', async function(e) {
     const customAlert = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-primary',
-            popup: 'border-radius-1-rem-left shadow'
+            popup: 'border-radius-1-rem shadow'
         }
     })
 
@@ -695,38 +702,44 @@ $('#following-count').on('click', async function(e) {
                 $(this).attr('data-url') + '?page=' + followingListPage)
             ).data.followings.data;
 
-            followingList.empty();
-            for(let i = 0; i < followings.length; ++i) {
-                if(followings[i].id === Number($(this).attr('data-auth-user-id').trim())) {
-                    followingList.prepend(`
-                        <li class="d-flex align-items-center justify-content-between p-2">
-                            <div>
-                                <img src="${followings[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
-                                <strong>${followings[i].username}</strong>
-                            </div>
-                        </li>
-                    `);
-                } else {
-                    followingList.append(`
-                        <li class="d-flex align-items-center justify-content-between p-2">
-                            <a href="${followings[i].profileURL}" class="no-styling pointer-on-hover">
-                                <img src="${followings[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
-                                <strong>${followings[i].username}</strong>
-                            </a>
-                            <button class="btn btn-primary follow-button following-list-follow-button"
-                                    data-own-profile-page="${ownProfilePage}"
-                                    data-follow-url="${followings[i].followURL}"
-                                    data-unfollow-url="${followings[i].unfollowURL}"
-                                    data-followed="${followings[i].followedByAuth}">
-                                <strong>Follow</strong>    
-                            </button>
-                        </li>
-                    `);
+            if(followings.length <= 0) {
+                followingList.prepend(`
+                    <p class="text-center text-muted mt-3">No followers</p>
+                `);
+            } else {
+                followingList.empty();
+                for(let i = 0; i < followings.length; ++i) {
+                    if(followings[i].id === Number($(this).attr('data-auth-user-id').trim())) {
+                        followingList.prepend(`
+                            <li class="d-flex align-items-center justify-content-between p-2">
+                                <div>
+                                    <img src="${followings[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
+                                    <strong>${followings[i].username}</strong>
+                                </div>
+                            </li>
+                        `);
+                    } else {
+                        followingList.append(`
+                            <li class="d-flex align-items-center justify-content-between p-2">
+                                <a href="${followings[i].profileURL}" class="no-styling pointer-on-hover">
+                                    <img src="${followings[i].imageURL}" class="rounded-circle me-2" width="30" height="30">
+                                    <strong>${followings[i].username}</strong>
+                                </a>
+                                <button class="btn btn-primary follow-button following-list-follow-button"
+                                        data-own-profile-page="${ownProfilePage}"
+                                        data-follow-url="${followings[i].followURL}"
+                                        data-unfollow-url="${followings[i].unfollowURL}"
+                                        data-followed="${followings[i].followedByAuth}">
+                                    <strong>Follow</strong>    
+                                </button>
+                            </li>
+                        `);
 
-                    if(followings[i].followedByAuth) {
-                        const followingListFollowButton = $('.following-list-follow-button');
-                        followingListFollowButton.addClass('btn-no-hover btn-gray');
-                        followingListFollowButton.text('Following');
+                        if(followings[i].followedByAuth) {
+                            const followingListFollowButton = $('.following-list-follow-button');
+                            followingListFollowButton.addClass('btn-no-hover btn-gray');
+                            followingListFollowButton.text('Following');
+                        }
                     }
                 }
             }
