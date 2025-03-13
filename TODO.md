@@ -23,16 +23,15 @@
 - [X] Task 21: Create a UI to prompt the user for their mood and journal for the day in the dashboard
 - [X] Task 22: Create a controller to handle the user inputted mood and journal
 - [X] Task 23: Create individual profiles for each users to view
-- [ ] Task 24: Create a way to make profiles private and public  
-        - ~~Create the migrations to add a public column to users~~  
-        - Create a notifications dropdown to display latest follow requests  
-        - Create the button to accept follow requests  
-        - Create the button to deny follow requests  
-        - Create the button to follow back person  
+- [X] Task 24: Create a way to make profiles private and public  
+        - ~Create the migrations to add a public column to users~  
+        - ~Create a notifications dropdown to display latest follow requests~  
+        - ~Create the button to accept follow requests~  
+        - ~Create the button to deny follow requests~  
+        - ~Create the button to follow back person~  
         - ~Create the UI for unfollowed private accounts similar to instagram~  
         - ~Modify the controllers to restrict unfollowed accounts from viewing private accounts~  
         - ~Create the database to store follow request notifications~  
-        - Create the has many relationship between user and notifications
 - [ ] Task 25: Integrate google accounts as another way to register and logging in
 - [X] Task 26: Add a following and follower system
 - [X] Task 27: Add a page to display latest following's posts
