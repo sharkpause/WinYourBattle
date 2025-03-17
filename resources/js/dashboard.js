@@ -218,19 +218,24 @@ const moodMapText = {
 };
 
 const monthMap = {
-    "January": 1,
-    "February": 2,
-    "March": 3,
-    "April": 4,
-    "May": 5,
-    "June": 6,
-    "July": 7,
-    "August": 8,
-    "September": 9,
-    "October": 10,
-    "November": 11,
-    "December": 12
+    "January": '01',
+    "February": '02',
+    "March": '03',
+    "April": '04',
+    "May": '05',
+    "June": '06',
+    "July": '07',
+    "August": '08',
+    "September": '09',
+    "October": '10',
+    "November": '11',
+    "December": '12'
 };
+
+function has30Days(month) {
+    return [4, 6, 9, 11].includes(month);
+    // April, June, September, November
+}
 
 function updateTime() {
     const diffInSeconds = Math.floor(((new Date()) - new Date(latestRelapse)) / 1000);
@@ -284,7 +289,6 @@ $('#reset-relapse-data-form').on('submit', async function(e) {
         this.submit();
     }
 });
-
 
 $('#set-new-relapse-form').on('submit', function(e) {
     $('#set-new-relapse-button').attr('disabled', 'disabled');
@@ -430,6 +434,9 @@ $('#submit-entry-button').on('click', async function(e) {
     }
 });
 
+function isFutureDate(dateString) {
+    return new Date(dateString) > new Date();
+}
 
 async function showRelapseOnDate() {
     const response = await axios.get('/get-statistics');
@@ -437,16 +444,46 @@ async function showRelapseOnDate() {
     let relapseDate;
     for(let i = 0; i < response.data.length; ++i) {
         relapseDate = response.data[i].relapse_date.split('T')[0];
-        relapseDates[relapseDate] = relapseDate;
+        relapseDates[relapseDate] = String(relapseDate);
     }
 
+    let i = 0;
+    let loopFinished = false;
+    let dateString = '';
+    let selectedDay = 0;
+    const selectedMonth = monthMap[$('.jsCalendar-title-name').text().split(' ')[0]];
+    const selectedYear = $('.jsCalendar-title-name').text().split(' ')[1];
     $('#relapse-calendar table td').each(function(e) {
-        const thisDate = getSelectedDate(this);
+        if(loopFinished) return;
 
-        if(thisDate === relapseDates[thisDate]) {
-            delete relapseDates[thisDate];
-            $(this).addClass('relapsed-date');
+        selectedDay = Number($(this).text());
+
+        if(i === 0 && selectedDay !== 1) {
+            return;
         }
+        if(i > 0 && (
+            (has30Days(Number(selectedMonth)) && selectedDay === 30) ||
+            (!has30Days(Number(selectedMonth)) && selectedDay === 31) ||
+            (Number(selectedMonth) === 2 && Number(selectedYear) % 4 === 0 && selectedDay === 29) || 
+            (Number(selectedMonth) === 2 && Number(selectedYear) % 4 !== 0 && selectedDay === 28)
+        )) {
+            loopFinished = true;
+        }
+
+        dateString = `${selectedYear}-${selectedMonth}-${selectedDay}`;
+        
+        if(!isFutureDate(dateString)) {
+            if(dateString === relapseDates[dateString]) {
+                delete relapseDates[dateString];
+                $(this).addClass('relapsed-date');
+            } else {
+                $(this).addClass('unrelapsed-date');
+            }
+        } else {
+            loopFinished = true;
+        }
+
+        ++i;
     });
 }
 
