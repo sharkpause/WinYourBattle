@@ -209,6 +209,10 @@ select.form-control:focus {
     background-color: #fab1a0;
 }
 
+.unrelapsed-date {
+    background-color: #daf1de !important;
+}
+
 .mw-97 {
     max-width: 97% !important;
 }
