@@ -13,7 +13,7 @@
 - [X] Task 11: Add spinners and disabling buttons when submitting edits and other stuff
 - [X] Task 12: Add a "change email" form in the verify email page
 - [X] Task 13: Add a confirm delete pop up when deleting posts, accounts, and relapse data, and there deletions if they exist
-- [ ] Task 14: Modify the quotes and fill it with quotes that actually makes sense
+- [X] Task 14: Modify the quotes and fill it with quotes that actually makes sense
 - [X] Task 15: Add a feature to plot the chart over a choice of period of time
 - [X] Task 16: Create a table called "daily_logs"
 - [X] Task 17: Create the migration file and its contents for daily_logs (user_id foreignID, date, mood (int), journal (text))
