@@ -439,6 +439,8 @@ function isFutureDate(dateString) {
 }
 
 async function showRelapseOnDate() {
+    $('.jsCalendar-current').removeClass('jsCalendar-current');
+    
     const response = await axios.get('/get-statistics');
     let relapseDates = {};
     let relapseDate;
