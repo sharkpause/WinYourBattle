@@ -49,6 +49,10 @@
     </div>
   </div></div></div>
 
+  <a href="{{ route('google.login') }}" class="btn btn-danger">
+    Sign in with Google
+</a>
+
 </x-layout>
 
 @vite(['resources/js/login.js'])
