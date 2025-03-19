@@ -1,14 +1,44 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TestMailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
+Route::get('/auth/google', function () {
+    return Socialite::driver('google')->redirect();
+})->name('google.login');
+
+Route::get('/auth/google/callback', function () {
+    $googleUser = Socialite::driver('google')->user();
+
+    // Find or create the user in your database
+    $user = User::updateOrCreate(
+        ['email' => $googleUser->email],
+        [
+            'username' => $googleUser->name,
+            'email' => $googleUser->email,
+            'google_id' => $googleUser->id,
+            'image' => $googleUser->avatar,
+            'bio' => 'This user has not set a bio yet 🤔',
+            'email_verified_at' => now(),
+            'password' => bcrypt(str()->random(12)), // Random password (not used)
+        ]
+    );
+
+    // Log the user in
+    Auth::login($user);
+
+    return redirect('/dashboard'); // Change this to your desired route
+});
 
 Route::redirect('/', 'posts', 301);
 
