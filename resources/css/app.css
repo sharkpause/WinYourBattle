@@ -168,6 +168,10 @@ select.form-control:focus {
     border-radius: var(--bs-btn-border-radius);
 }
 
+.border-radius-0_375-rem {
+    border-radius: 0.375rem;
+}
+
 .btn-no-hover:disabled {
     opacity: var(--bs-btn-disabled-opacity);
     pointer-events: none;
