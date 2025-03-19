@@ -18,20 +18,17 @@ Route::get('/auth/google', function () {
 })->name('google.login');
 
 Route::get('/auth/google/callback', function () {
-    $googleUser = Socialite::driver('google')->user();
+    $user = User::firstOrNew(['email' => $googleUser->email]);
 
-    $user = User::updateOrCreate(
-        ['email' => $googleUser->email],
-        [
-            'username' => $googleUser->name,
-            'email' => $googleUser->email,
-            'google_id' => $googleUser->id,
-            'image' => $googleUser->avatar,
-            'bio' => 'This user has not set a bio yet 🤔',
-            'email_verified_at' => now(),
-            'password' => bcrypt(str()->random(12)), // Random password (not used)
-        ]
-    );
+    $user->fill([
+        'username' => $user->username ?? $googleUser->name,
+        'google_id' => $user->google_id ?? $googleUser->id,
+        'image' => $user->image ?? $googleUser->avatar,
+        'bio' => $user->bio ?? 'This user has not set a bio yet 🤔',
+        'email_verified_at' => $user->email_verified_at ?? now(),
+        'password' => $user->password ?? bcrypt(str()->random(12)), // after ?? Random password (not used)
+    ]);
+    $user->save();
 
     Auth::login($user);
 
