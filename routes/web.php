@@ -20,7 +20,6 @@ Route::get('/auth/google', function () {
 Route::get('/auth/google/callback', function () {
     $googleUser = Socialite::driver('google')->user();
 
-    // Find or create the user in your database
     $user = User::updateOrCreate(
         ['email' => $googleUser->email],
         [
@@ -34,10 +33,9 @@ Route::get('/auth/google/callback', function () {
         ]
     );
 
-    // Log the user in
     Auth::login($user);
 
-    return redirect('/dashboard'); // Change this to your desired route
+    return redirect('/dashboard');
 });
 
 Route::redirect('/', 'posts', 301);
