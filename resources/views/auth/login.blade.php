@@ -46,12 +46,14 @@
           <span class="text-center w-100">Log in</span>
         </button>
     </form>
-    </div>
-  </div></div></div>
 
-  <a href="{{ route('google.login') }}" class="btn btn-danger">
-    Sign in with Google
-</a>
+    <div class="row justify-content-center mt-2"><div class="col-12 d-flex gap-2">
+      <a class="col flex-grow-1 text-center shadow border-radius-0_375-rem" href="{{ route('google.login') }}">
+        <img src="{{ asset('storage/assets/Google_Logo.png') }}">
+      </a>
+    </div></div>
+
+  </div></div></div>
 
 </x-layout>
 
