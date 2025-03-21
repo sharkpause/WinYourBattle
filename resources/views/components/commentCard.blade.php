@@ -3,7 +3,7 @@
 <div class="mt-4 p-3 border-radius-1-rem shadow-sm" id="comment-card-{{ $comment->id }}">
     <div class="d-flex">
         <div class="flex-shrink-0">
-            <img src="{{ asset('storage/' .  $comment->user->image) }}" class="hw-40px rounded-circle">
+            <img src="{{ $comment->user->image }}" class="hw-40px rounded-circle">
         </div>
         <div class="flex-grow-1 ms-3">
             @auth

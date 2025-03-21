@@ -60,7 +60,7 @@ class PostController extends Controller implements HasMiddleware
         Auth::user()->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $path,
+            'image' => asset('storage/' . $path),
             'like_count' => 0,
             'dislike_count' => 0
         ]);
@@ -110,7 +110,7 @@ class PostController extends Controller implements HasMiddleware
         $post->update([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => $path,
+            'image' => asset('storage/' . $path),
         ]);
 
         return redirect()->route('posts.index')->with([ 'success' => 'Your post was updated!' ]);

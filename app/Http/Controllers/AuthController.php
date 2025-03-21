@@ -25,7 +25,7 @@ class AuthController extends Controller
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password,
-            'image' => '/profile_images/default.jpeg',
+            'image' => asset('storage/profile_images/default.jpeg'),
             'bio' => 'This user has not set a bio yet 🤔'
         ]);
 

@@ -3,7 +3,7 @@
 <div class="mb-4 bg-light p-3 border-radius-1-rem shadow">
   <div class="d-flex">
     <div class="flex-shrink-0">
-        <img src="{{ asset('storage' .  $post->user->image) }}" class="hw-40px rounded-circle">
+        <img src="{{ $post->user->image }}" class="hw-40px rounded-circle">
     </div>
     <div class="flex-grow-1 ms-3">
         <span class="h5 text-break mw-97">{{ $post->title }} </span>
@@ -30,7 +30,7 @@
       
         @if ($post->image !== null)
           <div class="mb-3">
-            <img class="mw-97" src="{{ asset('storage/' . $post->image) }}">
+            <img class="mw-97" src="{{ $post->image }}">
           </div>
         @endif
         

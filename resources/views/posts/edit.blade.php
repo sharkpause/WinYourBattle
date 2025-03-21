@@ -21,7 +21,7 @@
 
             @if ($post->image !== null)
               <div class="mb-3">
-                <img class="mw-30" src="{{ asset('storage/' . $post->image) }}" id="post-image-preview">
+                <img class="mw-30" src="{{ $post->image }}" id="post-image-preview">
               </div>
             @endif
 
