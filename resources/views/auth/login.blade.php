@@ -51,7 +51,12 @@
       <button class="no-border bg-white col flex-grow-1 text-center shadow border-radius-0_375-rem button-click-animation"
               onclick="window.location.href='{{ route('google.login') }}'" id="google-oauth-button">
         <x-spinner></x-spinner>
-        <img src="{{ asset('storage/assets/Google_Logo.png') }}">
+        <img src="{{ asset('storage/assets/Google_Logo.png') }}" height="40px">
+      </button>
+      <button class="no-border bg-white col flex-grow-1 text-center shadow border-radius-0_375-rem button-click-animation"
+              onclick="window.location.href='{{ route('github.login') }}'" id="github-oauth-button">
+        <x-spinner></x-spinner>
+        <img src="{{ asset('storage/assets/Github_Logo.png') }}" height="27px>
       </button>
     </div></div>
 

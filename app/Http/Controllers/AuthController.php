@@ -125,4 +125,36 @@ class AuthController extends Controller
     
         return redirect('/dashboard');
     }
+
+    public function githubRedirect(Request $request) {
+        return Socialite::driver('github')->redirect();
+    }
+
+    public function githubCallback(Request $request) {
+        $githubUser = Socialite::driver('github')->user();
+
+        $user = User::firstOrNew(['email' => $githubUser->email]);
+        
+        if ($user->exists) {
+            $user->github_id = $user->github_id ?? $githubUser->id;
+            $user->image = ($user->image === asset('storage/profile_images/default.jpeg')) 
+                            ? $githubUser->avatar 
+                            : $user->image;
+            $user->email_verified_at = $user->email_verified_at ?? now();
+        } 
+    
+        else {
+            $user->username = $githubUser->name;
+            $user->password = bcrypt(str()->random(12));
+            $user->bio = 'This user has not set a bio yet 🤔';
+            $user->github_id = $githubUser->id;
+            $user->image = $githubUser->avatar;
+            $user->email_verified_at = now();
+        }
+    
+        $user->save();
+        Auth::login($user);
+    
+        return redirect('/dashboard');
+    }
 }

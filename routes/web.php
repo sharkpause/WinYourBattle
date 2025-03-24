@@ -13,9 +13,10 @@ use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/auth/google', [AuthController::class, 'googleRedirect'])->name('google.login');
-
 Route::get('/auth/google/callback', [AuthController::class, 'googleCallback']);
 
+Route::get('/auth/github', [AuthController::class, 'githubRedirect'])->name('github.login');
+Route::get('/auth/github/callback', [AuthController::class, 'githubCallback']);
 
 Route::redirect('/', 'posts', 301);
 
