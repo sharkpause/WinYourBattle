@@ -28,7 +28,7 @@
             <span class="text-muted">{{ $post->created_at->diffForHumans() }}</span>
         </div>
       
-        @if ($post->image !== null)
+        @if ($post->image !== null || $post->image !== 'http://127.0.0.1:8000/storage')
           <div class="mb-3">
             <img class="mw-97" src="{{ $post->image }}">
           </div>
