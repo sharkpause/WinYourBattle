@@ -48,9 +48,11 @@
     </form>
 
     <div class="row justify-content-center mt-2"><div class="col-12 d-flex gap-2">
-      <a class="col flex-grow-1 text-center shadow border-radius-0_375-rem" href="{{ route('google.login') }}">
+      <button class="no-border bg-white col flex-grow-1 text-center shadow border-radius-0_375-rem button-click-animation"
+              onclick="window.location.href='{{ route('google.login') }}'" id="google-oauth-button">
+        <x-spinner></x-spinner>
         <img src="{{ asset('storage/assets/Google_Logo.png') }}">
-      </a>
+      </button>
     </div></div>
 
   </div></div></div>

@@ -12,6 +12,10 @@
     background-color: #2d3436;
 }
 
+.bg-white {
+    background-color: white;
+}
+
 .min-vh-80 {
     min-width: 100vh;
     min-height: 80vh;
@@ -423,4 +427,8 @@ input:checked + .slider:before {
   margin-left: 10px;
   font-size: 1rem;
   font-weight: 500;
+}
+
+.no-border {
+    border: none;
 }
