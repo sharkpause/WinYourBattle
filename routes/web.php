@@ -6,44 +6,15 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\TestMailController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ResetPasswordController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-Route::get('/auth/google', function () {
-    return Socialite::driver('google')->redirect();
-})->name('google.login');
+Route::get('/auth/google', [AuthController::class, 'googleRedirect'])->name('google.login');
 
-Route::get('/auth/google/callback', function () {
-    $googleUser = Socialite::driver('google')->user();
-
-    $user = User::firstOrNew(['email' => $googleUser->email]);
-
-    if ($user->exists) {
-        $user->google_id = $user->google_id ?? $googleUser->id;
-        $user->image = ($user->image === asset('storage/profile_images/default.jpeg')) 
-                        ? $googleUser->avatar 
-                        : $user->image;
-        $user->email_verified_at = $user->email_verified_at ?? now();
-    } 
-
-    else {
-        $user->username = $googleUser->name;
-        $user->password = bcrypt(str()->random(12));
-        $user->bio = 'This user has not set a bio yet 🤔';
-        $user->google_id = $googleUser->id;
-        $user->image = $googleUser->avatar;
-        $user->email_verified_at = now();
-    }
-
-    $user->save();
-    Auth::login($user);
-
-    return redirect('/dashboard');
-});
+Route::get('/auth/google/callback', [AuthController::class, 'googleCallback']);
 
 
 Route::redirect('/', 'posts', 301);

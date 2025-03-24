@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class AuthController extends Controller
@@ -91,5 +92,37 @@ class AuthController extends Controller
         }
 
         return back()->with('success', 'Email changed successfully!');
+    }
+
+    public function googleRedirect(Request $request) {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function googleCallback(Request $request) {
+        $googleUser = Socialite::driver('google')->user();
+
+        $user = User::firstOrNew(['email' => $googleUser->email]);
+        
+        if ($user->exists) {
+            $user->google_id = $user->google_id ?? $googleUser->id;
+            $user->image = ($user->image === asset('storage/profile_images/default.jpeg')) 
+                            ? $googleUser->avatar 
+                            : $user->image;
+            $user->email_verified_at = $user->email_verified_at ?? now();
+        } 
+    
+        else {
+            $user->username = $googleUser->name;
+            $user->password = bcrypt(str()->random(12));
+            $user->bio = 'This user has not set a bio yet 🤔';
+            $user->google_id = $googleUser->id;
+            $user->image = $googleUser->avatar;
+            $user->email_verified_at = now();
+        }
+    
+        $user->save();
+        Auth::login($user);
+    
+        return redirect('/dashboard');
     }
 }
