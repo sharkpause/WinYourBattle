@@ -8,8 +8,9 @@ $('.form-with-spinner').on('submit', function(e) {
     showSpinner(this);
 });
 
-$('#google-oauth-button').on('click', function(e) {
+$('#google-oauth-button, #github-oauth-button').on('click', function(e) {
     showSpinner(this);
-    $(this).prop("disabled", true);
+    $(this).prop('disabled', true);
+    $(this).addClass('disabled-img');
     $(this).removeClass('button-click-animation');
 });

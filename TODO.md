@@ -32,7 +32,7 @@
         - ~Create the UI for unfollowed private accounts similar to instagram~  
         - ~Modify the controllers to restrict unfollowed accounts from viewing private accounts~  
         - ~Create the database to store follow request notifications~  
-- [ ] Task 25: Integrate google accounts as another way to register and logging in
+- [X] Task 25: Integrate google accounts as another way to register and logging in
 - [X] Task 26: Add a following and follower system
 - [X] Task 27: Add a page to display latest following's posts
 - [X] Task 28: Add account info onto profiles: Account join date, etc
