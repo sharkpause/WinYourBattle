@@ -17,14 +17,17 @@
           @enderror
         </div>
 
-        <div class="form-group mb-4">
+        <div class="form-group position-relative">
           <input type="password" name="password" class="form-control ps-0 underline-form @error('password') error-underline @enderror" placeholder="Password">
-          @error('password')
-            <p class="text-danger">{{ $message }}</p>
-          @enderror
+          <button type="button" class="no-styling position-absolute top-50 end-0 translate-middle-y me-2">
+            <i class="fa-solid fa-eye" id="show-password-button" data-state="0"></i>
+          </button>
         </div>
+        @error('password')
+          <p class="text-danger">{{ $message }}</p>
+        @enderror
 
-        <div class="form-group mb-4">
+        <div class="form-group mt-4 mb-4">
             <input class="form-check-input" type="checkbox" name="remember">
             <label class="form-check-label" for="remember">
               Remember me
