@@ -24,10 +24,13 @@
                 @enderror
               </div>
       
-              <div class="form-group mb-4">
+              <div class="form-group mb-4 position-relative">
                 <input type="password" name="password"
                        class="form-control ps-0 underline-form @error('password') error-underline @enderror"
-                       placeholder="Password">
+                       placeholder="Password" id="password-input">
+                <button type="button" class="no-styling position-absolute top-50 end-0 translate-middle-y me-2">
+                <i class="fa-solid fa-eye" id="show-password-button" data-state="0"></i>
+              </button>
                 @error('password')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
