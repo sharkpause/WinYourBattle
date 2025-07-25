@@ -14,3 +14,21 @@ $('#google-oauth-button, #github-oauth-button').on('click', function(e) {
     $(this).addClass('disabled-img');
     $(this).removeClass('button-click-animation');
 });
+
+$('#show-password-button').on('click', function(e) {
+    if($(this).attr('data-state') == '0') {
+        $(this).removeClass('fa-eye');
+
+        $(this).attr('data-state', '1');
+        $(this).addClass('fa-eye-slash');
+
+        $('#password-input').prop('type', 'text');
+    } else if($(this).attr('data-state') == '1') {
+        $(this).removeClass('fa-eye-slash');
+        $(this).addClass('fa-eye');
+
+        $(this).attr('data-state', '0');
+
+        $('#password-input').prop('type', 'password');
+    }
+})
