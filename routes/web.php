@@ -18,6 +18,9 @@ Route::get('/auth/google/callback', [AuthController::class, 'googleCallback']);
 Route::get('/auth/github', [AuthController::class, 'githubRedirect'])->name('github.login');
 Route::get('/auth/github/callback', [AuthController::class, 'githubCallback']);
 
+Route::view('/legal/terms', 'legal.terms')->name('legal.terms');
+Route::view('/legal/privacy', 'legal.privacy')->name('legal.privacy');
+
 Route::redirect('/', 'posts', 301);
 
 Route::middleware(['guest'])->group(function () {
