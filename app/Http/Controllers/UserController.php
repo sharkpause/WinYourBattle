@@ -51,14 +51,15 @@ class UserController extends Controller
         ]);
 
         $newBio = 'No bio';
-        $newImage = '/profile_images/default.jpeg';
+        $newImage = $user->image;
         $newPublic = 1;
 
         if($request->has('bio') && $request->bio != '') {
             $newBio = $request->bio;
         }
+
         if($request->has('image')) {
-            $newImage = Storage::disk('public')->put('profile_images', $request->image);
+            $newImage = asset('storage/' . Storage::disk('public')->put('profile_images', $request->image));
         }
         if($request->has('public')) {
             if($request->public === 'on') // public on = private, off = public
@@ -67,7 +68,7 @@ class UserController extends Controller
 
         $user->update([
             'bio' => $newBio,
-            'image' => asset('storage/' . $newImage),
+            'image' => $newImage,
             'public' => $newPublic
         ]);
 
