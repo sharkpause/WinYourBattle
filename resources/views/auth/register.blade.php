@@ -44,6 +44,7 @@
               </div>
 
               <a href="{{ route('login') }}" class="text-end text-muted fs-6 text-sm-end">Already have an account? Log in</a>
+              <p class="text-muted mt-2">By registering an account you agree to WinYourBattle's <a href="{{ route('legal.terms') }}">terms and conditions</a> and <a href="{{ route('legal.privacy') }}">privacy policy</a></p>
       
               <button type="submit" class="width-100 btn btn-primary button-click-animation submit-button mt-1">
                 <x-spinner></x-spinner>
