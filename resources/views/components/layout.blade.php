@@ -14,7 +14,7 @@
             <div class="navbar-collapse" id="navbar-supported-content">
                 <ul class="navbar-nav ml-auto gap-3">
                   <li class="nav-item active">
-                    <a class="nav-link button-click-animation
+                    <a class="nav-link button-click-animation caret-color-transparent
                               {{ request()->routeIs('posts.index') ? 'text-primary' : 'text-white' }}" href="{{ route('posts.index') }}">
                         <i class="fa-solid fa-house me-1"></i>
                         Latest Posts
@@ -22,14 +22,14 @@
                   </li>
                   @auth
                   <li class="nav-item">
-                    <a class="nav-link button-click-animation
+                    <a class="nav-link button-click-animation caret-color-transparent
                               {{ request()->routeIs('posts.following') ? 'text-primary' : 'text-white' }}" href="{{ route('posts.following') }}">
                         <i class="fa-solid fa-user-group me-1"></i>
                         Followed posts
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link button-click-animation
+                    <a class="nav-link button-click-animation caret-color-transparent
                               {{ request()->routeIs('dashboard') ? 'text-primary' : 'text-white' }}" href="{{ route('dashboard') }}">
                         <i class="fa-solid fa-chart-line me-1"></i>    
                         Dashboard
@@ -42,35 +42,35 @@
             <ul style="list-style-type: none" class="navbar-nav py-2">
                 @auth
                 <li class="nav-item dropdown me-4">
-                    <a href="#" type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false" class="caret-color-transparent">
                         <i class="fa-solid fa-bell text-white mt-2_5 font-size-150-percent"></i>
                     </a>
                     
                     <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
                          <p class="dropdown-header">Notifications</p>
-                         <a class="dropdown-item pointer-on-hover" id="follow-requests-button" data-url="{{ route('users.follow-requests', Auth::id()) }}">Follow requests</a>
+                         <a class="dropdown-item pointer-on-hover caret-color-transparent" id="follow-requests-button" data-url="{{ route('users.follow-requests', Auth::id()) }}">Follow requests</a>
                     </div>
                     </li>
 
                 <li class="nav-item dropdown">
                 <a href="#" type="button" id="navbar-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ Auth::user()->image }}" class="rounded-circle hw-45px button-click-animation">
+                    <img src="{{ Auth::user()->image }}" class="rounded-circle hw-45px button-click-animation caret-color-transparent">
                 </a>
                 
                 <div class="dropdown-menu dropdown-menu-end shadow border-radius-1-rem" aria-labelledby="navbar-dropdown">
                      <p class="dropdown-header">{{ Auth::user()->username }}</p> 
-                     <a class="dropdown-item" href="{{ route('profile', Auth::id()) }}">Profile</a>
+                     <a class="dropdown-item caret-color-transparent" href="{{ route('profile', Auth::id()) }}">Profile</a>
                      <form action="{{ route('logout') }}" method="POST">
                          @csrf
-                         <button class="dropdown-item">Log out</button>
+                         <button class="dropdown-item caret-color-transparent">Log out</button>
                      </form>
                 </div>
                 </li>
                 @endauth
                 @guest
-                    <a class="nav-link text-white button-click-animation
+                    <a class="nav-link text-white button-click-animation caret-color-transparent
                               {{ request()->routeIs('login') ? 'text-primary' : '' }}" href="{{ route('login') }}">Log in</a>
-                    <a class="nav-link text-white button-click-animation
+                    <a class="nav-link text-white button-click-animation caret-color-transparent
                             {{ request()->routeIs('register') ? 'text-primary' : '' }}" href="{{ route('register') }}">Register</a>
                 @endguest
             </ul>
