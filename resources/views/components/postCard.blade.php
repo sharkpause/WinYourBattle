@@ -3,7 +3,7 @@
 <div class="mb-4 bg-light p-3 border-radius-1-rem shadow">
   <div class="d-flex">
     <div class="flex-shrink-0">
-        <img src="{{ $post->user->image }}" class="hw-40px rounded-circle">
+        <img src="{{ $post->user->image }}" class="hw-40px rounded-circle caret-color-transparent user-select-none">
     </div>
     <div class="flex-grow-1 ms-3">
         <span class="h5 text-break mw-97">{{ $post->title }} </span>
@@ -29,7 +29,7 @@
         </div>
       
         @if ($post->image !== null || $post->image !== 'http://127.0.0.1:8000/storage')
-          <div class="mb-3">
+          <div class="mb-3 caret-color-transparent user-select-none">
             <img class="mw-97" src="{{ $post->image }}">
           </div>
         @endif
