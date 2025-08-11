@@ -1,3 +1,0 @@
-runtime: php82
-env: standard
-entrypoint: php artisan serve
