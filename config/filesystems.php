@@ -57,6 +57,24 @@ return [
             'throw' => false,
         ],
 
+	    'gcs_private' => [
+	        'driver' => 'gcs_private',
+	        'project_id' => env('GOOGLE_CLOUD_PROJECT_ID'),
+	        'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET_PRIVATE'),
+	        'key_file' => env('GOOGLE_CLOUD_KEY_FILE'),
+	        'visibility' => null,
+	        'throw' => true
+	    ],
+
+        'gcs_public' => [
+	        'driver' => 'gcs_public',
+	        'project_id' => env('GOOGLE_CLOUD_PROJECT_ID'),
+	        'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET_PUBLIC'),
+	        'key_file' => env('GOOGLE_CLOUD_KEY_FILE'),
+            'visibility' => null,
+	        'throw' => true
+	    ],
+
     ],
 
     /*
@@ -70,8 +88,8 @@ return [
     |
     */
 
-    'links' => [
-        public_path('storage') => storage_path('app/public'),
-    ],
+	'links' => [
+	    public_path('storage') => storage_path('app/public'),
+	],
 
 ];
