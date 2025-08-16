@@ -28,7 +28,27 @@ class PostController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
+        $posts = null;
+
+        if(Auth::check()) {
+            $user = Auth::user();
+
+            $followingIds = Following::where('user_id', $user->id)->pluck('following_id');
+
+            // Fetch posts where author is public OR is followed by auth user
+            $posts = Post::whereIn('user_id', $followingIds) // posts from followed users
+                        ->orWhereHas('user', function($query) {
+                            $query->where('public', 1); // posts from public users
+                        })
+                            ->latest()
+                            ->paginate(10);
+        } else {
+            $posts = Post::whereHas('user', function($query) {
+                $query->where('public', 1);
+            })
+                ->latest()
+                ->paginate(10);
+        }
 
         return view('posts.index', [ 'posts' => $posts ]);
     }
@@ -53,14 +73,24 @@ class PostController extends Controller implements HasMiddleware
         ]);
 
         $path = null;
+        $filename = null;
         if($request->hasFile('image')) {
-            $path = Storage::disk('public')->put('posts_images', $request->image);
+            $filename = uniqid('img_', true) . '.' . $request->image->getClientOriginalExtension();
+            
+            if(Auth::user()->public) {
+                Storage::disk('gcs_public')->put("posts_images/{$filename}", file_get_contents($request->image));
+                $path = Storage::disk('gcs_public')->url("posts_images/{$filename}");
+            } else {
+                Storage::disk('gcs_private')
+                    ->put("posts_images/{$filename}", file_get_contents($request->image));
+                $path = "posts_images/{$filename}";
+            }
         }
 
         Auth::user()->posts()->create([
             'title' => $request->title,
             'body' => $request->body,
-            'image' => asset('storage/' . $path),
+            'image' => $path,
             'like_count' => 0,
             'dislike_count' => 0
         ]);
@@ -102,9 +132,9 @@ class PostController extends Controller implements HasMiddleware
         $path = $post->image ?? null;
         if($request->hasFile('image')) {
             if($post->image) {
-                Storage::disk('public')->delete($post->image);
+                Storage::disk('gcs_public')->delete($post->image);
             }
-            $path = Storage::disk('public')->put('posts_images', $request->image);
+            $path = Storage::disk('gcs_public')->put('posts_images', $request->image);
         }
 
         $post->update([
@@ -125,7 +155,7 @@ class PostController extends Controller implements HasMiddleware
             return back()->withErrors([ 'error' => 'You are not authorized to delete this post' ]);
 
         if($post->image) {
-            Storage::disk('public')->delete($post->image);
+            Storage::disk('gcs_public')->delete($post->image);
         }
 
         $post->delete();
