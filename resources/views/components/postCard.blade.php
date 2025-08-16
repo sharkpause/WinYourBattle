@@ -1,4 +1,8 @@
 @props(['post', 'full' => false])
+@php
+  use Illuminate\Support\Facades\Storage;
+  use Illuminate\Support\Str;
+@endphp
 
 <div class="mb-4 bg-light p-3 border-radius-1-rem shadow">
   <div class="d-flex">
@@ -28,9 +32,12 @@
             <span class="text-muted">{{ $post->created_at->diffForHumans() }}</span>
         </div>
       
-        @if ($post->image !== null || $post->image !== 'http://127.0.0.1:8000/storage')
+        @if($post->image !== null)
           <div class="mb-3 caret-color-transparent user-select-none">
-            <img class="mw-97" src="{{ $post->image }}">
+            <img class="mw-97" 
+              src="{{ Str::startsWith($post->image, 'http')
+                        ? $post->image
+                        : Storage::disk('gcs_private')->temporaryUrl($post->image, now()->addMinutes(30)) }}">
           </div>
         @endif
         
