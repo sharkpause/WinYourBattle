@@ -61,6 +61,10 @@ class AppServiceProvider extends ServiceProvider
 			    public function delete($path) {
 					return $this->bucket->object($path)->delete();
 			    }
+
+				public function temporaryUrl($path, $expiration) {
+					return $this->storage->bucket($this->bucket->name())->object($path)->signedUrl($expiration);
+				}
 			
 			    protected function streamContents($contents) {
 					$stream = fopen('php://temp', 'r+');
@@ -104,6 +108,10 @@ class AppServiceProvider extends ServiceProvider
 			    public function delete($path) {
 					return $this->bucket->object($path)->delete();
 			    }
+
+				public function url($path) {
+					return "https://storage.googleapis.com/winyourbattle-images-public-2025/{$path}";
+				}
 			
 			    protected function streamContents($contents) {
 					$stream = fopen('php://temp', 'r+');
