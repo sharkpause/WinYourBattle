@@ -177,7 +177,17 @@ class PostController extends Controller implements HasMiddleware
             return back()->withErrors([ 'error' => 'You are not authorized to delete this post' ]);
 
         if($post->image) {
-            Storage::disk(Auth::user()->public ? 'gcs_public' : 'gcs_private')->delete($post->image);
+            if(Auth::user()->public) {
+                $imagePathToDelete = str_replace(
+                    'https://storage.googleapis.com/winyourbattle-images-public-2025/', 
+                    '', 
+                    $post->image
+                );
+
+                Storage::disk('gcs_public')->delete($imagePathToDelete);
+            } else {
+                Storage::disk('gcs_private')->delete($post->image);
+            }
         }
 
         $post->delete();
