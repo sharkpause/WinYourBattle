@@ -1,3 +1,8 @@
+@php
+  use Illuminate\Support\Facades\Storage;
+  use Illuminate\Support\Str;
+@endphp
+
 <x-layout>
 
     <x-navbarSpace></x-navbarSpace>
@@ -21,7 +26,9 @@
 
             @if ($post->image !== null)
               <div class="mb-3">
-                <img class="mw-30" src="{{ $post->image }}" id="post-image-preview">
+                <img class="mw-30" src="{{ Str::startsWith($post->image, 'http')
+                        ? $post->image
+                        : Storage::disk('gcs_private')->temporaryUrl($post->image, now()->addMinutes(30)) }}" id="post-image-preview">
               </div>
             @endif
 
