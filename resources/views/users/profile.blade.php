@@ -1,3 +1,7 @@
+@php
+  use Illuminate\Support\Facades\Storage;
+@endphp
+
 <x-layout>
 
     <x-navbarSpace></x-navbarSpace>
@@ -9,7 +13,7 @@
     <div class="card-body m-3">
         <div class="d-flex align-items-start justify-content-between">
             <div class="d-flex align-items-start">
-                <img src="{{ $user->image }}" class="rounded-circle hw-200px">
+                <img src="{{ Storage::disk('gcs_private')->temporaryUrl($user->image, now()->addMinutes(30)) }}" class="rounded-circle hw-200px">
                 
                 <div class="ms-5">
                     <div class="d-flex align-items-center">
