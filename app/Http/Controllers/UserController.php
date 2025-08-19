@@ -51,7 +51,7 @@ class UserController extends Controller
         ]);
 
         $newBio = 'No bio';
-        $newImage = $user->image;
+        $newImagePath = $user->image;
         $newPublic = 1;
 
         if($request->has('bio') && $request->bio != '') {
@@ -59,7 +59,12 @@ class UserController extends Controller
         }
 
         if($request->has('image')) {
-            $newImage = asset('storage/' . Storage::disk('public')->put('profile_images', $request->image));
+            $filename = uniqid('img_', true) . '.' . $request->image->getClientOriginalExtension();
+
+            Storage::disk('gcs_private')
+                ->put("profile_images/{$filename}", file_get_contents($request->image));
+
+            $newImagePath = "profile_images/{$filename}";
         }
         if($request->has('public')) {
             if($request->public === 'on') // public on = private, off = public
@@ -68,7 +73,7 @@ class UserController extends Controller
 
         $user->update([
             'bio' => $newBio,
-            'image' => $newImage,
+            'image' => $newImagePath,
             'public' => $newPublic
         ]);
 
@@ -79,6 +84,7 @@ class UserController extends Controller
         $user = User::findOrFail($user_id);
         Gate::authorize('delete', [$user, $user_id]);
 
+        Storage::disk('gcs_private')->delete("profile_images/{$user->image}");
         $user->delete();
         
         return redirect()->route('login')->with('success', 'Your account was successfully deleted!');
