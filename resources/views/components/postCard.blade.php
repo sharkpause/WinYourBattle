@@ -1,13 +1,12 @@
 @props(['post', 'full' => false])
 @php
   use Illuminate\Support\Facades\Storage;
-  use Illuminate\Support\Str;
 @endphp
 
 <div class="mb-4 bg-light p-3 border-radius-1-rem shadow">
   <div class="d-flex">
     <div class="flex-shrink-0">
-        <img src="{{ $post->user->image }}" class="hw-40px rounded-circle caret-color-transparent user-select-none">
+        <img src="{{ Storage::disk('gcs_private')->temporaryUrl($post->user->image, now()->addMinutes(30)) }}" class="hw-40px rounded-circle caret-color-transparent user-select-none">
     </div>
     <div class="flex-grow-1 ms-3">
         <span class="h5 text-break mw-97">{{ $post->title }} </span>
@@ -35,9 +34,7 @@
         @if($post->image !== null)
           <div class="mb-3 caret-color-transparent user-select-none">
             <img class="mw-97" 
-              src="{{ Str::startsWith($post->image, 'http')
-                        ? $post->image
-                        : Storage::disk('gcs_private')->temporaryUrl($post->image, now()->addMinutes(30)) }}">
+              src="{{ Storage::disk('gcs_private')->temporaryUrl($post->image, now()->addMinutes(30)) }}">
           </div>
         @endif
         
