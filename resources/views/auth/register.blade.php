@@ -29,8 +29,8 @@
                        class="form-control ps-0 underline-form @error('password') error-underline @enderror"
                        placeholder="Password" id="password-input">
                 <button type="button" class="no-styling position-absolute top-50 end-0 translate-middle-y me-2">
-                <i class="fa-solid fa-eye" id="show-password-button" data-state="0"></i>
-              </button>
+                  <i class="fa-solid fa-eye" id="show-password-button" data-state="0"></i>
+                </button>
                 @error('password')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -39,7 +39,10 @@
               <div class="form-group mb-5">
                 <input type="password" name="password_confirmation"
                        class="form-control ps-0 underline-form @error('password') error-underline @enderror"
-                       placeholder="Confirm Password">
+                       placeholder="Confirm Password" id="confirm-password-input">
+                <button type="button" class="no-styling position-absolute top-50 end-0 translate-middle-y me-2">
+                  <i class="fa-solid fa-eye" id="show-confirm-password-button" data-state="0"></i>
+                </button>
                 @error('password') @enderror
               </div>
 
@@ -56,12 +59,12 @@
               <button class="no-border bg-white col flex-grow-1 text-center shadow border-radius-0_375-rem button-click-animation"
                       onclick="window.location.href='{{ route('google.login') }}'" id="google-oauth-button">
                 <x-spinner></x-spinner>
-                <img src="{{ asset('storage/assets/Google_Logo.png') }}" height="40px">
+                <img src="https://storage.googleapis.com/winyourbattle-images-public-2025/Google_Logo.png" height="40px">
               </button>
               <button class="no-border bg-white col flex-grow-1 text-center shadow border-radius-0_375-rem button-click-animation"
                       onclick="window.location.href='{{ route('github.login') }}'" id="github-oauth-button">
                 <x-spinner></x-spinner>
-                <img src="{{ asset('storage/assets/Github_Logo.png') }}" height="27px">
+                <img src="https://storage.googleapis.com/winyourbattle-images-public-2025/Github_Logo.png" height="27px">
               </button>
             </div></div>
         </div>
