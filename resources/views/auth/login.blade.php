@@ -55,14 +55,14 @@
               onclick="window.location.href='{{ route('google.login') }}'" id="google-oauth-button">
         <div class="d-flex align-items-center justify-content-center position-relative">
           <x-spinner class="position-absolute"></x-spinner>
-          <img src="{{ asset('storage/assets/Google_Logo.png') }}" height="40px">
+          <img src="https://storage.googleapis.com/winyourbattle-images-public-2025/Google_Logo.png" height="40px">
         </div>
       </button>
       <button class="no-border bg-white col flex-grow-1 text-center shadow border-radius-0_375-rem button-click-animation"
               onclick="window.location.href='{{ route('github.login') }}'" id="github-oauth-button">
         <div class="d-flex align-items-center justify-content-center position-relative">
           <x-spinner class="position-absolute"></x-spinner>
-          <img src="{{ asset('storage/assets/Github_Logo.png') }}" height="25px">
+          <img src="https://storage.googleapis.com/winyourbattle-images-public-2025/Github_Logo.png" height="25px">
         </div>
       </button>
     </div></div>
