@@ -79,14 +79,9 @@ class PostController extends Controller implements HasMiddleware
         if($request->hasFile('image')) {
             $filename = uniqid('img_', true) . '.' . $request->image->getClientOriginalExtension();
             
-            if(Auth::user()->public) {
-                Storage::disk('gcs_public')->put("posts_images/{$filename}", file_get_contents($request->image));
-                $path = Storage::disk('gcs_public')->url("posts_images/{$filename}");
-            } else {
-                Storage::disk('gcs_private')
-                    ->put("posts_images/{$filename}", file_get_contents($request->image));
-                $path = "posts_images/{$filename}";
-            }
+            Storage::disk('gcs_private')
+                ->put("posts_images/{$filename}", file_get_contents($request->image));
+            $path = "posts_images/{$filename}";
         }
 
         Auth::user()->posts()->create([
@@ -136,27 +131,12 @@ class PostController extends Controller implements HasMiddleware
             $filename = uniqid('img_', true) . '.' . $request->image->getClientOriginalExtension();
 
             if($post->image) {
-                if(Auth::user()->public) {
-                    $imagePathToDelete = str_replace(
-                        'https://storage.googleapis.com/winyourbattle-images-public-2025/', 
-                        '', 
-                        $post->image
-                    );
-
-                    Storage::disk('gcs_public')->delete($imagePathToDelete);
-                } else {
-                    Storage::disk('gcs_private')->delete($post->image);
-                }
+                Storage::disk('gcs_private')->delete($post->image);
             }
 
-            if(Auth::user()->public) {
-                Storage::disk('gcs_public')->put("posts_images/{$filename}", file_get_contents($request->image));
-                $path = Storage::disk('gcs_public')->url("posts_images/{$filename}");
-            } else {
-                Storage::disk('gcs_private')
-                    ->put("posts_images/{$filename}", file_get_contents($request->image));
-                $path = "posts_images/{$filename}";
-            }
+            Storage::disk('gcs_private')
+                ->put("posts_images/{$filename}", file_get_contents($request->image));
+            $path = "posts_images/{$filename}";
         }
 
         $post->update([
@@ -177,17 +157,7 @@ class PostController extends Controller implements HasMiddleware
             return back()->withErrors([ 'error' => 'You are not authorized to delete this post' ]);
 
         if($post->image) {
-            if(Auth::user()->public) {
-                $imagePathToDelete = str_replace(
-                    'https://storage.googleapis.com/winyourbattle-images-public-2025/', 
-                    '', 
-                    $post->image
-                );
-
-                Storage::disk('gcs_public')->delete($imagePathToDelete);
-            } else {
-                Storage::disk('gcs_private')->delete($post->image);
-            }
+            Storage::disk('gcs_private')->delete($post->image);
         }
 
         $post->delete();
