@@ -22,11 +22,15 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed', 'min:8']
         ]);
 
+        $defaultFile = Storage::disk('gcs_public')->get('default.jpeg');
+        $filename = uniqid('img_', true) . '.' . $defaulFile->getClientOriginalExtension();
+        Storage::disk('gcs_private')->put("profile_images/{$filename}", $defaultFile);
+
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => $request->password,
-            'image' => asset('storage/profile_images/default.jpeg'),
+            'image' => "profile_images/${filename}",
             'bio' => 'This user has not set a bio yet 🤔'
         ]);
 
