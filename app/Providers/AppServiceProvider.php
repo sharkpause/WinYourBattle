@@ -75,51 +75,51 @@ class AppServiceProvider extends ServiceProvider
 			};
 		});
 
-		// Storage::extend('gcs_public', function ($app, $config) {
-		// 	return new class($config) {
-		// 	    protected $storage;
-		// 	    protected $bucket;
+		Storage::extend('gcs_public', function ($app, $config) {
+			return new class($config) {
+			    protected $storage;
+			    protected $bucket;
 			
-		// 	    public function __construct($config) {
-		// 			$this->storage = new StorageClient([
-		// 			    'projectId' => $config['project_id'],
-		// 			    'keyFilePath' => $config['key_file'],
-		// 			]);
+			    public function __construct($config) {
+					$this->storage = new StorageClient([
+					    'projectId' => $config['project_id'],
+					    'keyFilePath' => $config['key_file'],
+					]);
 				
-		// 			$this->bucket = $this->storage->bucket($config['bucket']);
-		// 	    }
+					$this->bucket = $this->storage->bucket($config['bucket']);
+			    }
 			
-		// 	    public function put($path, $contents) {
-		// 			$this->bucket->upload(
-		// 			    is_resource($contents) ? $contents : $this->streamContents($contents),
-		// 			    ['name' => $path] // NO ACL HERE
-		// 			);
-		// 			return true;
-		// 	    }
+			    public function put($path, $contents) {
+					$this->bucket->upload(
+					    is_resource($contents) ? $contents : $this->streamContents($contents),
+					    ['name' => $path] // NO ACL HERE
+					);
+					return true;
+			    }
 			
-		// 	    public function get($path) {
-		// 			return $this->bucket->object($path)->downloadAsString();
-		// 	    }
+			    public function get($path) {
+					return $this->bucket->object($path)->downloadAsString();
+			    }
 			
-		// 	    public function exists($path) {
-		// 			return $this->bucket->object($path)->exists();
-		// 	    }
+			    public function exists($path) {
+					return $this->bucket->object($path)->exists();
+			    }
 			
-		// 	    public function delete($path) {
-		// 			return $this->bucket->object($path)->delete();
-		// 	    }
+			    public function delete($path) {
+					return $this->bucket->object($path)->delete();
+			    }
 
-		// 		public function url($path) {
-		// 			return "https://storage.googleapis.com/winyourbattle-images-public-2025/{$path}";
-		// 		}
+				public function url($path) {
+					return "https://storage.googleapis.com/winyourbattle-images-public-2025/{$path}";
+				}
 			
-		// 	    protected function streamContents($contents) {
-		// 			$stream = fopen('php://temp', 'r+');
-		// 			fwrite($stream, $contents);
-		// 			rewind($stream);
-		// 			return $stream;
-		// 	    }
-		// 	};
-		// });
+			    protected function streamContents($contents) {
+					$stream = fopen('php://temp', 'r+');
+					fwrite($stream, $contents);
+					rewind($stream);
+					return $stream;
+			    }
+			};
+		});
     }
 }
