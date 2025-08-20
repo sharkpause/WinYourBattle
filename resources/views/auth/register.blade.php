@@ -24,26 +24,25 @@
                 @enderror
               </div>
       
-              <div class="form-group mb-4 position-relative">
+              <div class="form-group position-relative">
                 <input type="password" name="password"
                        class="form-control ps-0 underline-form @error('password') error-underline @enderror"
                        placeholder="Password" id="password-input">
                 <button type="button" class="no-styling position-absolute top-50 end-0 translate-middle-y me-2">
                   <i class="fa-solid fa-eye" id="show-password-button" data-state="0"></i>
                 </button>
-                @error('password')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
               </div>
+              @error('password')
+                <p class="text-danger">{{ $message }}</p>
+              @enderror
 
-              <div class="form-group mb-5">
+              <div class="form-group mt-4 mb-5 position-relative">
                 <input type="password" name="password_confirmation"
                        class="form-control ps-0 underline-form @error('password') error-underline @enderror"
                        placeholder="Confirm Password" id="confirm-password-input">
                 <button type="button" class="no-styling position-absolute top-50 end-0 translate-middle-y me-2">
                   <i class="fa-solid fa-eye" id="show-confirm-password-button" data-state="0"></i>
                 </button>
-                @error('password') @enderror
               </div>
 
               <a href="{{ route('login') }}" class="text-end text-muted fs-6 text-sm-end">Already have an account? Log in</a>
