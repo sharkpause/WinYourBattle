@@ -23,7 +23,7 @@ $('#show-password-button').on('click', function(e) {
 
         $('#password-input').prop('type', 'password');
     }
-})
+});
 
 $('#show-confirm-password-button').on('click', function(e) {
     if($(this).attr('data-state') == '0') {
@@ -41,4 +41,4 @@ $('#show-confirm-password-button').on('click', function(e) {
 
         $('#confirm-password-input').prop('type', 'password');
     }
-})
+});
